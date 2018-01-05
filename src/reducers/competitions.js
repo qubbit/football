@@ -1,21 +1,21 @@
 import * as Types from '../types';
 
 const initialState = {
-  currentSeason: {},
-  seasons: []
+  competitions: [],
+  fixtures: []
 }
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case Types.FETCH_SEASONS_SUCCESS:
+    case Types.FETCH_COMPETITIONS_SUCCESS:
       return {
         ...state,
-        seasons: action.response.data
+        competitions: action.response
       };
-    case Types.FETCH_SEASON_SUCCESS:
+    case Types.FETCH_FIXTURES_SUCCESS:
       return {
         ...state,
-        currentSeason: action.response.data
+        fixtures: action.response.fixtures
       };
     default:
       return state;

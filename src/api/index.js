@@ -4,7 +4,6 @@ const TOKEN = 'super_secret';
 function headers() {
   return {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
     'X-Auth-Token': TOKEN
   };
 }
