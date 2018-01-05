@@ -4,7 +4,6 @@ const TOKEN = '78e9523b969e468e867b16260a01cf69';
 function headers() {
   return {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
     'X-Auth-Token': TOKEN
   };
 }
