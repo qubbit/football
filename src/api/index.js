@@ -1,4 +1,5 @@
-const API_URL = 'http://api.football-data.org/v1';
+// const API_URL = 'http://api.football-data.org/v1';
+const API_URL = 'http://football.io/v1';
 const TOKEN = 'super_secret';
 
 function headers() {
