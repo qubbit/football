@@ -9,7 +9,7 @@ SEARCH_SITES = [
   {
     url: 'http://en.wikipedia.org/wiki/%s',
     container: '.infobox.vcard img[alt*=crest]',
-    normalize_query: ->(q) { q.gsub(' ', '_') }
+    normalize_query: ->(q) { q.to_s.gsub(' ', '_') }
   }
 ].freeze
 
@@ -26,8 +26,8 @@ end
 def download(url, options = {})
   url = fix_url(url)
   response = HTTParty.get(url, options)
-  return response.body if response.success?
-  nil
+  puts "[WARN] HTTP 404 fetching #{url}" if response.code == 404
+  response.body
 end
 
 def save_image_from_url(url, &block)
@@ -55,19 +55,28 @@ def run(query)
   end
 end
 
-API_KEY = 'super_secret'.freeze
-API_URL = 'http://football.io/v1'.freeze
+def valid_json?(string)
+  return false if string.nil?
+  return true if ['{', '['].include?(string[0])
+end
 
-(1..300).each do |id|
+API_KEY = 'super_secret'.freeze
+API_URL = 'http://api.football-data.org/v1'.freeze
+
+(1..500).to_a.reverse.each do |id|
   url = "#{API_URL}/teams/#{id}"
   json_string = download(url, headers: { 'X-Auth-Token' => API_KEY })
+
+  next unless valid_json?(json_string)
+
   team = JSON(json_string)
   team_name = team['name']
-
-  if team['crestUrl'] != nil
-    save_image_from_url(team['crestUrl'])
+  puts "#{id} Processing team: #{team_name}"
+  crest_url = team['crestUrl']
+  if  crest_url != nil
+    save_image_from_url(crest_url) { "#{id}#{File.extname(crest_url)}" }
   else
-    puts "#{id} Processing team: #{team_name}"
+    puts "    Scraping logo"
     run(team_name)
   end
 end
