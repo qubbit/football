@@ -28,6 +28,8 @@ def download(url, options = {})
   response = HTTParty.get(url, options)
   puts "[WARN] HTTP 404 fetching #{url}" if response.code == 404
   response.body
+rescue URI::InvalidURIError
+  puts "[ERROR] URL could not be fixed"
 end
 
 def save_image_from_url(url, &block)
@@ -63,7 +65,7 @@ end
 API_KEY = 'super_secret'.freeze
 API_URL = 'http://api.football-data.org/v1'.freeze
 
-(1..500).to_a.reverse.each do |id|
+(1..600).to_a.reverse.each do |id|
   url = "#{API_URL}/teams/#{id}"
   json_string = download(url, headers: { 'X-Auth-Token' => API_KEY })
 
