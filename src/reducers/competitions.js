@@ -1,7 +1,9 @@
 import * as Types from '../types';
+import { determineCurrentSeason } from '../utils';
 
 const initialState = {
   competitions: [],
+  currentSeason: determineCurrentSeason(),
   fixtures: []
 }
 
