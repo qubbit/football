@@ -10,6 +10,10 @@ const styles = {
   darker: {
     color: '#fff',
     background: 'rgba(0, 0, 0, 0.9)'
+  },
+  score: {
+    fontSize: '4rem',
+    color: '#fff',
   }
 }
 
@@ -22,14 +26,18 @@ const MatchSummary = (props) => {
             <Image height='64' src={props.homeTeam.crestUrl} />
             {' '} {props.homeTeamName}
           </Header>
-          <Header floated='right' as='h1' style={{ color: '#fff' }}>{props.result.goalsHomeTeam}</Header>
+          <Header floated='right' as='h1' style={styles.score}>
+            {props.result.goalsHomeTeam}
+          </Header>
         </Grid.Column>
         <Grid.Column>
           <Header as='h2' floated='right' style={{ color: '#fff' }}>
             {props.awayTeamName}{' '}
             <Image height='64' src={props.awayTeam.crestUrl} />
           </Header>
-          <Header floated='left' as='h1' style={{ color: '#fff' }}>{props.result.goalsAwayTeam}</Header>
+          <Header floated='left' as='h1' style={styles.score}>
+            {props.result.goalsAwayTeam}
+          </Header>
         </Grid.Column>
       </Grid>
     </Segment>
