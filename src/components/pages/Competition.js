@@ -7,8 +7,8 @@ import MatchSummary from "../ui/MatchSummary";
 class Competition extends Component {
   componentWillMount() {
     const { match: { params } } = this.props;
-    this.props.fetchFixtures(params.id);
-    this.props.fetchTeams(params.id);
+    this.props.fetchTeams(params.id)
+      .then(() => this.props.fetchFixtures(params.id));
   }
 
   teamByName(teams, name) {
