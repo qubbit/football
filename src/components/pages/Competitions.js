@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { fetchCompetitions } from "../../actions";
+import League from '../ui/League';
 
 class Competitions extends Component {
   componentDidMount() {
@@ -11,11 +11,11 @@ class Competitions extends Component {
   render() {
     const { competitions } = this.props;
 
-    return <div>
+    return <div className='ui container'>
       <h1>Competitions</h1>
 
       <div>
-        { competitions.map(c => <h2><Link to={`/competitions/${c.id}`}>{c.caption}</Link></h2>) }
+        { competitions.map(l => <League key={`league-${l.id}`} league={l} />) }
       </div>
     </div>;
   }

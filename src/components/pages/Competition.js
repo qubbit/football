@@ -20,12 +20,12 @@ class Competition extends Component {
 
     return <div>
       <h1>Fixtures</h1>
-      <div>{ fixtures.map(f => {
+      <div>{ fixtures.map((f, i) => {
         const obj = {...f,
           awayTeam: this.teamByName(teams, f.awayTeamName),
           homeTeam: this.teamByName(teams, f.homeTeamName)
         }
-        return <MatchSummary {...obj} />
+        return <MatchSummary key={`match-${i}`} {...obj} />
       })
       }</div>
     </div>;
