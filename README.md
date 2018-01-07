@@ -10,10 +10,14 @@ An app that allows you to look at past and present data of major soccer leagues 
 * Home Page (input: year, defaults to current year if not provided)
   * Competition
 
+![](artifacts/Home_Page.png)
+
 * Competitions (a.k.a Leagues)
   * Fixtures
   * Teams
   * League Table (a.k.a Standings)
+  
+  ![](artifacts/Competition_Fixtures.png)
 
 ## Assets
 * Team and league logos are scraped from Wikipedia using `logos_scraper.rb`
