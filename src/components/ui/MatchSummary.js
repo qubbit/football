@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment';
 import { Grid, Segment, Image, Header } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
 
 const styles = {
   dark: {
@@ -58,12 +59,13 @@ class MatchSummary extends Component {
 }
 
 MatchSummary.defaultProps = {
-  homeTeam: {
+  homeTeam: {},
+  awayTeam: {}
+}
 
-  },
-  awayTeam: {
-
-  }
+MatchSummary.propTypes = {
+  homeTeam   : PropTypes.object.isRequired,
+  awayTeam   : PropTypes.object.isRequired
 }
 
 export default MatchSummary;
