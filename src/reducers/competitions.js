@@ -1,22 +1,34 @@
-import * as Types from '../types';
+import * as TYPES from '../types';
 import { determineCurrentSeason } from '../utils';
 
 const initialState = {
   competitions: [],
+  activeCompetition: {},
   currentSeason: determineCurrentSeason(),
-  fixtures: []
+  fixtures: [],
+  loading: true
 }
 
 export default function (state = initialState, action) {
+  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true }
+
   switch (action.type) {
-    case Types.FETCH_COMPETITIONS_SUCCESS:
+    case TYPES.FETCH_COMPETITION_SUCCESS:
       return {
         ...state,
+        loading: false,
+        activeCompetition: action.response
+      };
+    case TYPES.FETCH_COMPETITIONS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         competitions: action.response
       };
-    case Types.FETCH_FIXTURES_SUCCESS:
+    case TYPES.FETCH_FIXTURES_SUCCESS:
       return {
         ...state,
+        loading: false,
         fixtures: action.response.fixtures
       };
     default:

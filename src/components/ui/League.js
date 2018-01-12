@@ -1,7 +1,6 @@
 import React from 'react'
-import moment from 'moment';
 import { Link } from 'react-router-dom';
-import { Icon, Grid, Segment, Image, Header } from 'semantic-ui-react'
+import { Icon, Grid, Segment, Header } from 'semantic-ui-react'
 
 const styles = {
   dark: {
@@ -12,6 +11,7 @@ const styles = {
 
 const League = (props) => {
   const { league } = props;
+
   return <Link to={`/competitions/${league.id}`}>
     <Segment.Group>
       <Segment style={styles.dark}>

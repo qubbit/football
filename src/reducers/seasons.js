@@ -1,20 +1,25 @@
-import * as Types from '../types';
+import * as TYPES from '../types';
 
 const initialState = {
   currentSeason: {},
-  seasons: []
+  seasons: [],
+  loading: true
 }
 
 export default function (state = initialState, action) {
+  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true }
+
   switch (action.type) {
-    case Types.FETCH_SEASONS_SUCCESS:
+    case TYPES.FETCH_SEASONS_SUCCESS:
       return {
         ...state,
+        loading: false,
         seasons: action.response.data
       };
-    case Types.FETCH_SEASON_SUCCESS:
+    case TYPES.FETCH_SEASON_SUCCESS:
       return {
         ...state,
+        loading: false,
         currentSeason: action.response.data
       };
     default:

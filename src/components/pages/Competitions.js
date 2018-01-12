@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchCompetitions } from "../../actions";
 import League from '../ui/League';
-import { Dropdown, Menu } from 'semantic-ui-react';
+import { Loader, Dropdown, Menu } from 'semantic-ui-react';
 
 class Competitions extends Component {
   componentDidMount() {
@@ -14,23 +14,29 @@ class Competitions extends Component {
   }
 
   render() {
-    const { competitions, currentSeason } = this.props;
+    const { competitions, currentSeason, loading } = this.props;
     const years = Array(10)
       .fill()
       .map((_, i) => currentSeason.year - i);
 
     const options = years.map(y => {
-      return { key: `year-${y}`, text: y, value: y }
+      return { key: `year-${y}`, text: `${y}/${y + 1}`, value: y }
     });
+
+    if(loading) {
+      return <Loader size='large'>Loading...</Loader>
+    }
 
     return <div className='ui container'>
       <h1>Competitions</h1>
-      <Dropdown
-        defaultValue={currentSeason.season}
-        selection
-        options={options}
-        onChange={this.handleSeasonChange}
-      />
+      <Menu compact>
+        <Dropdown
+          defaultValue={currentSeason.season}
+          selection
+          options={options}
+          onChange={this.handleSeasonChange}
+        />
+      </Menu>
       <div>
         { competitions.map(l => <League key={`league-${l.id}`} league={l} />) }
       </div>
@@ -41,6 +47,7 @@ class Competitions extends Component {
 export default connect(
   (state) => ({
     competitions: state.competitions.competitions,
-    currentSeason: state.competitions.currentSeason
+    currentSeason: state.competitions.currentSeason,
+    loading: state.competitions.loading
   }), { fetchCompetitions }
 )(Competitions);

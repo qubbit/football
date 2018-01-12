@@ -3,6 +3,8 @@ import seasons from './seasons';
 import teams from './teams';
 import competitions from './competitions';
 
+// Global loading state can potentially added here
+// instead of having one is each reducer
 const appReducer = combineReducers({
   seasons,
   teams,

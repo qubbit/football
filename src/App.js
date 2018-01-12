@@ -15,7 +15,7 @@ class App extends Component {
     return (<div style={styles.container} className='ui container'>
       <Route path="/" exact component={HomePage} />
       <Route path="/competitions" exact component={Competitions} />
-      <Route path="/competitions/:id" exact component={Competition} />
+      <Route path="/competitions/:id/:page?" exact component={Competition} />
     </div>);
   }
 }
