@@ -63,7 +63,7 @@ Competition.propTypes = {
 function mapStateToProps(state) {
   return {
     loading: state.competitions.loading,
-    competition: state.competitions.activeCompetition,
+    competition: state.competitions.currentCompetition,
     teams: state.teams.teams
   };
 }

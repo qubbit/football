@@ -3,7 +3,7 @@ import { determineCurrentSeason } from '../utils';
 
 const initialState = {
   competitions: [],
-  activeCompetition: {},
+  currentCompetition: {},
   currentSeason: determineCurrentSeason(),
   fixtures: [],
   loading: true
@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        activeCompetition: action.response
+        currentCompetition: action.response
       };
     case TYPES.FETCH_COMPETITIONS_SUCCESS:
       return {
