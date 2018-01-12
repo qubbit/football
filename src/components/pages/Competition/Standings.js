@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchStandings, fetchTeams } from "../../../actions";
+import { fetchStandings } from "../../../actions";
 import MatchSummary from "../../ui/MatchSummary";
+import PropTypes from 'prop-types';
 
 class Standings extends Component {
   componentDidMount() {
@@ -28,10 +29,18 @@ class Standings extends Component {
   }
 }
 
+Standings.propTypes = {
+  standings      : PropTypes.array.isRequired,
+  competition    : PropTypes.object.isRequired,
+  teams          : PropTypes.array.isRequired,
+  loading        : PropTypes.bool.isRequired,
+  fetchStandings : PropTypes.func.isRequired
+}
 export default connect(
   (state) => ({
     standings: state.competitions.standings,
     competition: state.competitions.activeCompetition,
-    teams: state.teams.teams
-  }), { fetchStandings, fetchTeams }
+    teams: state.teams.teams,
+    loading: state.competitions.loading
+  }), { fetchStandings }
 )(Standings);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchFixtures } from "../../../actions";
 import MatchSummary from "../../ui/MatchSummary";
 import { Loader } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 class Fixtures extends Component {
   componentDidMount() {
@@ -31,6 +32,14 @@ class Fixtures extends Component {
       </div>
   </div>;
   }
+}
+
+Fixtures.propTypes = {
+  fixtures      : PropTypes.array.isRequired,
+  competition   : PropTypes.object.isRequired,
+  teams         : PropTypes.array.isRequired,
+  loading       : PropTypes.bool.isRequired,
+  fetchFixtures : PropTypes.func.isRequired
 }
 
 export default connect(

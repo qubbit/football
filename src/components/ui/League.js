@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { Icon, Grid, Segment, Header } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
 
 const styles = {
   dark: {
@@ -44,6 +45,10 @@ const League = (props) => {
       </Segment>
     </Segment.Group>
   </Link>;
+}
+
+League.propTypes = {
+  league: PropTypes.object.isRequired,
 }
 
 export default League;

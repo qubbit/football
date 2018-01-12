@@ -5,19 +5,25 @@ import Fixtures from "./Competition/Fixtures.js";
 import Standings from "./Competition/Standings.js";
 import { Link } from 'react-router-dom';
 import League from '../ui/League';
-import { Button } from 'semantic-ui-react';
+import { Loader, Button } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 class Competition extends Component {
   componentDidMount() {
     const { match: { params } } = this.props;
+    // Promise.all([this.props.fetchCompetition(params.id), this.props.fetchTeams(params.id)]);
     this.props.fetchCompetition(params.id).then(this.props.fetchTeams(params.id));
   }
 
   render() {
-    const { competition } = this.props;
+    const { competition, loading } = this.props;
     const page = this.props.match.params.page;
 
-    let renderPage = <Fixtures competition={competition} />
+    if(loading) {
+      // return <Loader size='large'>Loading...</Loader>
+    }
+
+    let renderPage = null; // <Fixtures competition={competition} />
 
     switch(page) {
       case 'fixtures':
@@ -46,8 +52,20 @@ class Competition extends Component {
   }
 }
 
+Competition.propTypes = {
+  loading          : PropTypes.bool.isRequired,
+  competition      : PropTypes.object.isRequired,
+  teams            : PropTypes.array.isRequired,
+  fetchTeams       : PropTypes.func.isRequired,
+  fetchCompetition : PropTypes.func.isRequired
+}
+
 function mapStateToProps(state) {
-  return { competition: state.competitions.activeCompetition, teams: state.teams.teams };
+  return {
+    loading: state.competitions.loading,
+    competition: state.competitions.activeCompetition,
+    teams: state.teams.teams
+  };
 }
 
 export default connect(mapStateToProps, { fetchTeams, fetchCompetition })(Competition);

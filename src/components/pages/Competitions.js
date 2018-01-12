@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchCompetitions } from "../../actions";
 import League from '../ui/League';
 import { Loader, Dropdown, Menu } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 class Competitions extends Component {
   componentDidMount() {
@@ -42,6 +43,13 @@ class Competitions extends Component {
       </div>
     </div>;
   }
+}
+
+Competitions.propTypes = {
+  loading           : PropTypes.bool.isRequired,
+  competitions      : PropTypes.array.isRequired,
+  currentSeason     : PropTypes.object.isRequired,
+  fetchCompetitions : PropTypes.func.isRequired
 }
 
 export default connect(
