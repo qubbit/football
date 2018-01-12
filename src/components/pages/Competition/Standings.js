@@ -39,7 +39,7 @@ Standings.propTypes = {
 export default connect(
   (state) => ({
     standings: state.competitions.standings,
-    competition: state.competitions.activeCompetition,
+    competition: state.competitions.currentCompetition,
     teams: state.teams.teams,
     loading: state.competitions.loading
   }), { fetchStandings }

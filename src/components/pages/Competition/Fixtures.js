@@ -45,7 +45,7 @@ Fixtures.propTypes = {
 export default connect(
   (state) => ({
     fixtures: state.competitions.fixtures,
-    competition: state.competitions.activeCompetition,
+    competition: state.competitions.currentCompetition,
     teams: state.teams.teams,
     loading: state.competitions.loading
   }), { fetchFixtures }
