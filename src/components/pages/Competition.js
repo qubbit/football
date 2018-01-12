@@ -1,40 +1,53 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { fetchFixtures, fetchTeams } from "../../actions";
-import Match from "../cards/Match";
-import MatchSummary from "../ui/MatchSummary";
+import { fetchTeams, fetchCompetition } from "../../actions";
+import Fixtures from "./Competition/Fixtures.js";
+import Standings from "./Competition/Standings.js";
+import { Link } from 'react-router-dom';
+import League from '../ui/League';
+import { Button } from 'semantic-ui-react';
 
 class Competition extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const { match: { params } } = this.props;
-    this.props.fetchTeams(params.id)
-      .then(() => this.props.fetchFixtures(params.id));
-  }
-
-  teamByName(teams, name) {
-    return teams.find(t =>  t.name === name);
+    this.props.fetchCompetition(params.id).then(this.props.fetchTeams(params.id));
   }
 
   render() {
-    const { fixtures, teams } = this.props;
+    const { competition } = this.props;
+    const page = this.props.match.params.page;
+
+    let renderPage = <Fixtures competition={competition} />
+
+    switch(page) {
+      case 'fixtures':
+        renderPage = <Fixtures competition={competition} />
+        break;
+      case 'standings':
+        renderPage = <Standings competition={competition} />
+        break;
+      case 'teams':
+        renderPage = <Fixtures competition={competition} />
+        break;
+      default:
+        renderPage = <Fixtures competition={competition} />
+        break;
+    }
 
     return <div>
-      <h1>Fixtures</h1>
-      <div>{ fixtures.map((f, i) => {
-        const obj = {...f,
-          awayTeam: this.teamByName(teams, f.awayTeamName),
-          homeTeam: this.teamByName(teams, f.homeTeamName)
-        }
-        return <MatchSummary key={`match-${i}`} {...obj} />
-      })
-      }</div>
+      <League key={`league-${competition.id}`} league={competition} />
+      <Button.Group size='large' widths='3'>
+        <Button><Link to={`/competitions/${competition.id}/fixtures`}>Fixtures</Link></Button>
+        <Button><Link to={`/competitions/${competition.id}/standings`}>Standings</Link></Button>
+        <Button><Link to={`/competitions/${competition.id}/teams`}>Teams</Link></Button>
+      </Button.Group>
+      {renderPage}
     </div>;
   }
 }
 
-export default connect(
-  (state) => ({
-    fixtures: state.competitions.fixtures,
-    teams: state.teams.teams
-  }), { fetchFixtures, fetchTeams }
-)(Competition);
+function mapStateToProps(state) {
+  return { competition: state.competitions.activeCompetition, teams: state.teams.teams };
+}
+
+export default connect(mapStateToProps, { fetchTeams, fetchCompetition })(Competition);

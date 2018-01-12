@@ -12,6 +12,7 @@ const rootElement = document.getElementById('root');
 rootElement.style.backgroundImage = `url(${URLS[1]})`;
 rootElement.style.backgroundAttachment = 'fixed';
 rootElement.style.backgroundSize = 'cover';
+// rootElement.style.height = '100%';
 
 ReactDOM.render(<BrowserRouter>
     <Provider store={store}>
