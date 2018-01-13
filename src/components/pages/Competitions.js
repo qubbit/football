@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCompetitions } from "../../actions";
-import League from '../ui/League';
-import { Loader, Dropdown, Menu } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
+import League from "../ui/League";
+import { Loader, Dropdown, Menu } from "semantic-ui-react";
+import PropTypes from "prop-types";
 
 class Competitions extends Component {
   componentDidMount() {
@@ -12,7 +12,7 @@ class Competitions extends Component {
 
   handleSeasonChange = (_, data) => {
     this.props.fetchCompetitions({ season: data.value });
-  }
+  };
 
   render() {
     const { competitions, currentSeason, loading } = this.props;
@@ -21,41 +21,44 @@ class Competitions extends Component {
       .map((_, i) => currentSeason.year - i);
 
     const options = years.map(y => {
-      return { key: `year-${y}`, text: `${y}/${y + 1}`, value: y }
+      return { key: `year-${y}`, text: `${y}/${y + 1}`, value: y };
     });
 
-    if(loading) {
-      return <Loader size='large'>Loading...</Loader>
+    if (loading) {
+      return <Loader size="large">Loading...</Loader>;
     }
 
-    return <div className='ui container'>
-      <h1>Competitions</h1>
-      <Menu compact>
-        <Dropdown
-          defaultValue={currentSeason.season}
-          selection
-          options={options}
-          onChange={this.handleSeasonChange}
-        />
-      </Menu>
-      <div>
-        { competitions.map(l => <League key={`league-${l.id}`} league={l} />) }
+    return (
+      <div className="ui container">
+        <h1>Competitions</h1>
+        <Menu compact>
+          <Dropdown
+            defaultValue={currentSeason.season}
+            selection
+            options={options}
+            onChange={this.handleSeasonChange}
+          />
+        </Menu>
+        <div>
+          {competitions.map(l => <League key={`league-${l.id}`} league={l} />)}
+        </div>
       </div>
-    </div>;
+    );
   }
 }
 
 Competitions.propTypes = {
-  loading           : PropTypes.bool.isRequired,
-  competitions      : PropTypes.array.isRequired,
-  currentSeason     : PropTypes.object.isRequired,
-  fetchCompetitions : PropTypes.func.isRequired
-}
+  loading: PropTypes.bool.isRequired,
+  competitions: PropTypes.array.isRequired,
+  currentSeason: PropTypes.object.isRequired,
+  fetchCompetitions: PropTypes.func.isRequired
+};
 
 export default connect(
-  (state) => ({
+  state => ({
     competitions: state.competitions.competitions,
     currentSeason: state.competitions.currentSeason,
     loading: state.competitions.loading
-  }), { fetchCompetitions }
+  }),
+  { fetchCompetitions }
 )(Competitions);

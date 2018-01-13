@@ -1,5 +1,5 @@
-import * as TYPES from '../types';
-import { determineCurrentSeason } from '../utils';
+import * as TYPES from "../types";
+import { determineCurrentSeason } from "../utils";
 
 const initialState = {
   competitions: [],
@@ -7,10 +7,10 @@ const initialState = {
   currentSeason: determineCurrentSeason(),
   fixtures: [],
   loading: true
-}
+};
 
-export default function (state = initialState, action) {
-  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true }
+export default function(state = initialState, action) {
+  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true };
 
   switch (action.type) {
     case TYPES.FETCH_COMPETITION_SUCCESS:

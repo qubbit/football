@@ -1,13 +1,13 @@
-import * as TYPES from '../types';
+import * as TYPES from "../types";
 
 const initialState = {
   currentSeason: {},
   seasons: [],
   loading: true
-}
+};
 
-export default function (state = initialState, action) {
-  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true }
+export default function(state = initialState, action) {
+  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true };
 
   switch (action.type) {
     case TYPES.FETCH_SEASONS_SUCCESS:
