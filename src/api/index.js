@@ -1,16 +1,16 @@
 // const API_URL = 'http://api.football-data.org/v1';
-const API_URL = 'http://football.io/v1';
-const TOKEN = 'super_secret';
+const API_URL = "http://football.io/v1";
+const TOKEN = "super_secret";
 
 function headers() {
   return {
-    Accept: 'application/json',
-    'X-Auth-Token': TOKEN
+    Accept: "application/json",
+    "X-Auth-Token": TOKEN
   };
 }
 
 function parseResponse(response) {
-  return response.json().then((json) => {
+  return response.json().then(json => {
     if (!response.ok) {
       return Promise.reject(json);
     }
@@ -20,17 +20,16 @@ function parseResponse(response) {
 
 function queryString(params) {
   const query = Object.keys(params)
-                      .map((k) => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
-                      .join('&');
-  return `${query.length ? '?' : ''}${query}`;
+    .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
+    .join("&");
+  return `${query.length ? "?" : ""}${query}`;
 }
 
 export default {
   fetch(url, params = {}) {
     return fetch(`${API_URL}${url}${queryString(params)}`, {
-      method: 'GET',
-      headers: headers(),
-    })
-    .then(parseResponse);
+      method: "GET",
+      headers: headers()
+    }).then(parseResponse);
   }
-}
+};
