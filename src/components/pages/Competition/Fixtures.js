@@ -7,7 +7,11 @@ import PropTypes from "prop-types";
 
 class Fixtures extends Component {
   componentDidMount() {
-    //this.props.fetchFixtures(this.props.competition.id);
+    this.props.fetchFixtures(this.props.competition.id);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.props.competition.id !== nextProps.competition.id)
   }
 
   teamByName(teams, name) {
@@ -17,7 +21,7 @@ class Fixtures extends Component {
   render() {
     const { fixtures, teams, loading } = this.props;
 
-    if (true) {
+    if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
 
