@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'httparty'
 require 'ostruct'
-require 'pry'
 require 'json'
 require 'uri'
 
@@ -62,12 +61,19 @@ def valid_json?(string)
   return true if ['{', '['].include?(string[0])
 end
 
-API_KEY = 'super_secret'.freeze
+def api_token
+  config_file = File.expand_path('../src/config/secrets.json', File.dirname(__FILE__))
+  JSON(File.read(config_file))['api_token']
+rescue
+  'super_secret'
+end
+
+API_TOKEN = api_token.freeze
 API_URL = 'http://api.football-data.org/v1'.freeze
 
 (1..600).to_a.reverse.each do |id|
   url = "#{API_URL}/teams/#{id}"
-  json_string = download(url, headers: { 'X-Auth-Token' => API_KEY })
+  json_string = download(url, headers: { 'X-Auth-Token' => API_TOKEN })
 
   next unless valid_json?(json_string)
 

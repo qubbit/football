@@ -1,6 +1,12 @@
 // const API_URL = 'http://api.football-data.org/v1';
+
 const API_URL = "http://football.io/v1";
-const TOKEN = "super_secret";
+var TOKEN = "super_secret";
+
+if (process.env.NODE_ENV === "development") {
+  const { api_token } = require('../config/secrets.json');
+  TOKEN = api_token;
+}
 
 function headers() {
   return {
