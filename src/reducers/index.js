@@ -4,6 +4,7 @@ import teams from "./teams";
 import competitions from "./competitions";
 import competition from "./competition";
 import fixtures from "./fixtures";
+import standings from "./standings";
 
 // Global loading state can potentially added here
 // instead of having one in each reducer
@@ -12,7 +13,8 @@ const appReducer = combineReducers({
   teams,
   fixtures,
   competition,
-  competitions
+  competitions,
+  standings
 });
 
 export default function(state, action) {

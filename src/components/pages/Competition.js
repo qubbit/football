@@ -42,7 +42,8 @@ class Competition extends Component {
           </Button>
         </Button.Group>
         <div>
-          <Fixtures competition={competition} />
+          { /* <Fixtures competition={competition} /> */ }
+          <Standings competitions={competition} />
           <Route path="/competition/:id/fixtures" component={Fixtures} />
           <Route path="fixtures" component={Fixtures} />
           <Route path="standings" exact component={Standings} />

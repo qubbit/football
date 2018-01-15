@@ -18,7 +18,7 @@ export function fetchStandings(competitionId, params) {
     dispatch({ type: TYPES.FETCH_STANDINGS_REQUEST });
 
     return api
-      .fetch(`/competitions/${competitionId}/standings`, params)
+      .fetch(`/competitions/${competitionId}/leagueTable`, params)
       .then(response => {
         dispatch({ type: TYPES.FETCH_STANDINGS_SUCCESS, response });
       });
