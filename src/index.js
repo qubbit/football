@@ -8,11 +8,13 @@ import { URLS } from "./assets";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
+/*
 const body = document.body;
 body.style.backgroundImage = `url(${URLS[1]})`;
 body.style.backgroundAttachment = "fixed";
 body.style.backgroundSize = "cover";
 body.style.height = '100%';
+*/
 
 ReactDOM.render(
   <BrowserRouter>
