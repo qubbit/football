@@ -8,11 +8,11 @@ import { URLS } from "./assets";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
-const rootElement = document.getElementById("root");
-rootElement.style.backgroundImage = `url(${URLS[1]})`;
-rootElement.style.backgroundAttachment = "fixed";
-rootElement.style.backgroundSize = "cover";
-// rootElement.style.height = '100%';
+const body = document.body;
+body.style.backgroundImage = `url(${URLS[1]})`;
+body.style.backgroundAttachment = "fixed";
+body.style.backgroundSize = "cover";
+body.style.height = '100%';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -20,7 +20,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </BrowserRouter>,
-  rootElement
+  document.getElementById('root')
 );
 
 registerServiceWorker();

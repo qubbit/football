@@ -1,22 +1,22 @@
-import { FETCH_TEAMS_REQUEST, FETCH_TEAMS_SUCCESS } from '../types';
+import { FETCH_FIXTURES_REQUEST, FETCH_FIXTURES_SUCCESS } from "../types";
 
 const initialState = {
-  teams: [],
-  loading: true,
+  fixtures: [],
+  loading: true
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_TEAMS_REQUEST:
+    case FETCH_FIXTURES_REQUEST:
       return {
         ...state,
         loading: true
       };
-    case FETCH_TEAMS_SUCCESS:
+    case FETCH_FIXTURES_SUCCESS:
       return {
         ...state,
         loading: false,
-        teams: action.response.teams,
+        fixtures: action.response.fixtures
       };
     default:
       return state;

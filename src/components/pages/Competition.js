@@ -20,17 +20,10 @@ class Competition extends Component {
       .then(this.props.fetchTeams(params.id));
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // debugger;
-    return (this.props.match.params.id !== nextProps.match.params.id)
-    // console.log('shouldComponentUpdate');
-  }
-
   render() {
     const {competition, loading} = this.props;
 
     if (loading) {
-      // return null;
       return <Loader size="large">Loading...</Loader>;
     }
     const url = this.props.match.url;
@@ -70,8 +63,8 @@ Competition.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    loading: state.competitions.loading,
-    competition: state.competitions.currentCompetition,
+    loading: state.competition.loading,
+    competition: state.competition.competition,
     teams: state.teams.teams,
   };
 }
