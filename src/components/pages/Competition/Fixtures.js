@@ -4,14 +4,11 @@ import { fetchFixtures } from "../../../actions";
 import MatchSummary from "../../ui/MatchSummary";
 import { Loader } from "semantic-ui-react";
 import PropTypes from "prop-types";
+import { withRouter } from 'react-router-dom';
 
 class Fixtures extends Component {
   componentDidMount() {
     this.props.fetchFixtures(this.props.competition.id);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (this.props.competition.id !== nextProps.competition.id)
   }
 
   teamByName(teams, name) {
@@ -51,12 +48,12 @@ Fixtures.propTypes = {
   fetchFixtures: PropTypes.func.isRequired
 };
 
-export default connect(
+export default withRouter(connect(
   state => ({
-    fixtures: state.competitions.fixtures,
-    competition: state.competitions.currentCompetition,
+    fixtures: state.fixtures.fixtures,
+    competition: state.competition.competition,
     teams: state.teams.teams,
-    loading: state.competitions.loading
+    loading: state.fixtures.loading
   }),
   { fetchFixtures }
-)(Fixtures);
+)(Fixtures));

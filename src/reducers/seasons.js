@@ -7,9 +7,11 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  if (action.type.match(/_REQUEST$/)) return { ...state, loading: true };
-
   switch (action.type) {
+    case TYPES.FETCH_SEASON_REQUEST:
+      return { ...state, loading: true };
+    case TYPES.FETCH_SEASONS_REQUEST:
+      return { ...state, loading: true };
     case TYPES.FETCH_SEASONS_SUCCESS:
       return {
         ...state,
