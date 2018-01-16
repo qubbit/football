@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {Redirect, Route, Switch} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage';
 import Competitions from './components/pages/Competitions';
 import Competition from './components/pages/Competition';
-import Fixtures from './components/pages/Competition/Fixtures';
-import Standings from './components/pages/Competition/Standings';
+// import Fixtures from './components/pages/Competition/Fixtures';
+// import Standings from './components/pages/Competition/Standings';
 
 const styles = {
   container: {

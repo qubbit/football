@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-import store from "./store";
-import { BrowserRouter } from "react-router-dom";
-import "semantic-ui-css/semantic.min.css";
-import { URLS } from "./assets";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import {BrowserRouter} from 'react-router-dom';
+import 'semantic-ui-css/semantic.min.css';
+// import {URLS} from './assets';
+import store from './store';
+import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 /*
 const body = document.body;
@@ -22,7 +22,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 registerServiceWorker();

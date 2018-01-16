@@ -1,9 +1,10 @@
 import { FETCH_COMPETITIONS_REQUEST, FETCH_COMPETITIONS_SUCCESS } from "../types";
-import { determineCurrentSeason } from "../utils";
+// import { determineCurrentSeason } from "../utils";
+import utils from "../utils";
 
 const initialState = {
   competitions: [],
-  currentSeason: determineCurrentSeason(),
+  currentSeason: utils(),
   loading: true
 };
 
