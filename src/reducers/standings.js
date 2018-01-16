@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         matchDay: action.response.matchday,
-        standings: action.response.standing
+        standings: action.response.standing || action.response.standings
       };
     default:
       return state;

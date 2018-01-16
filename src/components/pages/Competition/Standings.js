@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {Table, Loader} from 'semantic-ui-react';
 import {fetchStandings} from '../../../actions';
 import StandingRow from '../../ui/StandingRow';
+import UEFAStandingRow from '../../ui/UEFAStandingRow';
 
 class Standings extends Component {
   componentDidMount() {
@@ -11,13 +12,28 @@ class Standings extends Component {
   }
 
   render() {
-    const {standings, loading} = this.props;
+    const {competition, standings, loading} = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
 
-    const rows = standings.map((f) => (<StandingRow key={`standing-${f.teamName}`} standing={f} />));
+    let rows;
+    if(competition.league === 'CL') {
+      rows = [];
+      for(const entry of Object.entries(standings)) {
+        const group = entry[0];
+        const groupStandings = entry[1];
+
+        const row = groupStandings.map(f => {
+          const key = `standing-${group}-${f.teamName || f.team}`
+          return <UEFAStandingRow key={key} standing={f} />
+        });
+        rows.push(row);
+      }
+    } else {
+      rows = standings.map((f) => (<StandingRow key={`standing-${f.teamName}`} standing={f} />));
+    }
 
     return (
       <div>
@@ -44,7 +60,7 @@ class Standings extends Component {
 }
 
 Standings.propTypes = {
-  standings: PropTypes.arrayOf(PropTypes.object).isRequired,
+  standings: PropTypes.any.isRequired,
   competition: PropTypes.shape({ id: PropTypes.int }).isRequired,
   loading: PropTypes.bool.isRequired,
   fetchStandings: PropTypes.func.isRequired,
