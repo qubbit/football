@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {fetchTeams, fetchCompetition} from '../../actions';
 import Fixtures from './Competition/Fixtures';
 import Standings from './Competition/Standings';
-import Teams from './Competition/Teams';
+// import Teams from './Competition/Teams';
 import League from '../ui/League';
 
 class Competition extends Component {
@@ -40,8 +40,8 @@ class Competition extends Component {
         </Button.Group>
         <div>
           {/* <Fixtures competition={competition} /> */}
-          {/* <Standings competitions={competition} /> */}
-          <Teams competitions={competition} />
+          <Standings competitions={competition} />
+          { /* <Teams competitions={competition} /> */ }
           <Route path="/competition/:id/fixtures" component={Fixtures} />
           <Route path="fixtures" component={Fixtures} />
           <Route path="standings" exact component={Standings} />

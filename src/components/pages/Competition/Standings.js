@@ -17,7 +17,7 @@ class Standings extends Component {
       return <Loader size="large">Loading...</Loader>;
     }
 
-    const rows = standings.map((f) => (<StandingRow key={`standing-${f.id}`} standing={f} />));
+    const rows = standings.map((f) => (<StandingRow key={`standing-${f.teamName}`} standing={f} />));
 
     return (
       <div>
@@ -53,7 +53,7 @@ export default connect(
   state => ({
     standings: state.standings.standings,
     competition: state.competition.competition,
-    loading: state.competitions.loading,
+    loading: state.standings.loading,
   }),
   {fetchStandings},
 )(Standings);

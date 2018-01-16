@@ -48,7 +48,7 @@ class Competitions extends Component {
 Competitions.propTypes = {
   loading: PropTypes.bool.isRequired,
   competitions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  currentSeason: PropTypes.shape({ season: PropTypes.string }).isRequired,
+  currentSeason: PropTypes.shape({ season: PropTypes.number }).isRequired,
   fetchCompetitions: PropTypes.func.isRequired,
 };
 
