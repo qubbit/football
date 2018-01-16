@@ -32,7 +32,7 @@ class Fixtures extends Component {
               awayTeam: Fixtures.teamByName(teams, f.awayTeamName),
               homeTeam: Fixtures.teamByName(teams, f.homeTeamName),
             };
-            return <MatchSummary key={`match-${f.id}`} {...obj} />;
+            return <MatchSummary key={`match-${f._links.self.href}`} {...obj} />;
           })}
         </div>
       </div>

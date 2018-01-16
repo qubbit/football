@@ -63,9 +63,9 @@ MatchSummary.propTypes = {
   awayTeamName: PropTypes.string.isRequired,
   homeTeam: PropTypes.shape({ crestUrl: PropTypes.string }),
   awayTeam: PropTypes.shape({ crestUrl: PropTypes.string }),
-  result: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date).isRequired,
-  matchday: PropTypes.string.isRequired
+  result: PropTypes.shape({ goalsHomeTeam: PropTypes.number, goalsAwayTeam: PropTypes.number }).isRequired,
+  date: PropTypes.string.isRequired,
+  matchday: PropTypes.number.isRequired
 };
 
 export default MatchSummary;

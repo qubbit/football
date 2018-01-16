@@ -39,8 +39,8 @@ class Competition extends Component {
           </Button>
         </Button.Group>
         <div>
-          {/* <Fixtures competition={competition} /> */}
-          <Standings competitions={competition} />
+          <Fixtures competition={competition} />
+          { /* <Standings competitions={competition} /> */ }
           { /* <Teams competitions={competition} /> */ }
           <Route path="/competition/:id/fixtures" component={Fixtures} />
           <Route path="fixtures" component={Fixtures} />
