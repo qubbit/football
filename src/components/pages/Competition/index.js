@@ -3,11 +3,11 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Link} from 'react-router-dom';
 import {Loader, Button} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {fetchTeams, fetchCompetition} from '../../actions';
-import Fixtures from './Competition/Fixtures';
-import Standings from './Competition/Standings';
-import Teams from './Competition/Teams';
-import League from '../ui/League';
+import {fetchTeams, fetchCompetition} from '../../../actions';
+import Fixtures from './Fixtures';
+import Standings from './Standings';
+import Teams from './Teams';
+import League from '../../ui/League';
 
 class Competition extends Component {
   componentDidMount() {
@@ -15,7 +15,6 @@ class Competition extends Component {
     this.props
       .fetchCompetition(params.id)
       .then(this.props.fetchTeams(params.id));
-      // console.log(this.props); // eslint-disable
   }
 
   render() {
