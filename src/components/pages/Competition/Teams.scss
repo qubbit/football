@@ -1,9 +1,63 @@
+@import '../../../styles/palette.scss';
+
+.competition-team-list {
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.card {
+  text-align: center;
+  width: 25%;
+  padding: 12px 8px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto
+}
+
+.card-team {
+  background-color: lighten($gray, 3%);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative
+}
+
+.team-crest-container {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  padding-top: 30px;
+  width: calc(100% - 40px);
+
+  .team-crest {
+    height: 150px;
+  }
+}
+
+.card-team-body {
+  text-transform: uppercase;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.team-roster-link {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(51,51,51,.2);
+  padding: 1.075em 1.5em .925em;
+  text-transform: uppercase;
+}
+
 .animated-underline::after {
   content: '';
   display: block;
   width: 0;
   height: 4px;
-  background: #e8b01a;
+  background: $yellow;
   transition: width .2s;
   position: absolute;
   left: 0;
