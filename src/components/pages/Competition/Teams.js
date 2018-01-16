@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Loader} from 'semantic-ui-react';
-import './Teams.css';
+import './Teams.scss';
 
 class Teams extends Component {
   render() {
