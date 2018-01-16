@@ -6,7 +6,8 @@ import Competition from './components/pages/Competition';
 
 const styles = {
   container: {
-    color: '#fff',
+    marginTop: '64px',
+    marginBottom: '96px'
   },
 };
 
