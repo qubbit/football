@@ -12,7 +12,7 @@ class Fixtures extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFixtures(this.props.competition.id);
+    this.props.fetchFixtures(this.props.competition.id || this.props.match.params.id);
   }
 
   render() {

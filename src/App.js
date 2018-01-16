@@ -3,8 +3,6 @@ import { Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage';
 import Competitions from './components/pages/Competitions';
 import Competition from './components/pages/Competition';
-// import Fixtures from './components/pages/Competition/Fixtures';
-// import Standings from './components/pages/Competition/Standings';
 
 const styles = {
   container: {
@@ -18,8 +16,7 @@ class App extends Component {
       <div style={styles.container} className="ui container">
         <Route path="/" exact component={HomePage} />
         <Route path="/competitions" exact component={Competitions} />
-        <Route path="/competitions/:id" exact component={Competition} />
-        { /* <Route path="/competitions/:id/fixtures" exact component={Fixtures} /> */ }
+        <Route path="/competitions/:id" component={Competition} />
         { /* <Redirect path="*" to="/" /> */ }
       </div>
     );
