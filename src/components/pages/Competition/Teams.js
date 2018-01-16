@@ -11,8 +11,10 @@ class Teams extends Component {
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
-    const rows = teams.map(t => (
-      <li
+    const rows = teams.map(t => {
+      const code = t.code !== null ? t.code : t.name;
+
+      return <li
         className="card"
         style={{
           textAlign: 'center',
@@ -22,7 +24,7 @@ class Teams extends Component {
           flexShrink: 0,
           flexBasis: 'auto',
         }}
-        key={`team-${t.code}`}>
+        key={`team-${code}`}>
         <div
           className="card-team"
           style={{
@@ -68,7 +70,7 @@ class Teams extends Component {
           </a>
         </div>
       </li>
-    ));
+    });
 
     return (
       <section style={{color: '#333'}}>
