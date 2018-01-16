@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { fetchFixtures } from "../../../actions";
-import MatchSummary from "../../ui/MatchSummary";
-import { Loader } from "semantic-ui-react";
-import PropTypes from "prop-types";
-import { withRouter } from 'react-router-dom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {Loader} from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import {withRouter} from 'react-router-dom';
+import {fetchFixtures} from '../../../actions';
+import MatchSummary from '../../ui/MatchSummary';
 
 class Fixtures extends Component {
+  static teamByName(teams, name) {
+    return teams.find(t => t.name === name);
+  }
+
   componentDidMount() {
     this.props.fetchFixtures(this.props.competition.id);
   }
 
-  teamByName(teams, name) {
-    return teams.find(t => t.name === name);
-  }
-
   render() {
-    const { fixtures, teams, loading } = this.props;
+    const {fixtures, teams, loading} = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
@@ -26,13 +26,13 @@ class Fixtures extends Component {
       <div>
         <h1>Fixtures</h1>
         <div>
-          {fixtures.map((f, i) => {
+          {fixtures.map((f) => {
             const obj = {
               ...f,
-              awayTeam: this.teamByName(teams, f.awayTeamName),
-              homeTeam: this.teamByName(teams, f.homeTeamName)
+              awayTeam: Fixtures.teamByName(teams, f.awayTeamName),
+              homeTeam: Fixtures.teamByName(teams, f.homeTeamName),
             };
-            return <MatchSummary key={`match-${i}`} {...obj} />;
+            return <MatchSummary key={`match-${f.id}`} {...obj} />;
           })}
         </div>
       </div>
@@ -41,19 +41,21 @@ class Fixtures extends Component {
 }
 
 Fixtures.propTypes = {
-  fixtures: PropTypes.array.isRequired,
-  competition: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
+  fixtures: PropTypes.arrayOf(PropTypes.object).isRequired,
+  competition: PropTypes.shape({ id: PropTypes.int }).isRequired,
+  teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
-  fetchFixtures: PropTypes.func.isRequired
+  fetchFixtures: PropTypes.func.isRequired,
 };
 
-export default withRouter(connect(
-  state => ({
-    fixtures: state.fixtures.fixtures,
-    competition: state.competition.competition,
-    teams: state.teams.teams,
-    loading: state.fixtures.loading
-  }),
-  { fetchFixtures }
-)(Fixtures));
+export default withRouter(
+  connect(
+    state => ({
+      fixtures: state.fixtures.fixtures,
+      competition: state.competition.competition,
+      teams: state.teams.teams,
+      loading: state.fixtures.loading,
+    }),
+    {fetchFixtures},
+  )(Fixtures),
+);

@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {withRouter, Route, Link} from 'react-router-dom';
+import {Loader, Button} from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import {fetchTeams, fetchCompetition} from '../../actions';
 import Fixtures from './Competition/Fixtures';
 import Standings from './Competition/Standings';
 import Teams from './Competition/Teams';
-import {
-  withRouter,
-  Route,
-  Link,
-} from 'react-router-dom';
 import League from '../ui/League';
-import {Loader, Button} from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 
 class Competition extends Component {
   componentDidMount() {
@@ -27,7 +23,7 @@ class Competition extends Component {
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
-    const url = this.props.match.url;
+    const {match: {url}} = this.props;
     return (
       <div>
         <League key={`league-${competition.id}`} league={competition} />
@@ -43,8 +39,8 @@ class Competition extends Component {
           </Button>
         </Button.Group>
         <div>
-          { /* <Fixtures competition={competition} /> */ }
-          { /* <Standings competitions={competition} /> */ }
+          {/* <Fixtures competition={competition} /> */}
+          {/* <Standings competitions={competition} /> */}
           <Teams competitions={competition} />
           <Route path="/competition/:id/fixtures" component={Fixtures} />
           <Route path="fixtures" component={Fixtures} />
@@ -58,10 +54,13 @@ class Competition extends Component {
 
 Competition.propTypes = {
   loading: PropTypes.bool.isRequired,
-  competition: PropTypes.object.isRequired,
-  teams: PropTypes.array.isRequired,
+  competition: PropTypes.shape({}).isRequired,
   fetchTeams: PropTypes.func.isRequired,
   fetchCompetition: PropTypes.func.isRequired,
+  match: PropTypes.shape({
+    url: PropTypes.string,
+    params: PropTypes.shape({id: PropTypes.string}),
+  }).isRequired,
 };
 
 function mapStateToProps(state) {
