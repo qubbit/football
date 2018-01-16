@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage';
 import Competitions from './components/pages/Competitions';
-import Competition from './components/pages/Competition';
+import Competition from './components/pages/Competition/index';
 
 const styles = {
   container: {
