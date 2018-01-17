@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter, Route, Link} from 'react-router-dom';
-import {Loader, Button} from 'semantic-ui-react';
+import {Loader} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {fetchTeams, fetchCompetition} from '../../../actions';
 import Fixtures from './Fixtures';
@@ -26,20 +26,30 @@ class Competition extends Component {
     return (
       <div>
         <League key={`league-${competition.id}`} league={competition} />
-        <Button.Group size="large" widths="3">
-          <Button>
-            <Link to={`/competitions/${competition.id}/fixtures`}>Fixtures</Link>
-          </Button>
-          <Button>
-            <Link to={`/competitions/${competition.id}/standings`}>Standings</Link>
-          </Button>
-          <Button>
-            <Link to={`/competitions/${competition.id}/teams`}>Teams</Link>
-          </Button>
-        </Button.Group>
+        <div className="competition-menu menu-3-button">
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/fixtures`}>
+            Fixtures
+          </Link>
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/standings`}>
+            Standings
+          </Link>
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/teams`}>
+            Teams
+          </Link>
+        </div>
         <div>
           <Route path="/competitions/:id/fixtures" exact component={Fixtures} />
-          <Route path="/competitions/:id/standings" exact component={Standings} />
+          <Route
+            path="/competitions/:id/standings"
+            exact
+            component={Standings}
+          />
           <Route path="/competitions/:id/teams" exact component={Teams} />
         </div>
       </div>

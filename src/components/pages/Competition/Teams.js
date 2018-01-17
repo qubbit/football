@@ -41,7 +41,7 @@ class Teams extends Component {
 
     return (
       <section style={{color: '#333'}}>
-        <h1>Teams</h1>
+        <h1 className='header-with-center-text'><span>Teams</span></h1>
         <ul className="competition-team-list">{rows}</ul>
       </section>
     );
