@@ -19,6 +19,9 @@ class App extends Component {
         <Route path="/competitions" exact component={Competitions} />
         <Route path="/competitions/:id" component={Competition} />
         { /* <Redirect path="*" to="/" /> */ }
+        <footer>
+          <p>Hand made with <span role="img" aria-label="heart">💛</span> by Gopal Adhikari</p>
+        </footer>
       </div>
     );
   }

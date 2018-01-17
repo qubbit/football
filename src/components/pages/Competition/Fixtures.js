@@ -24,7 +24,7 @@ class Fixtures extends Component {
 
     return (
       <div>
-        <h1>Fixtures</h1>
+        <h1 className='header-with-center-text'><span>Fixtures</span></h1>
         <div>
           {fixtures.map((f) => {
             const obj = {

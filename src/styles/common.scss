@@ -1,0 +1,57 @@
+@import 'palette.scss';
+
+.header-with-center-text {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #cacaca;
+  line-height: 0.5em;
+  margin: 40px 0 !important;
+
+  span {
+    background: white;
+    padding: 0 20px;
+    color: $black;
+  }
+}
+
+@for $i from 1 through 6 {
+  .menu-#{$i}-button {
+    display: flex;
+  }
+
+  .menu-#{$i}-button a {
+    width: (100% / #{$i});
+    text-align: center;
+    position: relative;
+    padding: 20px;
+  }
+}
+
+.competition-menu {
+  font-size: 1.4em;
+}
+
+footer {
+  margin-top: 5rem;
+  text-align: center;
+  color: #838080;
+}
+
+/* Awesome effects */
+
+.animated-underline::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 4px;
+  background: $yellow;
+  transition: width .2s;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.animated-underline:hover::after {
+  width: 100%;
+  transition: width .2s;
+}

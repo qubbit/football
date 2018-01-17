@@ -51,20 +51,3 @@
   padding: 1.075em 1.5em .925em;
   text-transform: uppercase;
 }
-
-.animated-underline::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 4px;
-  background: $yellow;
-  transition: width .2s;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-}
-
-.animated-underline:hover::after {
-  width: 100%;
-  transition: width .2s;
-}
