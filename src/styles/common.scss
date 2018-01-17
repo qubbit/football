@@ -31,10 +31,64 @@
   font-size: 1.4em;
 }
 
+ul.list-grid {
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: center;
+
+  li {
+    box-sizing: border-box;
+  }
+}
+
 footer {
   margin-top: 5rem;
   text-align: center;
   color: #838080;
+}
+
+
+// roster specific styles
+.card-x {
+  width: 25%;
+  margin: 10px;
+  padding: 10px;
+  background: $yellow;
+}
+
+.card-player {
+  //background: $gray;
+}
+
+.card-player-body h2 {
+  display: flex;
+}
+
+.player-jersey-number {
+  padding-right: 20px;
+  border-right: solid 2px darken($yellow, 20%);
+}
+
+.player-name {
+  margin-left: 20px;
+}
+
+.player-info {
+  // display: flex;
+  div {
+    display: flex;
+    span {
+      width: 50%;
+    }
+    span:first-child {
+      text-align: left;
+    }
+    span:last-child {
+      text-align: right;
+    }
+  }
 }
 
 /* Awesome effects */

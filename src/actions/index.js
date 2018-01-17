@@ -56,3 +56,27 @@ export function fetchTeams(competitionId, params) {
       });
   };
 }
+
+export function fetchTeam(teamId, params) {
+  return dispatch => {
+    dispatch({ type: TYPES.FETCH_TEAM_REQUEST });
+
+    return api
+      .fetch(`/teams/${teamId}`, params)
+      .then(response => {
+        dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
+      });
+  };
+}
+
+export function fetchPlayers(teamId, params) {
+  return dispatch => {
+    dispatch({ type: TYPES.FETCH_PLAYERS_REQUEST });
+
+    return api
+      .fetch(`/teams/${teamId}/players`, params)
+      .then(response => {
+        dispatch({ type: TYPES.FETCH_PLAYERS_SUCCESS, response });
+      });
+  };
+}

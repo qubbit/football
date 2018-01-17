@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage';
 import Competitions from './components/pages/Competitions';
 import Competition from './components/pages/Competition/index';
+import Roster from './components/pages/Team/Roster';
 
 const styles = {
   container: {
@@ -18,6 +19,7 @@ class App extends Component {
         <Route path="/" exact component={HomePage} />
         <Route path="/competitions" exact component={Competitions} />
         <Route path="/competitions/:id" component={Competition} />
+        <Route path="/teams/:id/roster" component={Roster} />
         { /* <Redirect path="*" to="/" /> */ }
         <footer>
           <p>Hand made with <span role="img" aria-label="heart">💛</span> by Gopal Adhikari</p>
