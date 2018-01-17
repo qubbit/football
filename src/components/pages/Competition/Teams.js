@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {Loader} from 'semantic-ui-react';
 import './Teams.scss';
@@ -13,6 +14,7 @@ class Teams extends Component {
     }
     const rows = teams.map(t => {
       const code = t.code !== null ? t.code : t.name;
+      const teamId = t._links.self.href.match(/(\d+$)/)[0];
 
       return (
         <li className="card" key={`team-${code}`}>
@@ -29,11 +31,11 @@ class Teams extends Component {
             <div className="card-team-body">
               <h2>{t.name}</h2>
             </div>
-            <a
+            <Link
               className="team-roster-link animated-underline"
-              href="/teams/roster">
+              to={`/teams/${teamId}/roster`}>
               View Roster
-            </a>
+            </Link>
           </div>
         </li>
       );
