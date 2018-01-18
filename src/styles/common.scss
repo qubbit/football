@@ -1,4 +1,9 @@
 @import 'palette.scss';
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+*:not(.icon) {
+  font-family: Montserrat !important;
+}
 
 .header-with-center-text {
   width: 100%;
