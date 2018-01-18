@@ -9,6 +9,15 @@
   display: flex;
 }
 
+a {
+  color: $black !important;
+}
+
+.active.item {
+  color: $black !important;
+  background: $yellow !important;
+}
+
 // Competitions Menu
 .competition-menu-container {
   display: flex;

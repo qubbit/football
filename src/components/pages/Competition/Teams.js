@@ -1,13 +1,18 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Loader} from 'semantic-ui-react';
+import { Loader } from 'semantic-ui-react';
+import { navigateToPage } from '../../../actions';
 import './Teams.scss';
 
 class Teams extends Component {
+  componentDidMount() {
+    this.props.navigateToPage('teams');
+  }
+
   render() {
-    const {teams, loading} = this.props;
+    const { teams, loading } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
@@ -42,8 +47,8 @@ class Teams extends Component {
     });
 
     return (
-      <section style={{color: '#333'}}>
-        <h2 className='page-title'>Teams</h2>
+      <section style={{ color: '#333' }}>
+        <h2 className="page-title">Teams</h2>
         <ul className="competition-team-list">{rows}</ul>
       </section>
     );
@@ -52,12 +57,12 @@ class Teams extends Component {
 
 Teams.propTypes = {
   teams: PropTypes.arrayOf(PropTypes.object).isRequired,
-  loading: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 export default connect(
   state => ({
     teams: state.teams.teams,
-    loading: state.teams.loading,
+    loading: state.teams.loading
   }),
-  {},
+  { navigateToPage }
 )(Teams);

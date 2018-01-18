@@ -7,6 +7,8 @@ import competition from "./competition";
 import fixtures from "./fixtures";
 import standings from "./standings";
 import players from "./players";
+import application  from "./application";
+import { LOGOUT } from '../actions/types';
 
 // Global loading state can potentially added here
 // instead of having one in each reducer
@@ -18,11 +20,12 @@ const appReducer = combineReducers({
   competition,
   competitions,
   standings,
-  players
+  players,
+  application
 });
 
 export default function(state, action) {
-  if (action.type === "LOGOUT") {
+  if (action.type === LOGOUT) {
     return appReducer(undefined, action);
   }
   return appReducer(state, action);

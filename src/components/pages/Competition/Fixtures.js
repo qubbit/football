@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {Loader} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router-dom';
-import {fetchFixtures} from '../../../actions';
+import { withRouter } from 'react-router-dom';
+import { fetchFixtures, navigateToPage } from '../../../actions';
 import MatchSummary from '../../ui/MatchSummary';
 
 class Fixtures extends Component {
@@ -12,11 +12,14 @@ class Fixtures extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchFixtures(this.props.competition.id || this.props.match.params.id);
+    this.props.fetchFixtures(
+      this.props.competition.id || this.props.match.params.id
+    );
+    this.props.navigateToPage('fixtures');
   }
 
   render() {
-    const {fixtures, teams, loading} = this.props;
+    const { fixtures, teams, loading } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
@@ -24,15 +27,17 @@ class Fixtures extends Component {
 
     return (
       <div>
-        <h2 className='page-title'>Fixtures</h2>
+        <h2 className="page-title">Fixtures</h2>
         <div>
-          {fixtures.map((f) => {
+          {fixtures.map(f => {
             const obj = {
               ...f,
               awayTeam: Fixtures.teamByName(teams, f.awayTeamName),
-              homeTeam: Fixtures.teamByName(teams, f.homeTeamName),
+              homeTeam: Fixtures.teamByName(teams, f.homeTeamName)
             };
-            return <MatchSummary key={`match-${f._links.self.href}`} {...obj} />;
+            return (
+              <MatchSummary key={`match-${f._links.self.href}`} {...obj} />
+            );
           })}
         </div>
       </div>
@@ -45,7 +50,7 @@ Fixtures.propTypes = {
   competition: PropTypes.shape({ id: PropTypes.int }).isRequired,
   teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
-  fetchFixtures: PropTypes.func.isRequired,
+  fetchFixtures: PropTypes.func.isRequired
 };
 
 export default withRouter(
@@ -54,8 +59,8 @@ export default withRouter(
       fixtures: state.fixtures.fixtures,
       competition: state.competition.competition,
       teams: state.teams.teams,
-      loading: state.fixtures.loading,
+      loading: state.fixtures.loading
     }),
-    {fetchFixtures},
-  )(Fixtures),
+    { fetchFixtures, navigateToPage }
+  )(Fixtures)
 );

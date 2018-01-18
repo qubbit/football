@@ -11,7 +11,7 @@ class MenuBar extends Component {
   };
 
   render() {
-    const {currentSeason} = this.props;
+    const {competition, activeMenuItem, currentSeason} = this.props;
     const years = Array(10)
       .fill()
       .map((_, i) => currentSeason.year - i);
@@ -22,22 +22,26 @@ class MenuBar extends Component {
       value: y,
     }));
 
-    const activeMenuItem = 'fixtures';
-
     return (
       <Menu secondary>
         <Menu.Item name="fixtures" active={activeMenuItem === 'fixtures'}>
-          <Link className="animated-underline" to="/competitions/455/fixtures">
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/fixtures`}>
             Fixtures
           </Link>
         </Menu.Item>
         <Menu.Item name="standings" active={activeMenuItem === 'standings'}>
-          <Link className="animated-underline" to="/competitions/455/standings">
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/standings`}>
             Standings
           </Link>
         </Menu.Item>
         <Menu.Item name="teams" active={activeMenuItem === 'teams'}>
-          <Link className="animated-underline" to="/competitions/455/teams">
+          <Link
+            className="animated-underline"
+            to={`/competitions/${competition.id}/teams`}>
             Teams
           </Link>
         </Menu.Item>
@@ -63,6 +67,8 @@ MenuBar.propTypes = {
 export default connect(
   state => ({
     currentSeason: state.competitions.currentSeason,
+    competition: state.competition.competition,
+    activeMenuItem: state.application.activeMenuItem,
   }),
   {},
 )(MenuBar);

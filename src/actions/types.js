@@ -24,3 +24,6 @@ export const FETCH_SEASONS_REQUEST      = "FETCH_SEASONS_REQUEST";
 
 export const FETCH_SEASON_SUCCESS       = "FETCH_SEASON_SUCCESS";
 export const FETCH_SEASON_REQUEST       = "FETCH_SEASON_REQUEST";
+
+export const NAVIGATE_PAGE              = "NAVIGATE_PAGE";
+export const LOGOUT                     = "LOGOUT";
