@@ -1,4 +1,74 @@
 @import 'palette.scss';
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+*:not(.icon) {
+  font-family: Montserrat !important;
+}
+
+#root {
+  display: flex;
+}
+
+// Competitions Menu
+.competition-menu-container {
+  display: flex;
+  flex-shrink: 0;
+  flex-basis: 250px;
+  flex-direction: column;
+  background: $gray;
+
+  h2 {
+    padding: 10px;
+    text-transform: uppercase;
+  }
+}
+
+.competition-menu {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.competition-link {
+  padding: 10px;
+  color: $black;
+
+  &:hover {
+    color: $black;
+    background: $yellow;
+  }
+}
+
+// Main
+.main-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 100%;
+  padding: 10px;
+}
+
+.main-container-header {
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $gray;
+
+  .competition-header {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+
+    .competition-meta {
+      display: flex;
+
+      .meta-item:not(:last-child) {
+        margin-right: 20px;
+      }
+    }
+  }
+
+}
+
 
 .header-with-center-text {
   width: 100%;
@@ -20,15 +90,11 @@
   }
 
   .menu-#{$i}-button a {
-    width: (100% / #{$i});
     text-align: center;
     position: relative;
-    padding: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
-}
-
-.competition-menu {
-  font-size: 1.4em;
 }
 
 ul.list-grid {
@@ -44,9 +110,8 @@ ul.list-grid {
 }
 
 footer {
-  margin-top: 5rem;
+  margin: 2.5rem;
   text-align: center;
-  color: #838080;
 }
 
 
@@ -92,6 +157,11 @@ footer {
 }
 
 /* Awesome effects */
+
+// The parent element needs have position: relative
+.animated-underline-container {
+  position: relative;
+}
 
 .animated-underline::after {
   content: '';

@@ -1,32 +1,24 @@
 import React, {Component} from 'react';
-import { Route } from 'react-router-dom';
-import HomePage from './components/pages/HomePage';
+import {Route} from 'react-router-dom';
 import Competitions from './components/pages/Competitions';
+import CompetitionsMenu from './components/pages/CompetitionsMenu';
 import Competition from './components/pages/Competition/index';
 import Roster from './components/pages/Team/Roster';
 
-const styles = {
-  container: {
-    marginTop: '64px',
-    marginBottom: '96px'
-  },
-};
+const Aux = props => props.children;
 
 class App extends Component {
   render() {
     return (
-      <div style={styles.container} className="ui container">
-        <Route path="/" exact component={HomePage} />
-        <Route path="/competitions" exact component={Competitions} />
-        <Route path="/competitions/:id" component={Competition} />
-        <Route path="/teams/:id/roster" component={Roster} />
-        { /* <Redirect path="*" to="/" /> */ }
-        <footer>
-          <p>Hand made with <span role="img" aria-label="heart">💛</span> by Gopal Adhikari</p>
-        </footer>
-      </div>
+      <Aux>
+        <CompetitionsMenu />
+        <div className='main-container'>
+          <Route path="/competitions/:id" component={Competition} />
+          <Route path="/competitions" exact component={Competitions} />
+          <Route path="/teams/:id/roster" component={Roster} />
+        </div>
+      </Aux>
     );
   }
 }
-
 export default App;

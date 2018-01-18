@@ -7,7 +7,7 @@ import {fetchTeams, fetchCompetition} from '../../../actions';
 import Fixtures from './Fixtures';
 import Standings from './Standings';
 import Teams from './Teams';
-import League from '../../ui/League';
+import MenuBar from '../../../components/ui/MenuBar';
 
 class Competition extends Component {
   componentDidMount() {
@@ -25,8 +25,20 @@ class Competition extends Component {
     }
     return (
       <div>
-        <League key={`league-${competition.id}`} league={competition} />
-        <div className="competition-menu menu-3-button">
+        <div className="main-container-header">
+          <div className="competition-header">
+            <h1>{competition.caption}</h1>
+            <div className="competition-meta">
+              <div className='meta-item'>
+                <i className="icon users" />{' '}
+                <span>{competition.numberOfTeams} Teams</span>
+              </div>
+              <div className='meta-item'>
+                <i className="icon soccer" />{' '}
+                <span>{competition.numberOfGames} Games</span>
+              </div>
+
+        <div className="competition-pages-menu menu-3-button">
           <Link
             className="animated-underline"
             to={`/competitions/${competition.id}/fixtures`}>
@@ -42,6 +54,10 @@ class Competition extends Component {
             to={`/competitions/${competition.id}/teams`}>
             Teams
           </Link>
+        </div>
+            </div>
+          </div>
+          <MenuBar />
         </div>
         <div>
           <Route path="/competitions/:id/fixtures" exact component={Fixtures} />
