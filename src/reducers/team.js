@@ -1,4 +1,4 @@
-import { FETCH_TEAM_REQUEST, FETCH_TEAM_SUCCESS } from '../types';
+import { FETCH_TEAM_REQUEST, FETCH_TEAM_SUCCESS } from '../actions/types';
 
 const initialState = {
   team: {},

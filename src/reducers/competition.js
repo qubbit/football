@@ -1,4 +1,4 @@
-import { FETCH_COMPETITION_REQUEST, FETCH_COMPETITION_SUCCESS } from "../types";
+import { FETCH_COMPETITION_REQUEST, FETCH_COMPETITION_SUCCESS } from "../actions/types";
 
 const initialState = {
   competition: {},

@@ -1,4 +1,4 @@
-import { FETCH_FIXTURES_REQUEST, FETCH_FIXTURES_SUCCESS } from "../types";
+import { FETCH_FIXTURES_REQUEST, FETCH_FIXTURES_SUCCESS } from "../actions/types";
 
 const initialState = {
   fixtures: [],

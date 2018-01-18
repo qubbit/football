@@ -1,4 +1,4 @@
-import { FETCH_PLAYERS_REQUEST, FETCH_PLAYERS_SUCCESS } from '../types';
+import { FETCH_PLAYERS_REQUEST, FETCH_PLAYERS_SUCCESS } from '../actions/types';
 
 const initialState = {
   players: {},

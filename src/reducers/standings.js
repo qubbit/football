@@ -1,4 +1,4 @@
-import { FETCH_STANDINGS_REQUEST, FETCH_STANDINGS_SUCCESS } from "../types";
+import { FETCH_STANDINGS_REQUEST, FETCH_STANDINGS_SUCCESS } from "../actions/types";
 
 const initialState = {
   standings: [],

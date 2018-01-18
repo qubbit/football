@@ -1,5 +1,5 @@
 import api from "../api";
-import * as TYPES from "../types";
+import * as TYPES from "./types";
 
 export function fetchFixtures(competitionId, params) {
   return dispatch => {
