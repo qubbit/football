@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Dropdown, Icon, Menu} from 'semantic-ui-react';
+import {Link} from 'react-router-dom';
+import {Input, Dropdown, Icon, Menu} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 // import {fetchCompetitions} from '../../actions';
 
@@ -21,15 +22,35 @@ class MenuBar extends Component {
       value: y,
     }));
 
+    const activeMenuItem = 'fixtures';
+
     return (
-      <Menu compact>
-        <Dropdown
-          defaultValue={currentSeason.season}
-          selection
-          options={options}
-          onChange={this.handleSeasonChange}
-        />
-        <Icon name='settings'/>
+      <Menu secondary>
+        <Menu.Item name="fixtures" active={activeMenuItem === 'fixtures'}>
+          <Link className="animated-underline" to="/competitions/455/fixtures">
+            Fixtures
+          </Link>
+        </Menu.Item>
+        <Menu.Item name="standings" active={activeMenuItem === 'standings'}>
+          <Link className="animated-underline" to="/competitions/455/standings">
+            Standings
+          </Link>
+        </Menu.Item>
+        <Menu.Item name="teams" active={activeMenuItem === 'teams'}>
+          <Link className="animated-underline" to="/competitions/455/teams">
+            Teams
+          </Link>
+        </Menu.Item>
+        <Menu.Menu position="right">
+          <Menu.Item>
+            <Input icon="search" placeholder="Search..." />
+          </Menu.Item>
+          <Menu.Item name="settings" active={activeMenuItem === 'settings'}>
+            <Link className="animated-underline" to="/settings">
+              <Icon name="setting" />
+            </Link>
+          </Menu.Item>
+        </Menu.Menu>
       </Menu>
     );
   }

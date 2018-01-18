@@ -37,7 +37,7 @@ class Standings extends Component {
 
     return (
       <div>
-        <h1 className='header-with-center-text'><span>Standings</span></h1>
+        <h2 className='page-title'>Standings</h2>
         <Table size="large" selectable basic="very">
           <Table.Header>
             <Table.Row>

@@ -29,32 +29,14 @@ class Competition extends Component {
           <div className="competition-header">
             <h1>{competition.caption}</h1>
             <div className="competition-meta">
-              <div className='meta-item'>
+              <div className="meta-item">
                 <i className="icon users" />{' '}
                 <span>{competition.numberOfTeams} Teams</span>
               </div>
-              <div className='meta-item'>
+              <div className="meta-item">
                 <i className="icon soccer" />{' '}
                 <span>{competition.numberOfGames} Games</span>
               </div>
-
-        <div className="competition-pages-menu menu-3-button">
-          <Link
-            className="animated-underline"
-            to={`/competitions/${competition.id}/fixtures`}>
-            Fixtures
-          </Link>
-          <Link
-            className="animated-underline"
-            to={`/competitions/${competition.id}/standings`}>
-            Standings
-          </Link>
-          <Link
-            className="animated-underline"
-            to={`/competitions/${competition.id}/teams`}>
-            Teams
-          </Link>
-        </div>
             </div>
           </div>
           <MenuBar />
