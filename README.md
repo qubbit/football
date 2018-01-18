@@ -33,6 +33,8 @@ An app that allows you to look at past and present data of major soccer leagues 
 Collections should be searchable and filterable. Each collection has its own
 redux store item, example, `state.fixtures`.
 
+The filtering and searching feature is a todo.
+
 Collections
   * competition
   * competitions
