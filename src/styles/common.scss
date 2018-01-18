@@ -7,6 +7,25 @@
 
 #root {
   display: flex;
+  min-height: 100vh;
+}
+
+.soccer-loader {
+  display: flex !important;
+  flex-direction: column;
+  width: auto!important;
+  height: auto!important;
+  text-align: center;
+  font-style: normal;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: 0;
+  z-index: 1000;
+
+  .loading-text {
+    margin-top: 10px;
+  }
 }
 
 a {

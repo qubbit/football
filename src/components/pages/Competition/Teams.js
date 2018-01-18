@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Loader } from 'semantic-ui-react';
+import Loader from '../../ui/Loader';
 import { navigateToPage } from '../../../actions';
 import './Teams.scss';
 
@@ -15,8 +15,9 @@ class Teams extends Component {
     const { teams, loading } = this.props;
 
     if (loading) {
-      return <Loader size="large">Loading...</Loader>;
+      return <Loader/>;
     }
+
     const rows = teams.map(t => {
       const code = t.code !== null ? t.code : t.name;
       const teamId = t._links.self.href.match(/(\d+$)/)[0];

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { fetchFixtures, navigateToPage } from '../../../actions';
 import MatchSummary from '../../ui/MatchSummary';
+import Loader from '../../ui/Loader';
 
 class Fixtures extends Component {
   static teamByName(teams, name) {
@@ -22,7 +22,7 @@ class Fixtures extends Component {
     const { fixtures, teams, loading } = this.props;
 
     if (loading) {
-      return <Loader size="large">Loading...</Loader>;
+      return <Loader/>;
     }
 
     return (

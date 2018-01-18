@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Table, Loader } from 'semantic-ui-react';
+import { Table } from 'semantic-ui-react';
 import { fetchStandings, navigateToPage } from '../../../actions';
 import StandingRow from '../../ui/StandingRow';
 import UEFAStandingRow from '../../ui/UEFAStandingRow';
+import Loader from '../../ui/Loader';
 
 class Standings extends Component {
   componentDidMount() {
@@ -16,7 +17,7 @@ class Standings extends Component {
     const { competition, standings, loading } = this.props;
 
     if (loading) {
-      return <Loader size="large">Loading...</Loader>;
+      return <Loader/>;
     }
 
     let rows;
