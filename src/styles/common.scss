@@ -38,6 +38,16 @@ a {
   flex-grow: 1;
 }
 
+.competition-menu-bar {
+  // This is done to maximize the click area
+  .item {
+    padding: 0 !important;
+    a {
+      padding: 9px 15px;
+    }
+  }
+}
+
 .competition-link {
   padding: 10px;
   color: $black;
@@ -177,7 +187,7 @@ footer {
   position: relative;
 }
 
-.animated-underline::after {
+.animated-underline:not(.active)::after {
   content: '';
   display: block;
   width: 0;
@@ -189,7 +199,7 @@ footer {
   bottom: 0;
 }
 
-.animated-underline:hover::after {
+.animated-underline:not(.active):hover::after {
   width: 100%;
   transition: width .2s;
 }
