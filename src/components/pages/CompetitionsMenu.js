@@ -39,7 +39,7 @@ class CompetitionsMenu extends Component {
         <h2>Competitions</h2>
         <div className="competition-menu">{items}</div>
         <footer>
-          <p>Hand made with love by Gopal Adhikari in 2018.</p>
+          <p>Handmade with love by <strong>Gopal Adhikari</strong> in 2018.</p>
         </footer>
       </div>
     );
