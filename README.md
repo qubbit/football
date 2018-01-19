@@ -43,3 +43,6 @@ Collections
   * seasons
   * standings
   * teams
+
+## Attribution
+soccer by Stock Image Folio from the Noun Project
