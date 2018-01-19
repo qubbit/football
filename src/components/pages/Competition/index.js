@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {withRouter, Route, Link} from 'react-router-dom';
-import {Loader} from 'semantic-ui-react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Link } from 'react-router-dom';
+import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import {fetchTeams, fetchCompetition} from '../../../actions';
+import { fetchTeams, fetchCompetition } from '../../../actions';
 import Fixtures from './Fixtures';
 import Standings from './Standings';
 import Teams from './Teams';
@@ -11,18 +11,28 @@ import MenuBar from '../../../components/ui/MenuBar';
 
 class Competition extends Component {
   componentDidMount() {
-    const {match: {params}} = this.props;
+    const { match: { params } } = this.props;
     this.props
       .fetchCompetition(params.id)
       .then(this.props.fetchTeams(params.id));
   }
 
+  componentDidUpdate(prevProps, _) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      const { match: { params } } = this.props;
+      this.props
+        .fetchCompetition(params.id)
+        .then(this.props.fetchTeams(params.id));
+    }
+  }
+
   render() {
-    const {competition, loading} = this.props;
+    const { competition, loading } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
+
     return (
       <div>
         <div className="main-container-header">
@@ -62,18 +72,18 @@ Competition.propTypes = {
   fetchCompetition: PropTypes.func.isRequired,
   match: PropTypes.shape({
     url: PropTypes.string,
-    params: PropTypes.shape({id: PropTypes.string}),
-  }).isRequired,
+    params: PropTypes.shape({ id: PropTypes.string })
+  }).isRequired
 };
 
 function mapStateToProps(state) {
   return {
     loading: state.competition.loading,
     competition: state.competition.competition,
-    teams: state.teams.teams,
+    teams: state.teams.teams
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, {fetchTeams, fetchCompetition})(Competition),
+  connect(mapStateToProps, { fetchTeams, fetchCompetition })(Competition)
 );
