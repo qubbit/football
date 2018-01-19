@@ -1,17 +1,8 @@
-// const API_URL = 'http://api.football-data.org/v1';
-
-const API_URL = 'http://football.io/v1';
-let TOKEN = 'super_secret';
-
-if (process.env.NODE_ENV === 'development') {
-  const {apiToken} = require('../config/secrets.json');
-  TOKEN = apiToken;
-}
+const API_URL = 'https://football-data.gopal.io/v1';
 
 function headers() {
   return {
-    Accept: 'application/json',
-    'X-Auth-Token': TOKEN,
+    Accept: 'application/json'
   };
 }
 
@@ -35,7 +26,7 @@ export default {
   fetch(url, params = {}) {
     return fetch(`${API_URL}${url}${queryString(params)}`, {
       method: 'GET',
-      headers: headers(),
+      headers: headers()
     }).then(parseResponse);
-  },
+  }
 };
