@@ -71,7 +71,7 @@ a {
   padding: 10px;
   color: $black;
 
-  &:hover {
+  &:hover, &.active {
     color: $black;
     background: $yellow;
   }
