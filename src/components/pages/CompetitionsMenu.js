@@ -14,8 +14,12 @@ class CompetitionsMenu extends Component {
     this.props.fetchCompetitions({ season: data.value });
   };
 
+  handleImageError = (e) => {
+    e.target.style.display = 'none';
+  }
+
   render() {
-    const { competitions, loading } = this.props;
+    const { competitions, loading, normalizers } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
@@ -23,13 +27,22 @@ class CompetitionsMenu extends Component {
 
     const items = competitions.map(c => {
       const activeClass = this.props.competition.id === c.id ? ' active' : '';
+      const normalize = normalizers.competitions[c.id];
+      const competitionLogoUrl = normalize ? normalize.logo : '';
+      if(!normalize) return null;
       return (
         <Link
           id={`${c.id}`}
           className={`competition-link${activeClass}`}
           key={`competition-${c.id}`}
           to={`/competitions/${c.id}`}>
-          {c.caption}
+          <img
+            onError={this.handleImageError}
+            className="competition-logo"
+            alt={`${c.caption} Logo`}
+            src={competitionLogoUrl}
+          />
+          <span>{normalize ? normalize.normalized_name : c.caption}</span>
         </Link>
       );
     });
@@ -39,7 +52,9 @@ class CompetitionsMenu extends Component {
         <h2>Competitions</h2>
         <div className="competition-menu">{items}</div>
         <footer>
-          <p>Handmade with love by <strong>Gopal Adhikari</strong> in 2018.</p>
+          <p>
+            Handmade with love by <strong>Gopal Adhikari</strong> in 2018.
+          </p>
         </footer>
       </div>
     );
@@ -58,7 +73,8 @@ export default connect(
     competitions: state.competitions.competitions,
     competition: state.competition.competition,
     currentSeason: state.competitions.currentSeason,
-    loading: state.competitions.loading
+    loading: state.competitions.loading,
+    normalizers: state.application.normalizers
   }),
   { fetchCompetitions }
 )(CompetitionsMenu);

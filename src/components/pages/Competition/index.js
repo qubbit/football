@@ -27,15 +27,18 @@ class Competition extends Component {
   }
 
   render() {
-    const { competition, loading } = this.props;
+    const { competition, normalizers, loading } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
 
+    const logoUrl = normalizers.competitions[competition.id].logo;
+
     return (
       <div>
         <div className="main-container-header">
+          <img src={logoUrl} alt='' height='90' width='90' />
           <div className="competition-header">
             <h1>{competition.caption}</h1>
             <div className="competition-meta">
@@ -51,7 +54,7 @@ class Competition extends Component {
           </div>
           <MenuBar />
         </div>
-        <div>
+        <div className="page-container">
           <Route path="/competitions/:id/fixtures" exact component={Fixtures} />
           <Route
             path="/competitions/:id/standings"
@@ -80,7 +83,8 @@ function mapStateToProps(state) {
   return {
     loading: state.competition.loading,
     competition: state.competition.competition,
-    teams: state.teams.teams
+    teams: state.teams.teams,
+    normalizers: state.application.normalizers
   };
 }
 

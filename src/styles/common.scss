@@ -68,12 +68,18 @@ a {
 }
 
 .competition-link {
-  padding: 10px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
   color: $black;
 
   &:hover, &.active {
     color: $black;
     background: $yellow;
+  }
+
+  .competition-logo {
+    width: 42px;
   }
 }
 
@@ -83,13 +89,21 @@ a {
   flex-direction: column;
   flex-grow: 1;
   min-height: 100%;
-  padding: 10px;
+
+  .page-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .main-container-header {
   display: flex;
+  align-items: center;
+  padding-top: 10px;
+  padding-right: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid $gray;
+  height: 90px;
 
   .competition-header {
     display: flex;
