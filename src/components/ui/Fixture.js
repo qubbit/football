@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 const Fixture = props => {
   let fixtureStatus;
-  if (props.status === 'FINISHED') {
+  if (props.status === 'FINISHED' || props.status === 'IN_PLAY') {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
@@ -21,17 +21,15 @@ const Fixture = props => {
         </div>
       </div>
     );
-  } else if (props.status === 'IN_PLAY') {
-    fixtureStatus = (
-      <div className="fixture-live fixture-status">
-        <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
-        <div className="fixture-status-score">-</div>
-        <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
-      </div>
-    );
   }
+
+  const matchFixtureClass =
+    props.status === 'IN_PLAY'
+      ? 'match-fixture match-fixture-live'
+      : 'match-fixture';
+
   return (
-    <div className="match-fixture">
+    <div className={matchFixtureClass}>
       <div className="fixture-team">
         <div className="team-label team-label--reverse">
           <Image
@@ -71,8 +69,8 @@ Fixture.propTypes = {
     goalsHomeTeam: PropTypes.number,
     goalsAwayTeam: PropTypes.number
   }).isRequired,
-  status: PropTypes.string.isRequired
-  //  date: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired
 };
 
 export default Fixture;
