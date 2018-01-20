@@ -49,7 +49,7 @@ class CompetitionsMenu extends Component {
 
     return (
       <div className="competition-menu-container">
-        <h2>Competitions</h2>
+        <div className='masthead'><h2>Competitions</h2></div>
         <div className="competition-menu">{items}</div>
         <footer>
           <p>

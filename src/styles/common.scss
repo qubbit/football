@@ -1,6 +1,8 @@
 @import 'palette.scss';
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+$top-bar-height: 90px;
+
 *:not(.icon) {
   font-family: Montserrat !important;
 }
@@ -45,8 +47,11 @@ a {
   flex-direction: column;
   background: $gray;
 
-  h2 {
-    padding: 10px;
+  .masthead {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $top-bar-height;
     text-transform: uppercase;
   }
 }
@@ -103,7 +108,7 @@ a {
   padding-right: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid $gray;
-  height: 90px;
+  height: $top-bar-height;
 
   .competition-header {
     display: flex;

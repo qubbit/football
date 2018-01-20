@@ -3,37 +3,65 @@
     "455": {
       "logo": "/assets/logos/competitions/la_liga.png",
       "normalized_name": "La Liga",
-      "primary_color": "rgb(6, 48, 88)"
+      "primary_color": [
+        6,
+        48,
+        88
+      ]
     },
     "1": {
       "logo": "/assets/logos/competitions/liga_mx.png",
       "normalized_name": "Liga MX",
-      "primary_color": "rgb(64, 66, 69)"
+      "primary_color": [
+        64,
+        66,
+        69
+      ]
     },
     "450": {
       "logo": "/assets/logos/competitions/ligue_1.png",
       "normalized_name": "Ligue 1",
-      "primary_color": "rgb(219, 225, 32)"
+      "primary_color": [
+        219,
+        225,
+        32
+      ]
     },
     "445": {
       "logo": "/assets/logos/competitions/epl.png",
       "normalized_name": "English Premier League",
-      "primary_color": "rgb(46, 203, 212)"
+      "primary_color": [
+        46,
+        203,
+        212
+      ]
     },
     "464": {
       "logo": "/assets/logos/competitions/ucl.png",
       "normalized_name": "UEFA Champions League",
-      "primary_color": "rgb(1, 44, 95)"
+      "primary_color": [
+        1,
+        44,
+        95
+      ]
     },
     "456": {
       "logo": "/assets/logos/competitions/serie_a.png",
       "normalized_name": "Serie A",
-      "primary_color": "rgb(11, 75, 127)"
+      "primary_color": [
+        11,
+        75,
+        127
+      ]
     },
     "452": {
       "logo": "/assets/logos/competitions/bund.png",
       "normalized_name": "Bundesliga",
-      "primary_color": "rgb(146, 146, 146)"
+      "primary_color": [
+        146,
+        146,
+        146
+      ]
     }
   }
 }

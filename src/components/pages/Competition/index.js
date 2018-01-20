@@ -8,6 +8,7 @@ import Fixtures from './Fixtures';
 import Standings from './Standings';
 import Teams from './Teams';
 import MenuBar from '../../../components/ui/MenuBar';
+import { determineTextColor, arrayToColor } from '../../../utils';
 
 class Competition extends Component {
   componentDidMount() {
@@ -33,12 +34,25 @@ class Competition extends Component {
       return <Loader size="large">Loading...</Loader>;
     }
 
-    const logoUrl = normalizers.competitions[competition.id].logo;
+    const useExperimentalStyle = true;
+    let experimentalStyle = {};
+
+    const normalize = normalizers.competitions[competition.id];
+    if (useExperimentalStyle) {
+      const backgroundColor = arrayToColor(normalize.primary_color);
+      const textColor = arrayToColor(
+        determineTextColor(normalize.primary_color)
+      );
+      experimentalStyle = {
+        background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
+        color: textColor
+      };
+    }
 
     return (
       <div>
-        <div className="main-container-header">
-          <img src={logoUrl} alt='' height='90' width='90' />
+        <div className="main-container-header" style={experimentalStyle}>
+          <img src={normalize.logo} alt="" height="90" width="90" />
           <div className="competition-header">
             <h1>{competition.caption}</h1>
             <div className="competition-meta">
