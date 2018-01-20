@@ -15,8 +15,8 @@ $top-bar-height: 90px;
 .soccer-loader {
   display: flex !important;
   flex-direction: column;
-  width: auto!important;
-  height: auto!important;
+  width: auto !important;
+  height: auto !important;
   text-align: center;
   font-style: normal;
   position: absolute;
@@ -78,7 +78,8 @@ a {
   padding: 5px;
   color: $black;
 
-  &:hover, &.active {
+  &:hover,
+  &.active {
     color: $black;
     background: $yellow;
   }
@@ -129,8 +130,16 @@ a {
   text-align: center;
   margin-top: 10px !important;
   margin-bottom: 30px !important;
+  color: $yellow;
 }
 
+// Match day controls
+.matchday-controls {
+  display: flex;
+  align-items: center;
+  justify-items: flex-end;
+  justify-content: space-between;
+}
 
 .header-with-center-text {
   width: 100%;
@@ -176,10 +185,9 @@ footer {
   text-align: center;
 }
 
-
 // roster specific styles
 .card-x {
-  width: 25%;
+  width: 300px;
   margin: 10px;
   padding: 10px;
   background: $yellow;
@@ -231,7 +239,7 @@ footer {
   width: 0;
   height: 4px;
   background: $yellow;
-  transition: width .2s;
+  transition: width 0.2s;
   position: absolute;
   left: 0;
   bottom: 0;
@@ -239,5 +247,5 @@ footer {
 
 .animated-underline:not(.active):hover::after {
   width: 100%;
-  transition: width .2s;
+  transition: width 0.2s;
 }

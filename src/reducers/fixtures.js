@@ -2,6 +2,7 @@ import { FETCH_FIXTURES_REQUEST, FETCH_FIXTURES_SUCCESS } from "../actions/types
 
 const initialState = {
   fixtures: [],
+  matchDay: 0,
   loading: true
 };
 
@@ -16,6 +17,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        matchDay: action.params.matchday,
         fixtures: action.response.fixtures
       };
     default:

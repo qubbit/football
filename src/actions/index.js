@@ -14,7 +14,7 @@ export function fetchFixtures(competitionId, params) {
     return api
       .fetch(`/competitions/${competitionId}/fixtures`, params)
       .then(response => {
-        dispatch({ type: TYPES.FETCH_FIXTURES_SUCCESS, response });
+        dispatch({ type: TYPES.FETCH_FIXTURES_SUCCESS, response, params });
       });
   };
 }
