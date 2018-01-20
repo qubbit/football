@@ -63,8 +63,9 @@ class Fixtures extends Component {
       return <Loader />;
     }
 
+    // Group fixtures by day
     const g = _.chain(fixtures)
-      .groupBy(f => f.date)
+      .groupBy(f => moment(f.date).format('MM-DD-YYYY'))
       .value();
 
     return (
@@ -98,7 +99,7 @@ class Fixtures extends Component {
         <div className="fixture-list">
           {Object.keys(g).map(x => [
             <div className="match-fixture match-fixture-header">
-              <div>{moment(x).format('dddd MMMM Do hh:mm A')}</div>
+              <div>{moment(x).format('dddd MMMM Do')}</div>
             </div>,
             this.renderDay(g[x])
           ])}

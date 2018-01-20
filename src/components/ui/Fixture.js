@@ -10,7 +10,6 @@ const Fixture = props => {
       <div className="fixture-status">
         <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
         <div className="fixture-status-score">-</div>
-        {/* <div>{moment(props.date).format('MM/DD/YYYY hh:mm A')}</div> */}
         <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
       </div>
     );

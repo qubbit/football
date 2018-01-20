@@ -278,14 +278,17 @@ footer {
   margin-bottom: 20px;
   border: 1px solid #fdce44;
   font-size: 1.3rem;
+  text-transform: uppercase;
 }
 
 .fixture-team {
   width: calc(50% - 50px);
 }
 
-.fixture-live {
-  border-right: 5px solid $red;
+.match-fixture-live::before {
+  content: '\25CF';
+  color: #df2935;
+  font-size: 3rem;
 }
 
 .fixture-status {
