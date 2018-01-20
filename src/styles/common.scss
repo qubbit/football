@@ -5,6 +5,7 @@ $top-bar-height: 90px;
 
 *:not(.icon) {
   font-family: Montserrat !important;
+  border-radius: 0 !important;
 }
 
 #root {
@@ -139,6 +140,35 @@ a {
   align-items: center;
   justify-items: flex-end;
   justify-content: space-between;
+  margin: 10px 0;
+
+  h2 {
+    margin: 0 !important;
+  }
+
+  & > span {
+    box-shadow: 0 0 3px #9a9e9a;
+    i.large.icon, i.large.icons {
+      vertical-align: sub;
+    }
+    i.icon {
+      margin: 0;
+    }
+  }
+
+  .matchday-nav-button {
+    background: $gray;
+    padding: 5px 5px;
+    border: 0 none;
+
+    .icon {
+      color: darken($yellow, 10%);
+    }
+
+    &:not(:last-child) {
+      border-right: 1px solid darken($gray, 10%);
+    }
+  }
 }
 
 .header-with-center-text {

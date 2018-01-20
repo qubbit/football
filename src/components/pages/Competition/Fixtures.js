@@ -22,13 +22,24 @@ class Fixtures extends Component {
   }
 
   goToMatchday = numDays => {
-    const maxMatchDays = this.props.competition.numberOfMatchdays;
+    const { competition } = this.props;
+    if (numDays === null) {
+      const params = { matchday: competition.currentMatchday };
+      this.props.fetchFixtures(competition.id, params);
+      return;
+    }
+
+    const oldMatchDay = this.props.matchDay;
+    const maxMatchDays = competition.numberOfMatchdays;
     const newMatchDay = Math.min(
-      Math.max(numDays + this.props.matchDay, 1),
+      Math.max(numDays + oldMatchDay, 1),
       maxMatchDays
     );
+
+    if (oldMatchDay === newMatchDay) return;
+
     const params = { matchday: newMatchDay };
-    this.props.fetchFixtures(this.props.competition.id, params);
+    this.props.fetchFixtures(competition.id, params);
   };
 
   render() {
@@ -41,17 +52,30 @@ class Fixtures extends Component {
     return (
       <div>
         <div className="matchday-controls">
-          <button
-            className="ui icon button prev-day"
-            onClick={() => this.goToMatchday(-1)}>
-            <Icon size="large" name="arrow left" />
-          </button>
+          <h2>Match day {this.props.matchDay}</h2>
           <h2>Fixtures</h2>
-          <button
-            className="ui icon button next-day"
-            onClick={() => this.goToMatchday(1)}>
-            <Icon size="large" name="arrow right" />
-          </button>
+          <span>
+            <button
+              className="matchday-nav-button"
+              title='Go to prev match day'
+              onClick={() => this.goToMatchday(-1)}>
+              <Icon size="large" name="chevron left" />
+              <span>Previous</span>
+            </button>
+            <button
+              className="matchday-nav-button"
+              title='Go to current match day'
+              onClick={() => this.goToMatchday(null)}>
+              <Icon size="large" name="dot circle outline" />
+            </button>
+            <button
+              className="matchday-nav-button"
+              title='Go to next match day'
+              onClick={() => this.goToMatchday(1)}>
+              <span>Next</span>
+              <Icon size="large" name="chevron right" />
+            </button>
+          </span>
         </div>
         <div>
           {fixtures.map(f => {
