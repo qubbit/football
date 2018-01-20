@@ -2,6 +2,10 @@
 
 An app that allows you to look at past and present data of major soccer leagues around the world
 
+## Screenshot
+
+![Football Explorer showing a competition's standings](artifacts/screenshots/standings.png)
+
 ## Application Architecture
 
 ![](artifacts/mockups/Architecture.png)
@@ -45,4 +49,8 @@ Collections
   * teams
 
 ## Attribution
-soccer by Stock Image Folio from the Noun Project
+API: https://www.football-data.org
+
+Favicon: Soccer by Stock Image Folio from the Noun Project
+
+Design Inspiration: https://github.com/navix/ng2-football-api
