@@ -6,12 +6,12 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .card {
   text-align: center;
-  width: 25%;
+  width: 280px;
   padding: 12px 8px;
   flex-grow: 0;
   flex-shrink: 0;
@@ -47,7 +47,7 @@
 .team-roster-link {
   display: flex;
   justify-content: center;
-  border-top: 1px solid rgba(51,51,51,.2);
+  border-top: 1px solid darken($yellow, 10%);
   padding: 1.075em 1.5em .925em;
   text-transform: uppercase;
 }

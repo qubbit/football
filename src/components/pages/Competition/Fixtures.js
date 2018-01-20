@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
+import moment from 'moment';
+import _ from 'lodash';
 import { fetchFixtures, navigateToPage } from '../../../actions';
-import MatchSummary from '../../ui/MatchSummary';
+import Fixture from '../../ui/Fixture';
 import Loader from '../../ui/Loader';
 
 class Fixtures extends Component {
@@ -42,12 +44,28 @@ class Fixtures extends Component {
     this.props.fetchFixtures(competition.id, params);
   };
 
+  renderDay(fixtures) {
+    const t = this.props.teams;
+    return fixtures.map(f => {
+      const obj = {
+        ...f,
+        awayTeam: Fixtures.teamByName(t, f.awayTeamName),
+        homeTeam: Fixtures.teamByName(t, f.homeTeamName)
+      };
+      return <Fixture key={`match-${f._links.self.href}`} {...obj} />;
+    });
+  }
+
   render() {
     const { fixtures, teams, loading, matchDay } = this.props;
 
     if (loading) {
       return <Loader />;
     }
+
+    const g = _.chain(fixtures)
+      .groupBy(f => f.date)
+      .value();
 
     return (
       <div>
@@ -57,37 +75,33 @@ class Fixtures extends Component {
           <span>
             <button
               className="matchday-nav-button"
-              title='Go to prev match day'
+              title="Go to prev match day"
               onClick={() => this.goToMatchday(-1)}>
               <Icon size="large" name="chevron left" />
               <span>Previous</span>
             </button>
             <button
               className="matchday-nav-button"
-              title='Go to current match day'
+              title="Go to current match day"
               onClick={() => this.goToMatchday(null)}>
               <Icon size="large" name="dot circle outline" />
             </button>
             <button
               className="matchday-nav-button"
-              title='Go to next match day'
+              title="Go to next match day"
               onClick={() => this.goToMatchday(1)}>
               <span>Next</span>
               <Icon size="large" name="chevron right" />
             </button>
           </span>
         </div>
-        <div>
-          {fixtures.map(f => {
-            const obj = {
-              ...f,
-              awayTeam: Fixtures.teamByName(teams, f.awayTeamName),
-              homeTeam: Fixtures.teamByName(teams, f.homeTeamName)
-            };
-            return (
-              <MatchSummary key={`match-${f._links.self.href}`} {...obj} />
-            );
-          })}
+        <div className="fixture-list">
+          {Object.keys(g).map(x => [
+            <div className="match-fixture match-fixture-header">
+              <div>{moment(x).format('dddd MMMM Do hh:mm A')}</div>
+            </div>,
+            this.renderDay(g[x])
+          ])}
         </div>
       </div>
     );
