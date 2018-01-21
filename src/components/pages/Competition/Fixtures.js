@@ -99,7 +99,10 @@ class Fixtures extends Component {
         <div className="fixture-list">
           {Object.keys(g).map(x => [
             <div key={x} className="match-fixture match-fixture-header">
-              <div>{moment(x).format('dddd MMMM Do')}</div>
+              { /* Since in the groupBy we used MM-DD-YY format to parse
+              the date, we need use the same format here to convert it into
+              a moment date object */ }
+              <div>{moment(x, 'MM-DD-YYYY').format('dddd MMMM Do')}</div>
             </div>,
             this.renderDay(g[x])
           ])}
