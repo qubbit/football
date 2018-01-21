@@ -9,19 +9,18 @@ import Loader from '../../ui/Loader';
 
 class Standings extends Component {
   componentDidMount() {
-    this.props.fetchStandings(this.props.competition.id);
-    this.props.navigateToPage('standings');
+    this.props
+      .fetchStandings(this.props.competition.id)
+      .then(this.props.navigateToPage('standings'));
   }
 
   render() {
     const { competition, standings, loading } = this.props;
 
-    if (loading) {
-      return <Loader/>;
-    }
+    if (loading) return <Loader />;
 
     let rows;
-    if (competition.league === 'CL') {
+    if (!Array.isArray(standings)) {
       rows = [];
       for (const entry of Object.entries(standings)) {
         const group = entry[0];

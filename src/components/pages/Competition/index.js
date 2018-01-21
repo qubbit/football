@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter, Route, Link } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { fetchTeams, fetchCompetition } from '../../../actions';
+import { fetchTeams, fetchCompetition, navigateToPage } from '../../../actions';
 import Fixtures from './Fixtures';
 import Standings from './Standings';
 import Teams from './Teams';
@@ -15,7 +15,8 @@ class Competition extends Component {
     const { match: { params } } = this.props;
     this.props
       .fetchCompetition(params.id)
-      .then(this.props.fetchTeams(params.id));
+      .then(this.props.fetchTeams(params.id))
+      .then(this.props.navigateToPage(this.props.appSettings.activeMenuItem));
   }
 
   componentDidUpdate(prevProps, _) {
@@ -103,7 +104,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchTeams, fetchCompetition })(
+  connect(mapStateToProps, { fetchTeams, fetchCompetition, navigateToPage })(
     Competition
   )
 );
