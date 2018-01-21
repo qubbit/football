@@ -28,7 +28,7 @@ class Competition extends Component {
   }
 
   render() {
-    const { competition, normalizers, loading } = this.props;
+    const { competition, appSettings: { normalizers }, loading } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
@@ -98,10 +98,12 @@ function mapStateToProps(state) {
     loading: state.competition.loading,
     competition: state.competition.competition,
     teams: state.teams.teams,
-    normalizers: state.application.normalizers
+    appSettings: state.application
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchTeams, fetchCompetition })(Competition)
+  connect(mapStateToProps, { fetchTeams, fetchCompetition })(
+    Competition
+  )
 );

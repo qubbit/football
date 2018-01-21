@@ -98,7 +98,7 @@ class Fixtures extends Component {
         </div>
         <div className="fixture-list">
           {Object.keys(g).map(x => [
-            <div className="match-fixture match-fixture-header">
+            <div key={x} className="match-fixture match-fixture-header">
               <div>{moment(x).format('dddd MMMM Do')}</div>
             </div>,
             this.renderDay(g[x])
