@@ -15,15 +15,14 @@ class Teams extends Component {
     const { teams, loading } = this.props;
 
     if (loading) {
-      return <Loader/>;
+      return <Loader />;
     }
 
     const rows = teams.map(t => {
-      const code = t.code !== null ? t.code : t.name;
       const teamId = t._links.self.href.match(/(\d+$)/)[0];
 
       return (
-        <li className="card" key={`team-${code}`}>
+        <li className="card" key={`team-${teamId}`}>
           <div className="card-team">
             <div className="card-logo">
               <div className="team-crest-container">
