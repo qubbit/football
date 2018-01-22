@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Input, Dropdown, Icon, Menu } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-// import {fetchCompetitions} from '../../actions';
 
 class MenuBar extends Component {
   handleSeasonChange = (_, data) => {

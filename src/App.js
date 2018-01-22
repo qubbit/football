@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
-import Competitions from './components/pages/Competitions';
 import CompetitionsMenu from './components/pages/CompetitionsMenu';
 import Competition from './components/pages/Competition/index';
 import Roster from './components/pages/Team/Roster';
