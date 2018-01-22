@@ -1,11 +1,15 @@
 @import 'palette.scss';
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&subset=latin-ext');
 
 $top-bar-height: 90px;
 
 *:not(.icon) {
   font-family: Montserrat !important;
   border-radius: 0 !important;
+}
+
+body {
+  color: $black !important;
 }
 
 #root {
@@ -69,6 +73,7 @@ a {
     padding: 0 !important;
     a {
       padding: 9px 15px;
+      font-weight: 600;
     }
   }
 }
@@ -284,10 +289,10 @@ footer {
   width: calc(50% - 50px);
 }
 
-.match-fixture-live::before {
-  content: '\25CF';
-  color: #df2935;
-  font-size: 3rem;
+.fixture-status-score-live {
+  font-size: 1rem;
+  border: 1px solid $red;
+  padding: 1px 3px;
 }
 
 .fixture-status {

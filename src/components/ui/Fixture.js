@@ -5,11 +5,18 @@ import PropTypes from 'prop-types';
 
 const Fixture = props => {
   let fixtureStatus;
+  const liveGameIndicator =
+    props.status === 'IN_PLAY' ? (
+      <div className="fixture-status-score-live">LIVE</div>
+    ) : (
+      '-'
+    );
+
   if (props.status === 'FINISHED' || props.status === 'IN_PLAY') {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
-        <div className="fixture-status-score">-</div>
+        <div className="fixture-status-score">{liveGameIndicator}</div>
         <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
       </div>
     );
@@ -23,13 +30,8 @@ const Fixture = props => {
     );
   }
 
-  const matchFixtureClass =
-    props.status === 'IN_PLAY'
-      ? 'match-fixture match-fixture-live'
-      : 'match-fixture';
-
   return (
-    <div className={matchFixtureClass}>
+    <div className="match-fixture">
       <div className="fixture-team">
         <div className="team-label team-label--reverse">
           <Image
