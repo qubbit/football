@@ -4,9 +4,9 @@ function determineCurrentSeason() {
   const month = 1 + d.getMonth();
 
   if (month < 6) {
-    return {year, season: year - 1, name: `${year - 1}/${year}`};
+    return { year, season: year - 1, name: `${year - 1}/${year}` };
   }
-  return {year, season: year, name: `${year}/${year + 1}`};
+  return { year, season: year, name: `${year}/${year + 1}` };
 }
 
 // Determine text color based on the background color
@@ -14,10 +14,9 @@ function determineCurrentSeason() {
 // backgroundColor is a 3-tuple {r, g, b}
 function determineTextColor(backgroundColor) {
   const [r, g, b] = backgroundColor;
-  const a = 1 - ( 0.299 * r + 0.587 * g + 0.114 * b)/255;
-  return (a < 0.5) ? [0, 0, 0] : [255, 255, 255];
+  const a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return a < 0.5 ? [0, 0, 0] : [255, 255, 255];
 }
-
 
 // color is a 3-tuple {r, g, b}
 function arrayToColor(color) {
@@ -25,4 +24,23 @@ function arrayToColor(color) {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-export { arrayToColor, determineCurrentSeason, determineTextColor }
+function secureUrl(url) {
+  return url ? url.replace(/^http:/, 'https:') : url;
+}
+
+// Ugh 😖
+function securizeUrls(objects, key) {
+  if (!objects) return objects;
+  return objects.map(o => {
+    const o2 = o;
+    o2[key] = secureUrl(o2[key]);
+    return o2;
+  });
+}
+
+export {
+  arrayToColor,
+  determineCurrentSeason,
+  determineTextColor,
+  securizeUrls
+};

@@ -14,9 +14,9 @@ class CompetitionsMenu extends Component {
     this.props.fetchCompetitions({ season: data.value });
   };
 
-  handleImageError = (e) => {
+  handleImageError = e => {
     e.target.style.display = 'none';
-  }
+  };
 
   render() {
     const { competitions, loading, normalizers } = this.props;
@@ -29,7 +29,7 @@ class CompetitionsMenu extends Component {
       const activeClass = this.props.competition.id === c.id ? ' active' : '';
       const normalize = normalizers.competitions[c.id];
       const competitionLogoUrl = normalize ? normalize.logo : '';
-      if(!normalize) return null;
+      if (!normalize) return null;
       return (
         <Link
           id={`${c.id}`}
@@ -49,7 +49,11 @@ class CompetitionsMenu extends Component {
 
     return (
       <div className="competition-menu-container">
-        <div className='masthead'><h2>Competitions</h2></div>
+        <div className="masthead">
+          <a href="/">
+            <h2>Competitions</h2>
+          </a>
+        </div>
         <div className="competition-menu">{items}</div>
         <footer>
           <p>

@@ -1,4 +1,8 @@
-import { FETCH_STANDINGS_REQUEST, FETCH_STANDINGS_SUCCESS } from "../actions/types";
+import {
+  FETCH_STANDINGS_REQUEST,
+  FETCH_STANDINGS_SUCCESS
+} from '../actions/types';
+import { securizeUrls } from '../utils';
 
 const initialState = {
   standings: [],
@@ -18,7 +22,9 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         matchDay: action.response.matchday,
-        standings: action.response.standing || action.response.standings
+        standings:
+          securizeUrls(action.response.standing, 'crestURI') ||
+          action.response.standings
       };
     default:
       return state;

@@ -51,7 +51,7 @@ class Competition extends Component {
     }
 
     return (
-      <div>
+      <div style={{ height: '100%', position: 'relative' }}>
         <div className="main-container-header" style={experimentalStyle}>
           <img src={normalize.logo} alt="" height="90" width="90" />
           <div className="competition-header">
