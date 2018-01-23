@@ -4,23 +4,21 @@ import { Grid, Segment, Image, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const Fixture = props => {
-  let fixtureStatus;
-  const liveGameIndicator =
-    props.status === 'IN_PLAY' ? (
-      <div className="fixture-status-score-live">LIVE</div>
-    ) : (
-      '-'
-    );
-
-  if (props.status === 'FINISHED' || props.status === 'IN_PLAY') {
-    fixtureStatus = (
-      <div className="fixture-status">
-        <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
-        <div className="fixture-status-score">{liveGameIndicator}</div>
-        <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
+  let fixtureStatus = (
+    <div className="fixture-status">
+      <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
+      <div className="fixture-status-score">
+        {props.status === 'IN_PLAY' ? (
+          <div className="fixture-status-score-live">LIVE</div>
+        ) : (
+          '-'
+        )}
       </div>
-    );
-  } else if (props.status === 'TIMED' || props.status === 'SCHEDULED') {
+      <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
+    </div>
+  );
+
+  if (['TIMED', 'SCHEDULED', 'POSTPONED'].includes(props.status)) {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">
