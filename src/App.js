@@ -19,10 +19,14 @@ class App extends Component {
   }
 
   render() {
+    const style = this.props.competition.id
+      ? null
+      : { backgroundImage: 'url(/assets/images/patrick-schneider-379251.jpg)' };
+
     return (
       <Aux>
         <CompetitionsMenu />
-        <div className="main-container">
+        <div className="main-container" style={style}>
           <Route path="/competitions/:id" component={Competition} />
           <Route path="/teams/:id/roster" component={Roster} />
         </div>
@@ -31,5 +35,11 @@ class App extends Component {
   }
 }
 export default withRouter(
-  connect(state => ({ appSettings: state.application }), {})(App)
+  connect(
+    state => ({
+      competition: state.competition.competition,
+      appSettings: state.application
+    }),
+    {}
+  )(App)
 );
