@@ -21,6 +21,7 @@
     "redux-thunk": "^2.2.0",
     "semantic-ui-css": "^2.2.12",
     "semantic-ui-react": "^0.77.1",
+    "tinycolor2": "^1.4.1",
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {

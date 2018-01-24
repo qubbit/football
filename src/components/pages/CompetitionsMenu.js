@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { fetchCompetitions } from '../../actions';
+import { themeColor } from '../../utils';
 
 class CompetitionsMenu extends Component {
   componentDidMount() {
@@ -19,16 +20,26 @@ class CompetitionsMenu extends Component {
   };
 
   render() {
-    const { competitions, loading, normalizers } = this.props;
+    const { competition, competitions, loading, normalizers } = this.props;
 
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
 
+    const n = normalizers.competitions[competition.id];
+    let style = {};
+    if (n) {
+      const cc = themeColor(n.primary_color);
+      style = { background: cc };
+    }
+
     const items = competitions.map(c => {
-      const activeClass = this.props.competition.id === c.id ? ' active' : '';
+      const activeClass = competition.id === c.id ? ' active' : '';
       const normalize = normalizers.competitions[c.id];
       const competitionLogoUrl = normalize ? normalize.logo : '';
+      // This is essentially removing any competitions not on the
+      // asset_mapping.json file from getting rendered
+      // Not a good way to handle that in retrospect
       if (!normalize) return null;
       return (
         <Link
@@ -48,7 +59,7 @@ class CompetitionsMenu extends Component {
     });
 
     return (
-      <div className="competition-menu-container">
+      <div className="competition-menu-container" style={style}>
         <div className="masthead">
           <a href="/">
             <h2>Competitions</h2>
