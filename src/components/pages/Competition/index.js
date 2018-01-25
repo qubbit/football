@@ -46,6 +46,7 @@ class Competition extends Component {
       );
       experimentalStyle = {
         background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
+        borderBottom: `1px solid ${backgroundColor}`,
         color: textColor
       };
     }
