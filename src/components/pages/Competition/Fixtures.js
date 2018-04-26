@@ -114,7 +114,7 @@ class Fixtures extends Component {
 
 Fixtures.propTypes = {
   fixtures: PropTypes.arrayOf(PropTypes.object).isRequired,
-  competition: PropTypes.shape({ id: PropTypes.int }).isRequired,
+  competition: PropTypes.shape({ id: PropTypes.number }).isRequired,
   teams: PropTypes.arrayOf(PropTypes.object).isRequired,
   loading: PropTypes.bool.isRequired,
   fetchFixtures: PropTypes.func.isRequired
