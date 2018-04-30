@@ -68,7 +68,7 @@ class CompetitionsMenu extends Component {
         <div className="competition-menu">{items}</div>
         <footer>
           <p>
-            Handmade with love by <strong>Gopal Adhikari</strong> in 2018.
+            Made by <strong>Gopal Adhikari</strong> in 2018. Powered by <a href="https://www.football-data.org/" title="Football Data">Football Data</a>
           </p>
         </footer>
       </div>
