@@ -1,3 +1,4 @@
+// const API_URL = 'https://football-data.gopal.io/v1';
 const API_URL = 'https://football-data.gopal.io/v1';
 
 function headers() {
