@@ -53,6 +53,9 @@ a:hover {
   flex-direction: column;
   background: hsl(205, 52%, 11%);
   color: #fff;
+  position: fixed;
+  width: 250px;
+  height: 100%;
 
   .masthead {
     display: flex;
@@ -107,6 +110,8 @@ a:hover {
   flex-grow: 1;
   min-height: 100%;
   background-size: cover;
+  margin-left: 250px;
+  width: 100%;
 
   .page-container {
     padding-left: 10px;
@@ -221,8 +226,14 @@ ul.list-grid {
 }
 
 footer {
-  margin: 2.5rem;
-  text-align: center;
+  margin: 10px;
+  a, a:hover {
+    color: white;
+  }
+
+  a {
+    text-decoration: underline;
+  }
 }
 
 // roster specific styles
