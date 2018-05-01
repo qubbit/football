@@ -64,7 +64,7 @@ class Standings extends Component {
 
 Standings.propTypes = {
   standings: PropTypes.any.isRequired,
-  competition: PropTypes.shape({ id: PropTypes.int }).isRequired,
+  competition: PropTypes.shape({ id: PropTypes.number }).isRequired,
   loading: PropTypes.bool.isRequired,
   fetchStandings: PropTypes.func.isRequired
 };
