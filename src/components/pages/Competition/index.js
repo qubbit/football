@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Link } from 'react-router-dom';
-import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { fetchTeams, fetchCompetition, navigateToPage } from '../../../actions';
 import Fixtures from './Fixtures';
 import Standings from './Standings';
 import Teams from './Teams';
 import MenuBar from '../../../components/ui/MenuBar';
+import Loader from '../../../components/ui/Loader';
 import { determineTextColor, arrayToColor } from '../../../utils';
 
 class Competition extends Component {
@@ -32,7 +32,7 @@ class Competition extends Component {
     const { competition, appSettings: { normalizers }, loading } = this.props;
 
     if (loading) {
-      return <Loader size="large">Loading...</Loader>;
+      return <Loader />
     }
 
     const useExperimentalStyle = true;
@@ -52,7 +52,7 @@ class Competition extends Component {
     }
 
     return (
-      <div style={{ height: '100%', position: 'relative' }}>
+      <div style={{ width: '100%', height: '100%', position: 'relative' }}>
         <div className="main-container-header" style={experimentalStyle}>
           <img src={normalize.logo} alt="" height="90" width="90" />
           <div className="competition-header">

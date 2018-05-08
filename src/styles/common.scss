@@ -20,14 +20,8 @@ body {
 .soccer-loader {
   display: flex !important;
   flex-direction: column;
-  width: auto !important;
-  height: auto !important;
-  text-align: center;
-  font-style: normal;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: 0;
+  align-items: center;
+  justify-content: start;
   z-index: 1000;
 
   .loading-text {
@@ -112,10 +106,16 @@ a:hover {
   background-size: cover;
   margin-left: 250px;
   width: 100%;
+  align-items: center;
+  justify-content: center;
 
   .page-container {
     padding-left: 10px;
     padding-right: 10px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

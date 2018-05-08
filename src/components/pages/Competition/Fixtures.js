@@ -69,7 +69,7 @@ class Fixtures extends Component {
       .value();
 
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         <div className="matchday-controls">
           <h2>Match day {this.props.matchDay}</h2>
           <h2>Fixtures</h2>

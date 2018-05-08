@@ -39,7 +39,7 @@ class Standings extends Component {
     }
 
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         <h2 className="page-title">Standings</h2>
         <Table size="large" selectable basic="very">
           <Table.Header>

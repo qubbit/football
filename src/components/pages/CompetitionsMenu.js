@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { fetchCompetitions } from '../../actions';
 import { themeColor } from '../../utils';
+import Loader from '../../components/ui/Loader';
 
 class CompetitionsMenu extends Component {
   componentDidMount() {
@@ -19,12 +19,27 @@ class CompetitionsMenu extends Component {
     e.target.style.display = 'none';
   };
 
+  renderSidebar = (items, style) => (
+    <div className="competition-menu-container" style={style}>
+      <div className="masthead">
+        <a href="/">
+          <h2>Competitions</h2>
+        </a>
+      </div>
+      <div className="competition-menu">{items}</div>
+      <footer>
+        <p>
+          Made by <strong>Gopal Adhikari</strong> in 2018. Powered by{' '}
+          <a href="https://www.football-data.org/" title="Football Data">
+            Football Data
+          </a>
+        </p>
+      </footer>
+    </div>
+  );
+
   render() {
     const { competition, competitions, loading, normalizers } = this.props;
-
-    if (loading) {
-      return <Loader size="large">Loading...</Loader>;
-    }
 
     const n = normalizers.competitions[competition.id];
     let style = {};
@@ -33,13 +48,17 @@ class CompetitionsMenu extends Component {
       style = { background: cc };
     }
 
+    if (loading) {
+      return this.renderSidebar([<Loader />]);
+    }
+
     const items = competitions.map(c => {
       const activeClass = competition.id === c.id ? ' active' : '';
       const normalize = normalizers.competitions[c.id];
       const competitionLogoUrl = normalize ? normalize.logo : '';
       // This is essentially removing any competitions not on the
       // asset_mapping.json file from getting rendered
-      // Not a good way to handle that in retrospect
+      // TODO: figure out a better way to do this
       if (!normalize) return null;
       return (
         <Link
@@ -58,21 +77,7 @@ class CompetitionsMenu extends Component {
       );
     });
 
-    return (
-      <div className="competition-menu-container" style={style}>
-        <div className="masthead">
-          <a href="/">
-            <h2>Competitions</h2>
-          </a>
-        </div>
-        <div className="competition-menu">{items}</div>
-        <footer>
-          <p>
-            Made by <strong>Gopal Adhikari</strong> in 2018. Powered by <a href="https://www.football-data.org/" title="Football Data">Football Data</a>
-          </p>
-        </footer>
-      </div>
-    );
+    return this.renderSidebar(items, style);
   }
 }
 
