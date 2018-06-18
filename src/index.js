@@ -6,7 +6,6 @@ import 'semantic-ui-css/semantic.min.css';
 import './styles/common.scss';
 import store from './store';
 import App from './App';
-import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -16,5 +15,3 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root'),
 );
-
-registerServiceWorker();
