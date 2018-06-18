@@ -54,6 +54,24 @@
         127
       ]
     },
+    "467": {
+      "logo": "/assets/logos/competitions/wc2018.png",
+      "normalized_name": "World Cup 2018",
+      "primary_color": [
+        227,
+        226,
+        225
+      ]
+    },
+    "468": {
+      "logo": "/assets/logos/competitions/bund.png",
+      "normalized_name": "",
+      "primary_color": [
+        146,
+        146,
+        146
+      ]
+    },
     "452": {
       "logo": "/assets/logos/competitions/bund.png",
       "normalized_name": "Bundesliga",

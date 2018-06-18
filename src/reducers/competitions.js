@@ -12,11 +12,14 @@ export default function(state = initialState, action) {
     case FETCH_COMPETITIONS_REQUEST:
       return { ...state, loading: true };
     case FETCH_COMPETITIONS_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        competitions: action.response
-      };
+      if(action.response) {
+        return {
+          ...state,
+          loading: false,
+          competitions: action.response.filter(x => x.league !== "BSA")
+        };
+      }
+      return state;
     default:
       return state;
   }
