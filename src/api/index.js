@@ -1,4 +1,4 @@
-const API_URL = 'https://football-data.gopal.io/v1';
+const API_URL = 'http://sportsdata-api.prod.wis.foxsports.com/sportsdata/v1';
 
 function headers() {
   return {

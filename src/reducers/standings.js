@@ -22,9 +22,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         matchDay: action.response.matchday,
-        standings:
-          securizeUrls(action.response.standing, 'crestURI') ||
-          action.response.standings
+        standings: action.response.competitors
       };
     default:
       return state;

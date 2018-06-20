@@ -15,9 +15,10 @@ class Fixtures extends Component {
   }
 
   componentDidMount() {
+    debugger;
     const params = { matchday: this.props.competition.currentMatchday };
     this.props.fetchFixtures(
-      this.props.competition.id || this.props.match.params.id,
+      this.props.competition.fe_id || this.props.match.params.id,
       params
     );
     this.props.navigateToPage('fixtures');

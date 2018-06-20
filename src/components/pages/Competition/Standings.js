@@ -10,7 +10,7 @@ import Loader from '../../ui/Loader';
 class Standings extends Component {
   componentDidMount() {
     this.props
-      .fetchStandings(this.props.competition.id)
+      .fetchStandings(this.props.competition.fe_id)
       .then(this.props.navigateToPage('standings'));
   }
 
@@ -33,8 +33,8 @@ class Standings extends Component {
         rows.push(row);
       }
     } else {
-      rows = standings.map(f => (
-        <StandingRow key={`standing-${f.teamName}`} standing={f} />
+      rows = standings.map((t,i) => (
+        <StandingRow key={`standing-${t.id}`} standing={{...t, position: i+1}} />
       ));
     }
 

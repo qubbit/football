@@ -7,19 +7,20 @@ const initialState = {
   loading: true
 };
 
+function setFeId(competitions) {
+  return competitions.map(c => ({...c, fe_id: c.uri.split("/")[1]}));
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_COMPETITIONS_REQUEST:
       return { ...state, loading: true };
     case FETCH_COMPETITIONS_SUCCESS:
-      if(action.response) {
-        return {
-          ...state,
-          loading: false,
-          competitions: action.response.filter(x => x.league !== "BSA")
-        };
-      }
-      return state;
+      return {
+        ...state,
+        loading: false,
+        competitions: setFeId(action.response)
+      };
     default:
       return state;
   }

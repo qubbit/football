@@ -27,13 +27,13 @@ class MenuBar extends Component {
           className="animated-underline"
           name="fixtures"
           active={activeMenuItem === 'fixtures'}>
-          <Link to={`/competitions/${competition.id}/fixtures`}>Fixtures</Link>
+          <Link to={`/competitions/${competition.fe_id}/fixtures`}>Fixtures</Link>
         </Menu.Item>
         <Menu.Item
           className="animated-underline"
           name="standings"
           active={activeMenuItem === 'standings'}>
-          <Link to={`/competitions/${competition.id}/standings`}>
+          <Link to={`/competitions/${competition.fe_id}/standings`}>
             Standings
           </Link>
         </Menu.Item>
@@ -41,7 +41,7 @@ class MenuBar extends Component {
           className="animated-underline"
           name="teams"
           active={activeMenuItem === 'teams'}>
-          <Link to={`/competitions/${competition.id}/teams`}>Teams</Link>
+          <Link to={`/competitions/${competition.fe_id}/teams`}>Teams</Link>
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>

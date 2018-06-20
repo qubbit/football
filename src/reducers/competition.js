@@ -14,7 +14,7 @@ export default function(state = initialState, action) {
       };
     case FETCH_COMPETITION_SUCCESS:
       return {
-        competition: action.response,
+        competition: {...action.response, fe_id: action.response.uri.split("/")[1] },
         loading: false
       };
     default:

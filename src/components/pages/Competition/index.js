@@ -13,9 +13,10 @@ import { determineTextColor, arrayToColor } from '../../../utils';
 class Competition extends Component {
   componentDidMount() {
     const { match: { params } } = this.props;
+    const uri = this.props.location.pathname.replace("/competitions","")
     this.props
-      .fetchCompetition(params.id)
-      .then(this.props.fetchTeams(params.id))
+      .fetchCompetition(uri)
+      .then(this.props.fetchTeams(uri))
       .then(this.props.navigateToPage(this.props.appSettings.activeMenuItem));
   }
 
@@ -38,11 +39,10 @@ class Competition extends Component {
     const useExperimentalStyle = true;
     let experimentalStyle = {};
 
-    const normalize = normalizers.competitions[competition.id];
     if (useExperimentalStyle) {
-      const backgroundColor = arrayToColor(normalize.primary_color);
+      const backgroundColor = 'red';// arrayToColor(normalize.primary_color);
       const textColor = arrayToColor(
-        determineTextColor(normalize.primary_color)
+        determineTextColor('red')
       );
       experimentalStyle = {
         background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
@@ -54,9 +54,9 @@ class Competition extends Component {
     return (
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
         <div className="main-container-header" style={experimentalStyle}>
-          <img src={normalize.logo} alt="" height="90" width="90" />
+          <img src={competition.links.logos.sport} alt="" height="90" width="90" />
           <div className="competition-header">
-            <h1>{competition.caption}</h1>
+            <h1>{competition.name}</h1>
             <div className="competition-meta">
               <div className="meta-item">
                 <i className="icon users" />{' '}

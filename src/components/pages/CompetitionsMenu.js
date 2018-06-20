@@ -27,26 +27,13 @@ class CompetitionsMenu extends Component {
         </a>
       </div>
       <div className="competition-menu">{items}</div>
-      <footer>
-        <p>
-          Made by <strong>Gopal Adhikari</strong> in 2018. Powered by{' '}
-          <a href="https://www.football-data.org/" title="Football Data">
-            Football Data
-          </a>
-        </p>
-      </footer>
     </div>
   );
 
   render() {
-    const { competition, competitions, loading, normalizers } = this.props;
+    const { competition, competitions, loading } = this.props;
 
-    const n = normalizers.competitions[competition.id];
-    let style = {};
-    if (n) {
-      const cc = themeColor(n.primary_color);
-      style = { background: cc };
-    }
+    const style = {};
 
     if (loading) {
       return this.renderSidebar([<Loader />]);
@@ -54,25 +41,22 @@ class CompetitionsMenu extends Component {
 
     const items = competitions.map(c => {
       const activeClass = competition.id === c.id ? ' active' : '';
-      const normalize = normalizers.competitions[c.id];
-      const competitionLogoUrl = normalize ? normalize.logo : '';
-      // This is essentially removing any competitions not on the
-      // asset_mapping.json file from getting rendered
-      // TODO: figure out a better way to do this
-      if (!normalize) return null;
+      let logoUrl = "";
+      if(c.links && c.links.logos) logoUrl = c.links.logos.sport;
+      const link = c.uri.split("/")[1];
       return (
         <Link
           id={`${c.id}`}
           className={`competition-link${activeClass}`}
           key={`competition-${c.id}`}
-          to={`/competitions/${c.id}`}>
+          to={`/competitions/${link}`}>
           <img
             onError={this.handleImageError}
             className="competition-logo"
-            alt={`${c.caption} Logo`}
-            src={competitionLogoUrl}
+            alt={`${c.name} Logo`}
+            src={logoUrl}
           />
-          <span>{normalize ? normalize.normalized_name : c.caption}</span>
+          <span>{c.name}</span>
         </Link>
       );
     });

@@ -9,7 +9,7 @@ const styles = {
 };
 
 const StandingRow = props => {
-  const {standing} = props;
+  const {standing: {record}} = props;
   return (
     <Table.Row>
       <Table.Cell>
@@ -20,24 +20,24 @@ const StandingRow = props => {
             marginLeft: '10px',
             display: 'inline-block',
           }}>
-          {standing.position}
+          {record.rank}
         </span>
         <Image
           avatar
-          src={standing.crestURI}
+          src={props.standing.crestURI}
           size="mini"
           style={styles.crest}
         />{' '}
-        <span style={{marginLeft: '10px'}}>{standing.teamName}</span>
+        <span style={{marginLeft: '10px'}}>{props.standing.customName}</span>
       </Table.Cell>
-      <Table.Cell>{standing.playedGames}</Table.Cell>
-      <Table.Cell>{standing.wins}</Table.Cell>
-      <Table.Cell>{standing.draws}</Table.Cell>
-      <Table.Cell>{standing.losses}</Table.Cell>
-      <Table.Cell>{standing.goals}</Table.Cell>
-      <Table.Cell>{standing.goalsAgainst}</Table.Cell>
-      <Table.Cell>{standing.goalDifference}</Table.Cell>
-      <Table.Cell>{standing.points}</Table.Cell>
+      <Table.Cell>{record.gamesPlayed}</Table.Cell>
+      <Table.Cell>{record.wins}</Table.Cell>
+      <Table.Cell>{record.ties}</Table.Cell>
+      <Table.Cell>{record.losses}</Table.Cell>
+      <Table.Cell>{record.goals}</Table.Cell>
+      <Table.Cell>{record.goalsAgainst}</Table.Cell>
+      <Table.Cell>{record.goals - record.goalsAgainst}</Table.Cell>
+      <Table.Cell>{record.points}</Table.Cell>
     </Table.Row>
   );
 };
