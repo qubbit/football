@@ -21,6 +21,11 @@ class CompetitionsMenu extends Component {
 
   renderSidebar = (items, style) => (
     <div className="competition-menu-container" style={style}>
+      <div className="masthead">
+        <a href="/">
+          <h2>Competitions</h2>
+        </a>
+      </div>
       <div className="competition-menu">{items}</div>
     </div>
   );
