@@ -5,6 +5,10 @@ const initialState = {
   loading: true
 };
 
+function setColor(colorString) {
+  return colorString.split(",").map(c => parseInt(c.trim(), 10)).slice(1,4);
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_COMPETITION_REQUEST:
@@ -14,7 +18,7 @@ export default function(state = initialState, action) {
       };
     case FETCH_COMPETITION_SUCCESS:
       return {
-        competition: {...action.response, fe_id: action.response.uri.split("/")[1] },
+        competition: {...action.response, color: setColor(action.response.primaryColor), fe_id: action.response.uri.split("/")[1] },
         loading: false
       };
     default:

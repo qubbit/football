@@ -21,19 +21,15 @@ class CompetitionsMenu extends Component {
 
   renderSidebar = (items, style) => (
     <div className="competition-menu-container" style={style}>
-      <div className="masthead">
-        <a href="/">
-          <h2>Competitions</h2>
-        </a>
-      </div>
       <div className="competition-menu">{items}</div>
     </div>
   );
 
   render() {
     const { competition, competitions, loading } = this.props;
-
-    const style = {};
+    const style = competition.color
+      ? { background: themeColor(competition.color) }
+      : {};
 
     if (loading) {
       return this.renderSidebar([<Loader />]);
@@ -41,9 +37,9 @@ class CompetitionsMenu extends Component {
 
     const items = competitions.map(c => {
       const activeClass = competition.id === c.id ? ' active' : '';
-      let logoUrl = "";
-      if(c.links && c.links.logos) logoUrl = c.links.logos.sport;
-      const link = c.uri.split("/")[1];
+      let logoUrl = '';
+      if (c.links && c.links.logos) logoUrl = c.links.logos.sport;
+      const link = c.uri.split('/')[1];
       return (
         <Link
           id={`${c.id}`}

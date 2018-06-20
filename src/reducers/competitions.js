@@ -7,8 +7,15 @@ const initialState = {
   loading: true
 };
 
+function setColor(colorString) {
+  return colorString.split(",").map(c => parseInt(c.trim(), 10)).slice(1,4);
+}
+
 function setFeId(competitions) {
-  return competitions.map(c => ({...c, fe_id: c.uri.split("/")[1]}));
+  return competitions
+    .filter(x => x.id !== 0 && x.isPopular)
+    .map(c => ({...c, fe_id: c.uri.split("/")[1]}))
+    .map(c => ({...c, color: setColor(c.primaryColor)}));
 }
 
 export default function(state = initialState, action) {

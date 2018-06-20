@@ -12,8 +12,10 @@ import { determineTextColor, arrayToColor } from '../../../utils';
 
 class Competition extends Component {
   componentDidMount() {
-    const { match: { params } } = this.props;
-    const uri = this.props.location.pathname.replace("/competitions","")
+    const {
+      match: { params }
+    } = this.props;
+    const uri = this.props.location.pathname.replace('/competitions', '');
     this.props
       .fetchCompetition(uri)
       .then(this.props.fetchTeams(uri))
@@ -22,7 +24,9 @@ class Competition extends Component {
 
   componentDidUpdate(prevProps, _) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      const { match: { params } } = this.props;
+      const {
+        match: { params }
+      } = this.props;
       this.props
         .fetchCompetition(params.id)
         .then(this.props.fetchTeams(params.id));
@@ -30,20 +34,22 @@ class Competition extends Component {
   }
 
   render() {
-    const { competition, appSettings: { normalizers }, loading } = this.props;
+    const {
+      competition,
+      appSettings: { normalizers },
+      loading
+    } = this.props;
 
     if (loading) {
-      return <Loader />
+      return <Loader />;
     }
 
     const useExperimentalStyle = true;
     let experimentalStyle = {};
 
     if (useExperimentalStyle) {
-      const backgroundColor = 'red';// arrayToColor(normalize.primary_color);
-      const textColor = arrayToColor(
-        determineTextColor('red')
-      );
+      const backgroundColor = arrayToColor(competition.color);
+      const textColor = arrayToColor(determineTextColor(competition.color));
       experimentalStyle = {
         background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
         borderBottom: `1px solid ${backgroundColor}`,
@@ -54,7 +60,12 @@ class Competition extends Component {
     return (
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
         <div className="main-container-header" style={experimentalStyle}>
-          <img src={competition.links.logos.sport} alt="" height="90" width="90" />
+          <img
+            src={competition.links.logos.sport}
+            alt=""
+            height="90"
+            width="90"
+          />
           <div className="competition-header">
             <h1>{competition.name}</h1>
             <div className="competition-meta">

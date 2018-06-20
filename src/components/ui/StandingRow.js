@@ -28,7 +28,7 @@ const StandingRow = props => {
           size="mini"
           style={styles.crest}
         />{' '}
-        <span style={{marginLeft: '10px'}}>{props.standing.customName}</span>
+        <span style={{marginLeft: '10px'}}>{props.standing.customName || props.standing.name}</span>
       </Table.Cell>
       <Table.Cell>{record.gamesPlayed}</Table.Cell>
       <Table.Cell>{record.wins}</Table.Cell>
