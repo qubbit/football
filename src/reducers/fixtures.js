@@ -18,7 +18,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         matchDay: action.params.matchday,
-        fixtures: action.response.fixtures
+        fixtures: action.response.page
       };
     default:
       return state;

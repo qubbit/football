@@ -28,7 +28,7 @@ class App extends Component {
         <CompetitionsMenu />
         <div className="main-container" style={style}>
           <Route path="/competitions/:id" component={Competition} />
-          <Route path="/teams/:id/roster" component={Roster} />
+          <Route path="/teams/:fe_id/:id/roster" component={Roster} />
         </div>
       </Aux>
     );

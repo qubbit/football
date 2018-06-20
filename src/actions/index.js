@@ -61,21 +61,20 @@ export function fetchTeams(uri, params) {
   };
 }
 
-export function fetchTeam(teamId, params) {
+export function fetchTeam(feId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_TEAM_REQUEST });
 
-    return api.fetch(`/soccer/teams/${teamId}`, params).then(response => {
+    return api.fetch(`/soccer/${feId}/teams/${teamId}`, params).then(response => {
       dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
     });
   };
 }
 
-export function fetchPlayers(teamId, params) {
+export function fetchPlayers(feId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_PLAYERS_REQUEST });
-
-    return api.fetch(`/teams/${teamId}/players`, params).then(response => {
+    return api.fetch(`/soccer/${feId}/teams/${teamId}/athletes`, params).then(response => {
       dispatch({ type: TYPES.FETCH_PLAYERS_SUCCESS, response });
     });
   };

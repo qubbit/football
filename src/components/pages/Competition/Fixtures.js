@@ -15,7 +15,6 @@ class Fixtures extends Component {
   }
 
   componentDidMount() {
-    debugger;
     const params = { matchday: this.props.competition.currentMatchday };
     this.props.fetchFixtures(
       this.props.competition.fe_id || this.props.match.params.id,
@@ -45,17 +44,7 @@ class Fixtures extends Component {
     this.props.fetchFixtures(competition.id, params);
   };
 
-  renderDay(fixtures) {
-    const t = this.props.teams;
-    return fixtures.map(f => {
-      const obj = {
-        ...f,
-        awayTeam: Fixtures.teamByName(t, f.awayTeamName),
-        homeTeam: Fixtures.teamByName(t, f.homeTeamName)
-      };
-      return <Fixture key={`match-${f._links.self.href}`} {...obj} />;
-    });
-  }
+  renderDay = fixtures => fixtures.map(f => <Fixture key={`match-${f.id}`} {...f} />);
 
   render() {
     const { fixtures, teams, loading, matchDay } = this.props;

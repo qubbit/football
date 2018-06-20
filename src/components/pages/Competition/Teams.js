@@ -12,14 +12,14 @@ class Teams extends Component {
   }
 
   render() {
-    const { teams, loading } = this.props;
+    const { competition, teams, loading } = this.props;
 
     if (loading) {
       return <Loader />;
     }
 
     const rows = teams.map(t => {
-      const teamId = t._links.self.href.match(/(\d+$)/)[0];
+      const teamId = t.id;
 
       return (
         <li className="card" key={`team-${teamId}`}>
@@ -29,7 +29,7 @@ class Teams extends Component {
                 <img
                   className="team-crest"
                   alt={`Crest of ${t.name}`}
-                  src={t.crestUrl}
+                  src={t.links.logos.Medium}
                 />
               </div>
             </div>
@@ -38,7 +38,7 @@ class Teams extends Component {
             </div>
             <Link
               className="team-roster-link animated-underline"
-              to={`/teams/${teamId}/roster`}>
+              to={`/teams/${competition.fe_id}/${teamId}/roster`}>
               View Roster
             </Link>
           </div>
@@ -62,6 +62,7 @@ Teams.propTypes = {
 export default connect(
   state => ({
     teams: state.teams.teams,
+    competition: state.competition.competition,
     loading: state.teams.loading
   }),
   { navigateToPage }

@@ -17,7 +17,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        teams: securizeUrls(action.response.teams, 'crestUrl')
+        teams: action.response.page
       };
     default:
       return state;

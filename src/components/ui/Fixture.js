@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Fixture = props => {
   let fixtureStatus = (
     <div className="fixture-status">
-      <div className="fixture-status-score">{props.result.goalsHomeTeam}</div>
+      <div className="fixture-status-score">{props.score ? props.score.homeScore : '-'}</div>
       <div className="fixture-status-score">
         {props.status === 'IN_PLAY' ? (
           <div className="fixture-status-score-live">LIVE</div>
@@ -14,7 +14,7 @@ const Fixture = props => {
           '-'
         )}
       </div>
-      <div className="fixture-status-score">{props.result.goalsAwayTeam}</div>
+      <div className="fixture-status-score">{props.score ? props.score.awayScore : '-'}</div>
     </div>
   );
 
@@ -27,7 +27,6 @@ const Fixture = props => {
       </div>
     );
   }
-
   return (
     <div className="match-fixture">
       <div className="fixture-team">
@@ -35,9 +34,9 @@ const Fixture = props => {
           <Image
             className="team-label-image"
             height="64"
-            src={props.homeTeam.crestUrl}
+            src={props.homeTeam && props.homeTeam.crestUrl}
           />
-          <div className="team-label-name">{props.homeTeamName}</div>
+          <div className="team-label-name">{props.homeTeam && props.homeTeam.name}</div>
         </div>
       </div>
       {fixtureStatus}
@@ -46,31 +45,32 @@ const Fixture = props => {
           <Image
             className="team-label-image"
             height="64"
-            src={props.awayTeam.crestUrl}
+            src={props.awayTeam && props.awayTeam.crestUrl}
           />
-          <div className="team-label-name">{props.awayTeamName}</div>
+          <div className="team-label-name">{props.awayTeam && props.awayTeam.name}</div>
         </div>
       </div>
     </div>
   );
 };
 
+/*
 Fixture.defaultProps = {
   homeTeam: {},
-  awayTeam: {}
+  awayTeam: {},
+  score: { homeScore: '-', awayScore: '-'}
 };
 
 Fixture.propTypes = {
-  homeTeamName: PropTypes.string.isRequired,
-  awayTeamName: PropTypes.string.isRequired,
-  homeTeam: PropTypes.shape({ crestUrl: PropTypes.string }),
-  awayTeam: PropTypes.shape({ crestUrl: PropTypes.string }),
-  result: PropTypes.shape({
-    goalsHomeTeam: PropTypes.number,
-    goalsAwayTeam: PropTypes.number
-  }).isRequired,
+  homeTeam: PropTypes.shape({ name: PropTypes.string, crestUrl: PropTypes.string }),
+  awayTeam: PropTypes.shape({ name: PropTypes.string, crestUrl: PropTypes.string }),
+  score: PropTypes.shape({
+    homeScore: PropTypes.number,
+    awayScore: PropTypes.number
+  }),
   status: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired
 };
+*/
 
 export default Fixture;
