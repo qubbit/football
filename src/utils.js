@@ -51,19 +51,9 @@ function secureUrl(url) {
   return url ? url.replace(/^http:/, 'https:') : url;
 }
 
-// Ugh 😖
-function securizeUrls(objects, key) {
-  if (!objects) return objects;
-  return objects.map(o => {
-    const o2 = o;
-    o2[key] = secureUrl(o2[key]);
-    return o2;
-  });
-}
 export {
   arrayToColor,
   determineCurrentSeason,
   determineTextColor,
-  securizeUrls,
   themeColor
 };

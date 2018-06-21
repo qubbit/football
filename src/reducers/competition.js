@@ -5,7 +5,7 @@ const initialState = {
   loading: true
 };
 
-function setColor(colorString) {
+function setColor(colorString = "0,0,0,0") {
   return colorString.split(",").map(c => parseInt(c.trim(), 10)).slice(1,4);
 }
 

@@ -1,5 +1,4 @@
 import { FETCH_TEAMS_REQUEST, FETCH_TEAMS_SUCCESS } from '../actions/types';
-import { securizeUrls } from '../utils';
 
 const initialState = {
   teams: [],

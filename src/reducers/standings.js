@@ -2,7 +2,6 @@ import {
   FETCH_STANDINGS_REQUEST,
   FETCH_STANDINGS_SUCCESS
 } from '../actions/types';
-import { securizeUrls } from '../utils';
 
 const initialState = {
   standings: [],

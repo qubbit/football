@@ -17,8 +17,8 @@ class Competition extends Component {
     } = this.props;
     const uri = this.props.location.pathname.replace('/competitions', '');
     this.props
-      .fetchCompetition(uri)
-      .then(this.props.fetchTeams(uri))
+      .fetchCompetition(params.id)
+      .then(this.props.fetchTeams(params.id))
       .then(this.props.navigateToPage(this.props.appSettings.activeMenuItem));
   }
 
@@ -29,7 +29,8 @@ class Competition extends Component {
       } = this.props;
       this.props
         .fetchCompetition(params.id)
-        .then(this.props.fetchTeams(params.id));
+        .then(this.props.fetchTeams(params.id))
+        .then(this.props.navigateToPage(this.props.appSettings.activeMenuItem));
     }
   }
 
