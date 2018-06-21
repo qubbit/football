@@ -23,7 +23,7 @@ class CompetitionsMenu extends Component {
     <div className="competition-menu-container" style={style}>
       <div className="masthead">
         <a href="/">
-          <h2>Competitions</h2>
+          <h2 className="masthead-title">Competitions</h2>
         </a>
       </div>
       <div className="competition-menu">{items}</div>
@@ -57,7 +57,7 @@ class CompetitionsMenu extends Component {
             alt={`${c.name} Logo`}
             src={logoUrl}
           />
-          <span>{c.name}</span>
+          <span className="competition-name">{c.name}</span>
         </Link>
       );
     });

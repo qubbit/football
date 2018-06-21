@@ -47,10 +47,6 @@ function themeColor(color) {
   return tinycolor(theme).toHslString();
 }
 
-function secureUrl(url) {
-  return url ? url.replace(/^http:/, 'https:') : url;
-}
-
 export {
   arrayToColor,
   determineCurrentSeason,
