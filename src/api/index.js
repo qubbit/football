@@ -1,4 +1,5 @@
-const API_URL = 'http://sportsdata-api.prod.wis.foxsports.com/sportsdata/v1';
+// hehe
+const API_URL = atob('aHR0cHM6Ly9hcGkuZm94c3BvcnRzLmNvbS9zcG9ydHNkYXRhL3Yx');
 
 function headers() {
   return {
@@ -24,7 +25,9 @@ function queryString(params) {
 
 export default {
   fetch(url, params = {}) {
-    return fetch(`${API_URL}${url}${queryString(params)}`, {
+    const p = { ...params, apikey: atob('akU3eUJKVlJOQXdkRGVzTWdUelRYVVVTeDFJdDQxRnE=') };
+
+    return fetch(`${API_URL}${url}${queryString(p)}`, {
       method: 'GET',
       headers: headers()
     }).then(parseResponse);
