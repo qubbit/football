@@ -4,7 +4,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  standings: [],
+  standings: {},
   matchDay: 0,
   loading: true
 };
@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         matchDay: action.response.matchday,
-        standings: action.response.competitors
+        standings: action.response
       };
     default:
       return state;
