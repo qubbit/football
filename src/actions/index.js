@@ -53,11 +53,9 @@ export function fetchCompetitions(params) {
 export function fetchTeams(uri, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_TEAMS_REQUEST });
-    return api
-      .fetch(`/soccer/${uri}/teams.json`, params)
-      .then(response => {
-        dispatch({ type: TYPES.FETCH_TEAMS_SUCCESS, response });
-      });
+    return api.fetch(`/soccer/${uri}/teams.json`, params).then(response => {
+      dispatch({ type: TYPES.FETCH_TEAMS_SUCCESS, response });
+    });
   };
 }
 
@@ -65,17 +63,21 @@ export function fetchTeam(feId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_TEAM_REQUEST });
 
-    return api.fetch(`/soccer/${feId}/teams/${teamId}`, params).then(response => {
-      dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
-    });
+    return api
+      .fetch(`/soccer/${feId}/teams/${teamId}`, params)
+      .then(response => {
+        dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
+      });
   };
 }
 
 export function fetchPlayers(feId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_PLAYERS_REQUEST });
-    return api.fetch(`/soccer/${feId}/teams/${teamId}/athletes`, params).then(response => {
-      dispatch({ type: TYPES.FETCH_PLAYERS_SUCCESS, response });
-    });
+    return api
+      .fetch(`/soccer/${feId}/teams/${teamId}/athletes`, params)
+      .then(response => {
+        dispatch({ type: TYPES.FETCH_PLAYERS_SUCCESS, response });
+      });
   };
 }

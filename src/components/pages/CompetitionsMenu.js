@@ -37,7 +37,7 @@ class CompetitionsMenu extends Component {
       : {};
 
     if (loading) {
-      return this.renderSidebar([<Loader />]);
+      return this.renderSidebar([<Loader key="loader-2" />]);
     }
 
     const items = competitions.map(c => {

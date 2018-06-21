@@ -44,10 +44,10 @@ const StandingRow = props => {
 
 StandingRow.propTypes = {
   standing: PropTypes.shape({
-    teamName: PropTypes.string.isRequired,
-    position: PropTypes.number.isRequired,
-    crestURI: PropTypes.string.isRequired,
-    playedGames: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    customName: PropTypes.string.isRequired,
+    record: PropTypes.shape({ rank: PropTypes.number.isRequired }),
+    gamesPlayed: PropTypes.number.isRequired,
     wins: PropTypes.number.isRequired,
     draws: PropTypes.number.isRequired,
     losses: PropTypes.number.isRequired,
