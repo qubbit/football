@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { fetchTeam, fetchPlayers } from '../../../actions';
 
 class Roster extends Component {
@@ -37,15 +38,11 @@ class Roster extends Component {
                 </div>
                 <div>
                   <span>Nationality</span>
-                  <span>{p.nationality.name}</span>
+                  <span>{p.nationality && p.nationality.name}</span>
                 </div>
                 <div>
                   <span>Date of Birth</span>
-                  <span>{p.birthDate}</span>
-                </div>
-                <div>
-                  <span>Contract Until</span>
-                  <span>{p.contractUntil}</span>
+                  <span>{moment(p.birthDate).format('MM-DD-YYYY')}</span>
                 </div>
               </div>
             </div>

@@ -14,21 +14,27 @@ class Standings extends Component {
       .then(this.props.navigateToPage('standings'));
   }
 
-  enmeshGroups = standings => {
+  enmeshGroups = (standings, teams) => {
     const c = standings.competitors;
     const g = standings.groups;
     const dict = g.reduce((acc, v) => {
       acc[v.id] = { name: v.name, teams: [] };
       return acc;
     }, {});
-    c.forEach(x => dict[x.groupId].teams.push(x));
+
+    c.forEach(x => {
+      const team = teams.find(t => t.id === x.id);
+      const logo = team ? team.links.logos.Small : '';
+      const countryFlag = team ? team.links.logos.flag : '';
+      dict[x.groupId].teams.push({ ...x, logo, countryFlag });
+    });
     return dict;
   };
 
   renderTableHeader = () => (
     <Table.Header>
       <Table.Row>
-        <Table.HeaderCell />
+        <Table.HeaderCell>Team</Table.HeaderCell>
         <Table.HeaderCell>MP</Table.HeaderCell>
         <Table.HeaderCell>W</Table.HeaderCell>
         <Table.HeaderCell>D</Table.HeaderCell>
@@ -42,14 +48,14 @@ class Standings extends Component {
   );
 
   render() {
-    const { competition, standings, loading } = this.props;
+    const { competition, teams, standings, loading } = this.props;
 
     if (loading) return <Loader />;
 
     let renderElement;
 
     if (standings.groups.length > 1) {
-      const groups = this.enmeshGroups(standings);
+      const groups = this.enmeshGroups(standings, teams);
       const table = Object.keys(groups).map(id => (
         <div className="group-table-container">
           <h3>{groups[id].name}</h3>
@@ -64,10 +70,10 @@ class Standings extends Component {
       ));
       renderElement = table;
     } else {
-      const rows = standings.competitors.map((t, i) => (
+      const rows = standings.competitors.map(t => (
         <StandingRow
           key={`standing-${t.id}`}
-          standing={{ ...t, position: i + 1 }}
+          standing={t}
         />
       ));
 
@@ -98,6 +104,7 @@ export default connect(
   state => ({
     standings: state.standings.standings,
     competition: state.competition.competition,
+    teams: state.teams.teams,
     loading: state.standings.loading
   }),
   { fetchStandings, navigateToPage }

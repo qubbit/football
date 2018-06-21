@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 const styles = {
   crest: {
@@ -8,30 +9,42 @@ const styles = {
   }
 };
 
-const GroupStandingRow = props => {
-  const {
-    standing: { record }
-  } = props;
+class GroupStandingRow extends React.Component {
+  render() {
+    const {
+      standing: { record },
+      standings
+    } = this.props;
 
-  return (
-    <Table.Row>
-      <Table.Cell>
-        <Image avatar src="" size="mini" style={styles.crest} />{' '}
-        <span style={{ marginLeft: '10px' }}>
-          {props.standing.customName || props.standing.name}
-        </span>
-      </Table.Cell>
-      <Table.Cell>{record.gamesPlayed}</Table.Cell>
-      <Table.Cell>{record.wins}</Table.Cell>
-      <Table.Cell>{record.ties}</Table.Cell>
-      <Table.Cell>{record.losses}</Table.Cell>
-      <Table.Cell>{record.goals}</Table.Cell>
-      <Table.Cell>{record.goalsAgainst}</Table.Cell>
-      <Table.Cell>{record.goals - record.goalsAgainst}</Table.Cell>
-      <Table.Cell>{record.points}</Table.Cell>
-    </Table.Row>
-  );
-};
+    return (
+      <Table.Row>
+        <Table.Cell>
+          <Image
+            avatar
+            src={
+              standings.abbreviation === 'WC'
+                ? this.props.standing.countryFlag
+                : this.props.standing.logo
+            }
+            size="mini"
+            style={styles.crest}
+          />{' '}
+          <span style={{ marginLeft: '10px' }}>
+            {this.props.standing.customName || this.props.standing.name}
+          </span>
+        </Table.Cell>
+        <Table.Cell>{record.gamesPlayed}</Table.Cell>
+        <Table.Cell>{record.wins}</Table.Cell>
+        <Table.Cell>{record.ties}</Table.Cell>
+        <Table.Cell>{record.losses}</Table.Cell>
+        <Table.Cell>{record.goals}</Table.Cell>
+        <Table.Cell>{record.goalsAgainst}</Table.Cell>
+        <Table.Cell>{record.goals - record.goalsAgainst}</Table.Cell>
+        <Table.Cell>{record.points}</Table.Cell>
+      </Table.Row>
+    );
+  }
+}
 
 GroupStandingRow.propTypes = {
   standing: PropTypes.shape({
@@ -48,4 +61,6 @@ GroupStandingRow.propTypes = {
   }).isRequired
 };
 
-export default GroupStandingRow;
+export default connect(state => ({ standings: state.standings.standings }), {})(
+  GroupStandingRow
+);
