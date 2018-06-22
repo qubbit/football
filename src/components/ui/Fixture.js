@@ -10,7 +10,7 @@ const Fixture = props => {
         {props.score ? props.score.homeScore : '-'}
       </div>
       <div className="fixture-status-score">
-        {props.status === 'IN_PLAY' ? (
+        {props.status.name === 'IN_PLAY' ? (
           <div className="fixture-status-score-live">LIVE</div>
         ) : (
           '-'
@@ -22,7 +22,7 @@ const Fixture = props => {
     </div>
   );
 
-  if (['TIMED', 'SCHEDULED', 'POSTPONED'].includes(props.status)) {
+  if (['Pregame', 'TIMED', 'SCHEDULED', 'POSTPONED'].includes(props.status.name)) {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">
