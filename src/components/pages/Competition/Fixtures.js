@@ -10,12 +10,16 @@ import Fixture from '../../ui/Fixture';
 import Loader from '../../ui/Loader';
 
 class Fixtures extends Component {
-  static teamByName(teams, name) {
-    return teams.find(t => t.name === name);
+  static teamByLogoById(teams, id) {
+    const team = teams.find(t => t.id === id);
+    return team ? team.links.logos.Small : '';
   }
 
   componentDidMount() {
-    const params = { matchday: this.props.competition.currentMatchday };
+    const params = {
+      date: this.formatDate(this.props.competition.season.currentEventDate)
+    };
+
     this.props.fetchFixtures(
       this.props.competition.fe_id || this.props.match.params.id,
       params
@@ -23,28 +27,32 @@ class Fixtures extends Component {
     this.props.navigateToPage('fixtures');
   }
 
+  formatDate = date => moment(date).format('YYYYMMDD');
+
   goToMatchday = numDays => {
     const { competition } = this.props;
     if (numDays === null) {
-      const params = { matchday: competition.currentMatchday };
-      this.props.fetchFixtures(competition.id, params);
+      const params = {
+        date: this.formatDate(competition.season.currentEventDate)
+      };
+      this.props.fetchFixtures(competition.fe_id, params);
       return;
     }
 
-    const oldMatchDay = this.props.matchDay;
-    const maxMatchDays = competition.numberOfMatchdays;
-    const newMatchDay = Math.min(
-      Math.max(numDays + oldMatchDay, 1),
-      maxMatchDays
+    const oldMatchDay = moment(
+      this.props.matchDay || competition.season.currentEventDate
     );
+    const maxMatchDays = competition.season.lastEventDate;
 
+    const newMatchDay = moment(this.props.matchDay).add(numDays, 'days');
     if (oldMatchDay === newMatchDay) return;
 
-    const params = { matchday: newMatchDay };
-    this.props.fetchFixtures(competition.id, params);
+    const params = { date: newMatchDay.format('YYYYMMDD') };
+    this.props.fetchFixtures(competition.fe_id, params);
   };
 
-  renderDay = fixtures => fixtures.map(f => <Fixture key={`match-${f.id}`} {...f} />);
+  renderDay = fixtures =>
+    fixtures.map(f => <Fixture key={`match-${f.id}`} {...f} />);
 
   render() {
     const { fixtures, teams, loading, matchDay } = this.props;
@@ -53,9 +61,21 @@ class Fixtures extends Component {
       return <Loader />;
     }
 
-    // Group fixtures by day
-    const g = _.chain(fixtures)
-      .groupBy(f => moment(f.date).format('MM-DD-YYYY'))
+    // Group fixtures by some time unit
+    const fixturesWithLogos = fixtures.map(f => ({
+      ...f,
+      awayTeam: {
+        ...f.awayTeam,
+        logo: Fixtures.teamByLogoById(teams, f.awayTeam.id)
+      },
+      homeTeam: {
+        ...f.homeTeam,
+        logo: Fixtures.teamByLogoById(teams, f.homeTeam.id)
+      }
+    }));
+
+    const g = _.chain(fixturesWithLogos)
+      .groupBy(f => moment(f.date).format('YYYYMMDD'))
       .value();
 
     return (
@@ -89,10 +109,10 @@ class Fixtures extends Component {
         <div className="fixture-list">
           {Object.keys(g).map(x => [
             <div key={x} className="match-fixture match-fixture-header">
-              { /* Since in the groupBy we used MM-DD-YY format to parse
+              {/* Since in the groupBy we used YYYYMMDD format to parse
               the date, we need use the same format here to convert it into
-              a moment date object */ }
-              <div>{moment(x, 'MM-DD-YYYY').format('dddd MMMM Do')}</div>
+              a moment date object */}
+              <div>{moment(x, 'YYYYMMDD').format('dddd MMMM Do')}</div>
             </div>,
             this.renderDay(g[x])
           ])}

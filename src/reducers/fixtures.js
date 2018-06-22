@@ -1,8 +1,13 @@
-import { FETCH_FIXTURES_REQUEST, FETCH_FIXTURES_SUCCESS } from "../actions/types";
+import moment from 'moment';
+import {
+  FETCH_FIXTURES_REQUEST,
+  FETCH_FIXTURES_SUCCESS
+} from '../actions/types';
 
 const initialState = {
   fixtures: [],
-  matchDay: 0,
+  matchDay: moment().format('YYYYMMDD'),
+  week: 1,
   loading: true
 };
 

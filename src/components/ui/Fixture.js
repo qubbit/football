@@ -6,7 +6,9 @@ import PropTypes from 'prop-types';
 const Fixture = props => {
   let fixtureStatus = (
     <div className="fixture-status">
-      <div className="fixture-status-score">{props.score ? props.score.homeScore : '-'}</div>
+      <div className="fixture-status-score">
+        {props.score ? props.score.homeScore : '-'}
+      </div>
       <div className="fixture-status-score">
         {props.status === 'IN_PLAY' ? (
           <div className="fixture-status-score-live">LIVE</div>
@@ -14,7 +16,9 @@ const Fixture = props => {
           '-'
         )}
       </div>
-      <div className="fixture-status-score">{props.score ? props.score.awayScore : '-'}</div>
+      <div className="fixture-status-score">
+        {props.score ? props.score.awayScore : '-'}
+      </div>
     </div>
   );
 
@@ -34,9 +38,11 @@ const Fixture = props => {
           <Image
             className="team-label-image"
             height="64"
-            src={props.homeTeam && props.homeTeam.crestUrl}
+            src={props.homeTeam && props.homeTeam.logo}
           />
-          <div className="team-label-name">{props.homeTeam && props.homeTeam.name}</div>
+          <div className="team-label-name">
+            {props.homeTeam && props.homeTeam.name}
+          </div>
         </div>
       </div>
       {fixtureStatus}
@@ -45,9 +51,11 @@ const Fixture = props => {
           <Image
             className="team-label-image"
             height="64"
-            src={props.awayTeam && props.awayTeam.crestUrl}
+            src={props.awayTeam && props.awayTeam.logo}
           />
-          <div className="team-label-name">{props.awayTeam && props.awayTeam.name}</div>
+          <div className="team-label-name">
+            {props.awayTeam && props.awayTeam.name}
+          </div>
         </div>
       </div>
     </div>
