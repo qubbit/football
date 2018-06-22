@@ -22,7 +22,7 @@ const Fixture = props => {
     </div>
   );
 
-  if (['Pregame', 'TIMED', 'SCHEDULED', 'POSTPONED'].includes(props.status.name)) {
+  if (['Pregame'].includes(props.status.name)) {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">

@@ -59,7 +59,7 @@ class Standings extends Component {
       const table = Object.keys(groups).map(id => (
         <div className="group-table-container">
           <h3>{groups[id].name}</h3>
-          <Table size="large" selectable basic="very">
+          <Table selectable>
             {this.renderTableHeader()}
             {groups[id].teams.map(t => (
               <GroupStandingRow key={`team-${t.id}`} standing={t} />
@@ -78,7 +78,7 @@ class Standings extends Component {
       ));
 
       renderElement = (
-        <Table size="large" selectable basic="very">
+        <Table selectable>
           {this.renderTableHeader()}
           <Table.Body>{rows}</Table.Body>
         </Table>
