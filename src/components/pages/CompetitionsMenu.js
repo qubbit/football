@@ -50,6 +50,7 @@ class CompetitionsMenu extends Component {
           id={`${c.id}`}
           className={`competition-link${activeClass}`}
           key={`competition-${c.id}`}
+          title={c.name}
           to={`/competitions/${link}`}>
           <img
             onError={this.handleImageError}

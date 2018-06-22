@@ -277,6 +277,11 @@ footer {
   }
 }
 
+// Standings
+.group-table-container {
+  margin-bottom: 50px;
+}
+
 // Fixtures
 .fixture-list {
   display: flex;
@@ -360,4 +365,27 @@ footer {
 .animated-underline:not(.active):hover::after {
   width: 100%;
   transition: width 0.2s;
+}
+
+// Media queries
+@media (max-width: 1115px) {
+  // Hide masthead and make the menu smaller
+  .masthead {
+    display: none !important;
+  }
+  .competition-header h1 {
+    font-size: 1.2em;
+  }
+  span.competition-name {
+    display: none;
+  }
+  img.competition-logo {
+    width: 52px;
+  }
+  .competition-menu-container {
+    width: auto;
+  }
+  .main-container {
+    margin-left: 52px;
+  }
 }
