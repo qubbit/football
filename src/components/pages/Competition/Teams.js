@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from '../../ui/Loader';
 import { navigateToPage } from '../../../actions';
-import './Teams.scss';
 
 class Teams extends Component {
   componentDidMount() {

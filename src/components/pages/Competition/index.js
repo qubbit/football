@@ -37,6 +37,7 @@ class Competition extends Component {
   render() {
     const {
       competition,
+      teams,
       appSettings: { normalizers },
       loading
     } = this.props;
@@ -71,12 +72,11 @@ class Competition extends Component {
             <h1>{competition.name}</h1>
             <div className="competition-meta">
               <div className="meta-item">
-                <i className="icon users" />{' '}
-                <span>{competition.numberOfTeams} Teams</span>
+                <span>{competition.season.displayName} Season</span>
               </div>
               <div className="meta-item">
-                <i className="icon soccer" />{' '}
-                <span>{competition.numberOfGames} Games</span>
+                <i className="icon users" />{' '}
+                <span>{teams.length} Teams</span>
               </div>
             </div>
           </div>

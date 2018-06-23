@@ -29,9 +29,15 @@ class Roster extends Component {
             <div className="card-player-body">
               <h2>
                 <span className="player-jersey-number">#{p.number}</span>
-                <span className="player-name">{p.firstName}</span>
+                <span className="player-name">{`${p.firstName} ${
+                  p.lastName
+                }`}</span>
               </h2>
               <div className="player-info">
+                <img
+                  src={p.links.headshots && p.links.headshots.Medium}
+                  alt={`${p.lastName} headshot`}
+                />
                 <div>
                   <span>Position</span>
                   <span>{p.position.name}</span>
@@ -53,6 +59,7 @@ class Roster extends Component {
     return (
       <div>
         <h2 className="header-with-center-text">
+          <img alt={`${team.name} Logo`} src={team.links.logos.Small} />
           <span>{team.name}</span>
         </h2>
         <ul className="list-grid">{playersElement}</ul>
