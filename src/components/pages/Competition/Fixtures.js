@@ -10,9 +10,12 @@ import Fixture from '../../ui/Fixture';
 import Loader from '../../ui/Loader';
 
 class Fixtures extends Component {
-  static teamByLogoById(teams, id) {
+  static teamByLogosById(teams, id) {
     const team = teams.find(t => t.id === id);
-    return team ? team.links.logos.Small : '';
+    return {
+      logo: team ? team.links.logos.Small : '',
+      flag: team ? team.links.logos.flag : ''
+    };
   }
 
   componentDidMount() {
@@ -55,24 +58,37 @@ class Fixtures extends Component {
     fixtures.map(f => <Fixture key={`match-${f.id}`} {...f} />);
 
   render() {
-    const { fixtures, teams, loading, matchDay } = this.props;
+    const { fixtures, teams, competition, loading, matchDay } = this.props;
 
     if (loading) {
       return <Loader />;
     }
 
+    let useFlag = false;
+    if (competition.competitionTeamType.name === 'Country') {
+      useFlag = true;
+    }
     // Group fixtures by some time unit
-    const fixturesWithLogos = fixtures.map(f => ({
-      ...f,
-      awayTeam: {
-        ...f.awayTeam,
-        logo: Fixtures.teamByLogoById(teams, f.awayTeam.id)
-      },
-      homeTeam: {
-        ...f.homeTeam,
-        logo: Fixtures.teamByLogoById(teams, f.homeTeam.id)
-      }
-    }));
+    const fixturesWithLogos = fixtures.map(f => {
+      const homeTeamLogos = Fixtures.teamByLogosById(teams, f.homeTeam.id);
+      const awayTeamLogos = Fixtures.teamByLogosById(teams, f.awayTeam.id);
+
+      return {
+        ...f,
+        awayTeam: {
+          ...f.awayTeam,
+          logo: awayTeamLogos.logo,
+          flag: awayTeamLogos.flag,
+          useFlag
+        },
+        homeTeam: {
+          ...f.homeTeam,
+          logo: homeTeamLogos.logo,
+          flag: homeTeamLogos.flag,
+          useFlag
+        }
+      };
+    });
 
     const g = _.chain(fixturesWithLogos)
       .groupBy(f => moment(f.date).format('YYYYMMDD'))

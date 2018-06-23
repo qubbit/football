@@ -23,8 +23,11 @@ class Roster extends Component {
     }
     const playersElement = players
       .sort((p1, p2) => p1.number - p2.number)
-      .map(p => (
-        <li className="card-x" key={`player-${p.id}`}>
+      .map(p => {
+        let headshot = '/assets/images/DefaultHeadshot.png';
+        if(p.links.headshots) { headshot =  p.links.headshots.Medium }
+
+        return <li className="card-x" key={`player-${p.id}`}>
           <div className="card-player">
             <div className="card-player-body">
               <h2>
@@ -35,8 +38,9 @@ class Roster extends Component {
               </h2>
               <div className="player-info">
                 <img
-                  src={p.links.headshots && p.links.headshots.Medium}
+                  src={headshot}
                   alt={`${p.lastName} headshot`}
+                  width="140"
                 />
                 <div>
                   <span>Position</span>
@@ -54,7 +58,7 @@ class Roster extends Component {
             </div>
           </div>
         </li>
-      ));
+      });
 
     return (
       <div>
