@@ -31,10 +31,15 @@ const Fixture = props => {
       </div>
     );
   }
+
+  let venue = props.venue.name;
+  if (props.venue.city) {
+    venue = `${venue}, ${props.venue.city}`;
+  }
   return [
     <div className="match-venue">
       <strong>Venue - </strong>
-      {`${props.venue.name}, ${props.venue.city}`}
+      {venue}
     </div>,
     <div className="match-fixture">
       <div className="fixture-team">
