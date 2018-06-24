@@ -1,5 +1,8 @@
-import { FETCH_COMPETITIONS_REQUEST, FETCH_COMPETITIONS_SUCCESS } from "../actions/types";
-import { determineCurrentSeason } from "../utils";
+import {
+  FETCH_COMPETITIONS_REQUEST,
+  FETCH_COMPETITIONS_SUCCESS
+} from '../actions/types';
+import { normalColor, determineCurrentSeason } from '../utils';
 
 const initialState = {
   competitions: [],
@@ -7,15 +10,11 @@ const initialState = {
   loading: true
 };
 
-function setColor(colorString) {
-  return colorString.split(",").map(c => parseInt(c.trim(), 10)).slice(1,4);
-}
-
 function setFeId(competitions) {
   return competitions
     .filter(x => x.id !== 0 && x.isPopular)
-    .map(c => ({...c, fe_id: c.uri.split("/")[1]}))
-    .map(c => ({...c, color: setColor(c.primaryColor)}));
+    .map(c => ({ ...c, fe_id: c.uri.split('/')[1] }))
+    .map(c => ({ ...c, color: normalColor(c.primaryColor) }));
 }
 
 export default function(state = initialState, action) {

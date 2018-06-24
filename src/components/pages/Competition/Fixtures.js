@@ -20,7 +20,7 @@ class Fixtures extends Component {
 
   componentDidMount() {
     const params = {
-      date: this.formatDate(this.props.competition.season.currentEventDate)
+      week: this.props.competition.season.currentWeek.number
     };
 
     this.props.fetchFixtures(
@@ -30,27 +30,17 @@ class Fixtures extends Component {
     this.props.navigateToPage('fixtures');
   }
 
-  formatDate = date => moment(date).format('YYYYMMDD');
-
   goToMatchday = numDays => {
-    const { competition } = this.props;
+    const { competition, week } = this.props;
     if (numDays === null) {
       const params = {
-        date: this.formatDate(competition.season.currentEventDate)
+        week: competition.season.currentWeek.number
       };
       this.props.fetchFixtures(competition.fe_id, params);
       return;
     }
 
-    const oldMatchDay = moment(
-      this.props.matchDay || competition.season.currentEventDate
-    );
-    const maxMatchDays = competition.season.lastEventDate;
-
-    const newMatchDay = moment(this.props.matchDay).add(numDays, 'days');
-    if (oldMatchDay === newMatchDay) return;
-
-    const params = { date: newMatchDay.format('YYYYMMDD') };
+    const params = { week: week + numDays };
     this.props.fetchFixtures(competition.fe_id, params);
   };
 
@@ -70,8 +60,14 @@ class Fixtures extends Component {
     }
     // Group fixtures by some time unit
     const fixturesWithLogos = fixtures.map(f => {
-      const homeTeamLogos = Fixtures.teamByLogosById(teams, f.homeTeam.id);
-      const awayTeamLogos = Fixtures.teamByLogosById(teams, f.awayTeam.id);
+      const homeTeamLogos = Fixtures.teamByLogosById(
+        teams,
+        f.homeTeam && f.homeTeam.id
+      );
+      const awayTeamLogos = Fixtures.teamByLogosById(
+        teams,
+        f.awayTeam && f.awayTeam.id
+      );
 
       return {
         ...f,
@@ -97,12 +93,12 @@ class Fixtures extends Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="matchday-controls">
-          <h2>Match day {this.props.matchDay}</h2>
+          <h2>Week {this.props.week}</h2>
           <h2>Fixtures</h2>
           <span>
             <button
               className="matchday-nav-button"
-              title="Go to prev match day"
+              title="Go to previous match day"
               onClick={() => this.goToMatchday(-1)}>
               <Icon size="large" name="chevron left" />
               <span>Previous</span>
@@ -153,7 +149,8 @@ export default withRouter(
       competition: state.competition.competition,
       teams: state.teams.teams,
       loading: state.fixtures.loading,
-      matchDay: state.fixtures.matchDay
+      matchDay: state.fixtures.matchDay,
+      week: state.fixtures.week
     }),
     { fetchFixtures, navigateToPage }
   )(Fixtures)

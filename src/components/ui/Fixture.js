@@ -4,17 +4,35 @@ import { Grid, Segment, Image, Header } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const Fixture = props => {
+  const normalizeStatus = status => {
+    if (status === 'In Progress') return 'LIVE';
+    return status;
+  };
+  const normalizeTime = time => {
+    const segments = time
+      .split(':')
+      .map(x => parseInt(x, 10))
+      .slice(0, 2);
+    const minutes = segments[0] * 60 + segments[1];
+    return `${minutes} minutes`;
+  };
+
   let fixtureStatus = (
     <div className="fixture-status">
       <div className="fixture-status-score">
         {props.score ? props.score.homeScore : '-'}
       </div>
       <div className="fixture-status-score">
-        {[2, 3].includes(props.status.id) ? (
-          <div className="fixture-status-score-live">LIVE</div>
-        ) : (
-          '-'
-        )}
+        {[2, 3].includes(props.status.id)
+          ? [
+              <div className="fixture-status-score-live">
+                {normalizeStatus(props.status.name)}
+              </div>,
+              <div className="fixture-status-time">
+                {normalizeTime(props.score.liveMatchTime)}
+              </div>
+            ]
+          : '-'}
       </div>
       <div className="fixture-status-score">
         {props.score ? props.score.awayScore : '-'}
@@ -75,23 +93,26 @@ const Fixture = props => {
   ];
 };
 
-/*
 Fixture.defaultProps = {
-  homeTeam: {},
-  awayTeam: {},
-  score: { homeScore: '-', awayScore: '-'}
+  homeTeam: { name: 'TBD' },
+  awayTeam: { name: 'TBD' },
+  score: { homeScore: '-', awayScore: '-' }
 };
 
 Fixture.propTypes = {
-  homeTeam: PropTypes.shape({ name: PropTypes.string, crestUrl: PropTypes.string }),
-  awayTeam: PropTypes.shape({ name: PropTypes.string, crestUrl: PropTypes.string }),
+  homeTeam: PropTypes.shape({
+    name: PropTypes.string
+  }).isRequired,
+  awayTeam: PropTypes.shape({
+    name: PropTypes.string
+  }).isRequired,
   score: PropTypes.shape({
-    homeScore: PropTypes.number,
-    awayScore: PropTypes.number
+    homeScore: PropTypes.any,
+    awayScore: PropTypes.any
   }),
-  status: PropTypes.string.isRequired,
+  status: PropTypes.shape({ name: PropTypes.string, id: PropTypes.number })
+    .isRequired,
   date: PropTypes.string.isRequired
 };
-*/
 
 export default Fixture;

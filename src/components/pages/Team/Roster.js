@@ -5,6 +5,15 @@ import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchTeam, fetchPlayers } from '../../../actions';
+import { normalColor } from '../../../utils';
+
+function playerCardStyles(color1, color2 = 'white') {
+  const styles = {
+    background: `linear-gradient(60deg, ${color1}, 50%, ${color2} 0%)`,
+    color: 'white'
+  };
+  return styles;
+}
 
 class Roster extends Component {
   componentDidMount() {
@@ -21,43 +30,54 @@ class Roster extends Component {
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
+
+    const style = playerCardStyles(
+      normalColor(team.primaryColor),
+      normalColor(team.secondaryColor)
+    );
+
     const playersElement = players
       .sort((p1, p2) => p1.number - p2.number)
       .map(p => {
         let headshot = '/assets/images/DefaultHeadshot.png';
-        if(p.links.headshots) { headshot =  p.links.headshots.Medium }
-
-        return <li className="card-x" key={`player-${p.id}`}>
-          <div className="card-player">
-            <div className="card-player-body">
-              <h2>
-                <span className="player-jersey-number">#{p.number}</span>
-                <span className="player-name">{`${p.firstName} ${
-                  p.lastName
-                }`}</span>
-              </h2>
-              <div className="player-info">
-                <img
-                  src={headshot}
-                  alt={`${p.lastName} headshot`}
-                  width="140"
-                />
-                <div>
-                  <span>Position</span>
-                  <span>{p.position.name}</span>
+        if (p.links.headshots) {
+          headshot = p.links.headshots.Medium;
+        }
+        return (
+          <li className="card-x" key={`player-${p.id}`} style={style}>
+            <div className="card-player">
+              <div className="card-player-body">
+                <div className="player-headshot">
+                  <img
+                    src={headshot}
+                    alt={`${p.lastName} headshot`}
+                    width="140"
+                  />
                 </div>
-                <div>
-                  <span>Nationality</span>
-                  <span>{p.nationality && p.nationality.name}</span>
-                </div>
-                <div>
-                  <span>Date of Birth</span>
-                  <span>{moment(p.birthDate).format('MM-DD-YYYY')}</span>
+                <div className="player-info">
+                  <h2>
+                    <span className="player-jersey-number">#{p.number}</span>
+                    <span className="player-name">{`${p.firstName} ${
+                      p.lastName
+                    }`}</span>
+                  </h2>
+                  <div>
+                    <span>Position</span>
+                    <span>{p.position.name}</span>
+                  </div>
+                  <div>
+                    <span>Nationality</span>
+                    <span>{p.nationality && p.nationality.name}</span>
+                  </div>
+                  <div>
+                    <span>Date of Birth</span>
+                    <span>{moment(p.birthDate).format('MM-DD-YYYY')}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </li>
+          </li>
+        );
       });
 
     return (

@@ -1,4 +1,3 @@
-import moment from 'moment';
 import {
   FETCH_FIXTURES_REQUEST,
   FETCH_FIXTURES_SUCCESS
@@ -6,7 +5,6 @@ import {
 
 const initialState = {
   fixtures: [],
-  matchDay: moment().format('YYYYMMDD'),
   week: 1,
   loading: true
 };
@@ -22,7 +20,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        matchDay: action.params.matchday,
+        week: action.params.week,
         fixtures: action.response.page
       };
     default:

@@ -47,9 +47,19 @@ function themeColor(color) {
   return tinycolor(theme).toHslString();
 }
 
+function normalColor(colorString = '0,0,0,0') {
+  return arrayToColor(
+    colorString
+      .split(',')
+      .map(c => parseInt(c.trim(), 10))
+      .slice(1, 4)
+  );
+}
+
 export {
   arrayToColor,
   determineCurrentSeason,
   determineTextColor,
-  themeColor
+  themeColor,
+  normalColor
 };
