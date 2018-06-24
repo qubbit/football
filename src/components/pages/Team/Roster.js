@@ -5,7 +5,7 @@ import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchTeam, fetchPlayers } from '../../../actions';
-import { normalColor } from '../../../utils';
+import { normalColor, arrayToColor } from '../../../utils';
 
 function playerCardStyles(color1, color2 = 'white') {
   const styles = {
@@ -32,8 +32,8 @@ class Roster extends Component {
     }
 
     const style = playerCardStyles(
-      normalColor(team.primaryColor),
-      normalColor(team.secondaryColor)
+      arrayToColor(normalColor(team.primaryColor)),
+      arrayToColor(normalColor(team.secondaryColor))
     );
 
     const playersElement = players

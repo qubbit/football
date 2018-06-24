@@ -46,22 +46,17 @@ class Competition extends Component {
       return <Loader />;
     }
 
-    const useExperimentalStyle = true;
-    let experimentalStyle = {};
-
-    if (useExperimentalStyle) {
-      const backgroundColor = arrayToColor(competition.color);
-      const textColor = arrayToColor(determineTextColor(competition.color));
-      experimentalStyle = {
-        background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
-        borderBottom: `1px solid ${backgroundColor}`,
-        color: textColor
-      };
-    }
+    const backgroundColor = arrayToColor(competition.color);
+    const textColor = arrayToColor(determineTextColor(competition.color));
+    const styles = {
+      background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
+      borderBottom: `1px solid ${backgroundColor}`,
+      color: textColor
+    };
 
     return (
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-        <div className="main-container-header" style={experimentalStyle}>
+        <div className="main-container-header" style={styles}>
           <img
             src={competition.links.logos.sport}
             alt=""
@@ -75,8 +70,7 @@ class Competition extends Component {
                 <span>{competition.season.displayName} Season</span>
               </div>
               <div className="meta-item">
-                <i className="icon users" />{' '}
-                <span>{teams.length} Teams</span>
+                <i className="icon users" /> <span>{teams.length} Teams</span>
               </div>
             </div>
           </div>
