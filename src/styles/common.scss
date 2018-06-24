@@ -1,6 +1,11 @@
 @import 'palette.scss';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&subset=latin-ext');
 
+// semantic ui overrides
+.ui.image {
+  max-width: unset;
+}
+
 $top-bar-height: 90px;
 
 *:not(.icon) {
@@ -304,6 +309,7 @@ footer {
   border: 1px solid #fdce44;
   font-size: 1.3rem;
   text-transform: uppercase;
+  width: 100%;
 }
 
 .fixture-team {

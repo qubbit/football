@@ -32,16 +32,19 @@ const Fixture = props => {
     );
   }
   return [
-    <div className="match-venu">{`${props.venue.name}, ${
-      props.venue.city
-    }`}</div>,
+    <div className="match-venue">
+      <strong>Venue - </strong>
+      {`${props.venue.name}, ${props.venue.city}`}
+    </div>,
     <div className="match-fixture">
       <div className="fixture-team">
         <div className="team-label team-label--reverse">
           <Image
             className="team-label-image"
             height="64"
-            src={props.homeTeam.useFlag ? props.homeTeam.flag :  props.homeTeam.logo}
+            src={
+              props.homeTeam.useFlag ? props.homeTeam.flag : props.homeTeam.logo
+            }
           />
           <div className="team-label-name">
             {props.homeTeam && props.homeTeam.name}
@@ -54,7 +57,9 @@ const Fixture = props => {
           <Image
             className="team-label-image"
             height="64"
-            src={props.awayTeam.useFlag ? props.awayTeam.flag :  props.awayTeam.logo}
+            src={
+              props.awayTeam.useFlag ? props.awayTeam.flag : props.awayTeam.logo
+            }
           />
           <div className="team-label-name">
             {props.awayTeam && props.awayTeam.name}
