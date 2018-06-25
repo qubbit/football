@@ -8,6 +8,7 @@ const Fixture = props => {
     if (status === 'In Progress') return 'LIVE';
     return status;
   };
+
   const normalizeTime = time => {
     const segments = time
       .split(':')
@@ -32,7 +33,11 @@ const Fixture = props => {
                 {normalizeTime(props.score.liveMatchTime)}
               </div>
             ]
-          : '-'}
+          : [
+              <div className="fixture-status-score-final">
+                {normalizeStatus(props.status.name.toUpperCase())}
+              </div>
+            ]}
       </div>
       <div className="fixture-status-score">
         {props.score ? props.score.awayScore : '-'}
@@ -40,7 +45,8 @@ const Fixture = props => {
     </div>
   );
 
-  if (['Pregame'].includes(props.status.name)) {
+  // Pregame
+  if (props.status.id === 1) {
     fixtureStatus = (
       <div className="fixture-status">
         <div className="fixture-status-score">
@@ -54,6 +60,10 @@ const Fixture = props => {
   if (props.venue.city) {
     venue = `${venue}, ${props.venue.city}`;
   }
+
+  const hr = props.homeTeam.record;
+  const ar = props.awayTeam.record;
+
   return [
     <div className="match-venue">
       <strong>Venue - </strong>
@@ -70,7 +80,8 @@ const Fixture = props => {
             }
           />
           <div className="team-label-name">
-            {props.homeTeam && props.homeTeam.name}
+            <strong>{props.homeTeam && props.homeTeam.name}</strong>
+            {hr && <div>{`(${hr.wins} - ${hr.ties} - ${hr.losses})`}</div>}
           </div>
         </div>
       </div>
@@ -85,7 +96,8 @@ const Fixture = props => {
             }
           />
           <div className="team-label-name">
-            {props.awayTeam && props.awayTeam.name}
+            <strong>{props.awayTeam && props.awayTeam.name}</strong>
+            {ar && <div>{`(${ar.wins} - ${ar.ties} - ${ar.losses})`}</div>}
           </div>
         </div>
       </div>

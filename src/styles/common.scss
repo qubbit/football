@@ -231,7 +231,8 @@ ul.list-grid {
 
 footer {
   margin: 10px;
-  a, a:hover {
+  a,
+  a:hover {
     color: white;
   }
 
@@ -330,6 +331,12 @@ footer {
   padding: 1px 3px;
 }
 
+.fixture-status-score-final {
+  border: 1px solid $yellow;
+  font-size: 1rem;
+  padding: 1px 3px;
+}
+
 .fixture-status {
   display: flex;
   align-items: center;
@@ -380,14 +387,14 @@ footer {
   margin-bottom: 70px;
   flex-grow: 0;
   flex-shrink: 0;
-  flex-basis: auto
+  flex-basis: auto;
 }
 
 .card-team {
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative
+  position: relative;
 }
 
 .team-crest-container {
@@ -412,7 +419,7 @@ footer {
   display: flex;
   justify-content: center;
   border-top: 1px solid darken($yellow, 10%);
-  padding: 1.075em 1.5em .925em;
+  padding: 1.075em 1.5em 0.925em;
   text-transform: uppercase;
 }
 
