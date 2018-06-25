@@ -20,7 +20,9 @@ class Fixtures extends Component {
 
   componentDidMount() {
     const params = {
-      week: this.props.competition.season.currentWeek.number
+      week:
+        this.props.competition.season.currentWeek &&
+        this.props.competition.season.currentWeek.number
     };
 
     this.props.fetchFixtures(
@@ -34,7 +36,9 @@ class Fixtures extends Component {
     const { competition, week } = this.props;
     if (numDays === null) {
       const params = {
-        week: competition.season.currentWeek.number
+        week:
+          competition.season.currentWeek &&
+          competition.season.currentWeek.number
       };
       this.props.fetchFixtures(competition.fe_id, params);
       return;
