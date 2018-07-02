@@ -59,6 +59,7 @@ class Competition extends Component {
         <div className="main-container-header" style={styles}>
           <img
             src={competition.links.logos.sport}
+            className='header-competition-logo'
             alt=""
             height="90"
             width="90"

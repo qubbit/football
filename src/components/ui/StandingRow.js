@@ -22,7 +22,7 @@ class StandingRow extends React.Component {
 
     return (
       <Table.Row>
-        <Table.Cell>
+        <Table.Cell collapsing>
           <span
             style={{
               height: '100%',
@@ -42,14 +42,14 @@ class StandingRow extends React.Component {
             {this.props.standing.customName || this.props.standing.name}
           </span>
         </Table.Cell>
-        <Table.Cell>{record.gamesPlayed}</Table.Cell>
-        <Table.Cell>{record.wins}</Table.Cell>
-        <Table.Cell>{record.ties}</Table.Cell>
-        <Table.Cell>{record.losses}</Table.Cell>
-        <Table.Cell>{record.goals}</Table.Cell>
-        <Table.Cell>{record.goalsAgainst}</Table.Cell>
-        <Table.Cell>{record.goals - record.goalsAgainst}</Table.Cell>
-        <Table.Cell>{record.points}</Table.Cell>
+        <Table.Cell collapsing>{record.gamesPlayed}</Table.Cell>
+        <Table.Cell collapsing>{record.wins}</Table.Cell>
+        <Table.Cell collapsing>{record.ties}</Table.Cell>
+        <Table.Cell collapsing>{record.losses}</Table.Cell>
+        <Table.Cell collapsing>{record.goals}</Table.Cell>
+        <Table.Cell collapsing>{record.goalsAgainst}</Table.Cell>
+        <Table.Cell collapsing>{record.goals - record.goalsAgainst}</Table.Cell>
+        <Table.Cell collapsing>{record.points}</Table.Cell>
       </Table.Row>
     );
   }

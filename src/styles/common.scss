@@ -487,3 +487,27 @@ footer {
     }
   }
 }
+
+@media (max-width: 768px) {
+  #root {
+    flex-direction: column;
+  }
+  .competition-menu-container {
+    width: auto;
+    position: unset;
+    flex-basis: unset;
+
+    .competition-menu {
+      flex-direction: unset;
+    }
+  }
+  .main-container {
+    margin-left: unset;
+  }
+  .header-competition-logo {
+    display: none;
+  }
+  .ui.table:not(.unstackable) tr {
+    display: unset;
+  }
+}
