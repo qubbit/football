@@ -1,5 +1,4 @@
-// hehe
-const API_URL = atob('aHR0cHM6Ly9hcGkuZm94c3BvcnRzLmNvbS9zcG9ydHNkYXRhL3Yx');
+const API_URL = 'https://football.gopal.io/api'
 
 function headers() {
   return {
@@ -25,9 +24,7 @@ function queryString(params) {
 
 export default {
   fetch(url, params = {}) {
-    const p = { ...params, apikey: atob('akU3eUJKVlJOQXdkRGVzTWdUelRYVVVTeDFJdDQxRnE=') };
-
-    return fetch(`${API_URL}${url}${queryString(p)}`, {
+    return fetch(`${API_URL}${url}${queryString(params)}`, {
       method: 'GET',
       headers: headers()
     }).then(parseResponse);
