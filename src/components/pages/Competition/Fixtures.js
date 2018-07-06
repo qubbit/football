@@ -99,9 +99,11 @@ class Fixtures extends Component {
     return (
       <div style={{ width: '100%' }}>
         <div className="matchday-controls">
-          <h2>Week {this.props.week}</h2>
-          <h2>Fixtures</h2>
-          <span>
+          <div className="label">
+            <h2>Week {this.props.week}</h2>
+            <h2>Fixtures</h2>
+          </div>
+          <span className="navbar">
             <button
               className="matchday-nav-button"
               title="Go to previous match day"

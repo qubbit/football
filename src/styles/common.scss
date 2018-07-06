@@ -161,6 +161,12 @@ a:hover {
   justify-content: space-between;
   margin: 10px 0;
 
+  .label {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+  }
+
   h2 {
     margin: 0 !important;
   }
@@ -373,7 +379,7 @@ footer {
 }
 
 .fixture-status-score {
-  font-size: 1.9rem;
+  font-size: 2.5rem;
   margin: 10px 10px;
   text-align: center;
 }
@@ -381,13 +387,6 @@ footer {
 .team-label {
   display: flex;
   align-items: center;
-}
-
-.team-label--reverse {
-  flex-direction: row-reverse;
-  .team-label-name {
-    padding-right: 20px;
-  }
 }
 
 .competition-team-list {
@@ -523,6 +522,7 @@ footer {
   }
   .main-container {
     margin-left: unset;
+    display: unset;
   }
   .header-competition-logo {
     display: none;
@@ -535,5 +535,36 @@ footer {
   }
   .match-fixture {
     width: 100%;
+  }
+  .matchday-controls {
+    .label {
+      width: 100%;
+    }
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-container-header {
+    background: unset !important;
+    height: unset;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .competition-menu-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    &::after {
+      display: none !important;
+    }
+  }
+
+  .competition-team-list {
+    .card {
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
   }
 }
