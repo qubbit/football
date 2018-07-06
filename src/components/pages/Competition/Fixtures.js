@@ -22,7 +22,8 @@ class Fixtures extends Component {
     const params = {
       week:
         this.props.competition.season.currentWeek &&
-        this.props.competition.season.currentWeek.number
+        this.props.competition.season.currentWeek.number,
+      enable: 'alternateIds,broadcasts'
     };
 
     this.props.fetchFixtures(
@@ -38,13 +39,14 @@ class Fixtures extends Component {
       const params = {
         week:
           competition.season.currentWeek &&
-          competition.season.currentWeek.number
+          competition.season.currentWeek.number,
+        enable: 'alternateIds,broadcasts'
       };
       this.props.fetchFixtures(competition.fe_id, params);
       return;
     }
 
-    const params = { week: week + numDays };
+    const params = { week: week + numDays, enable: 'alternateIds,broadcasts' };
     this.props.fetchFixtures(competition.fe_id, params);
   };
 
@@ -124,7 +126,7 @@ class Fixtures extends Component {
         </div>
         <div className="fixture-list">
           {Object.keys(g).map(x => [
-            <div key={x} className="match-fixture match-fixture-header">
+            <div key={x} className="match-fixture-header">
               {/* Since in the groupBy we used YYYYMMDD format to parse
               the date, we need use the same format here to convert it into
               a moment date object */}

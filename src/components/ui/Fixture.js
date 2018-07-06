@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Grid, Segment, Image, Header } from 'semantic-ui-react';
+import { Grid, Segment, Image, Header, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const Fixture = props => {
@@ -48,7 +48,7 @@ const Fixture = props => {
   // Pregame
   if (props.status.id === 1) {
     fixtureStatus = (
-      <div className="fixture-status">
+      <div className="fixture-status pregame">
         <div className="fixture-status-score">
           {moment(props.date).format('hh:mm A')}
         </div>
@@ -65,39 +65,55 @@ const Fixture = props => {
   const ar = props.awayTeam.record;
 
   return [
-    <div className="match-venue">
-      <strong>Venue - </strong>
-      {venue}
-    </div>,
     <div className="match-fixture">
-      <div className="fixture-team">
-        <div className="team-label team-label--reverse">
-          <Image
-            className="team-label-image"
-            height="64"
-            src={
-              props.homeTeam.useFlag ? props.homeTeam.flag : props.homeTeam.logo
-            }
-          />
-          <div className="team-label-name">
-            <strong>{props.homeTeam && props.homeTeam.name}</strong>
-            {hr && <div>{`(${hr.wins} - ${hr.ties} - ${hr.losses})`}</div>}
-          </div>
+      <div className="match-venue-broadcast">
+        <div className="match-venue">
+          <strong>Venue - </strong>
+          {venue}
+        </div>
+        <div className="match-broadcast-info">
+          {props.broadcasts && (
+            <div className="tv-channel">
+              <Icon fitted name="tv" />{' '}
+              {props.broadcasts && props.broadcasts[0].name}
+            </div>
+          )}
         </div>
       </div>
-      {fixtureStatus}
-      <div className="fixture-team">
-        <div className="team-label">
-          <Image
-            className="team-label-image"
-            height="64"
-            src={
-              props.awayTeam.useFlag ? props.awayTeam.flag : props.awayTeam.logo
-            }
-          />
-          <div className="team-label-name">
-            <strong>{props.awayTeam && props.awayTeam.name}</strong>
-            {ar && <div>{`(${ar.wins} - ${ar.ties} - ${ar.losses})`}</div>}
+      <div className="match-fixture-inner">
+        <div className="fixture-team">
+          <div className="team-label team-label--reverse">
+            <Image
+              className="team-label-image"
+              height="64"
+              src={
+                props.homeTeam.useFlag
+                  ? props.homeTeam.flag
+                  : props.homeTeam.logo
+              }
+            />
+            <div className="team-label-name">
+              <strong>{props.homeTeam && props.homeTeam.name}</strong>
+              {hr && <div>{`(${hr.wins} - ${hr.ties} - ${hr.losses})`}</div>}
+            </div>
+          </div>
+        </div>
+        {fixtureStatus}
+        <div className="fixture-team">
+          <div className="team-label">
+            <Image
+              className="team-label-image"
+              height="64"
+              src={
+                props.awayTeam.useFlag
+                  ? props.awayTeam.flag
+                  : props.awayTeam.logo
+              }
+            />
+            <div className="team-label-name">
+              <strong>{props.awayTeam && props.awayTeam.name}</strong>
+              {ar && <div>{`(${ar.wins} - ${ar.ties} - ${ar.losses})`}</div>}
+            </div>
           </div>
         </div>
       </div>
