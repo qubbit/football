@@ -524,6 +524,9 @@ footer {
     margin-left: unset;
     display: unset;
   }
+  .main-container-header {
+    padding: 10px;
+  }
   .header-competition-logo {
     display: none;
   }
@@ -539,8 +542,9 @@ footer {
   .matchday-controls {
     .label {
       width: 100%;
+      margin-bottom: 40px;
     }
-    flex-direction: column;
+    display: unset;
   }
 }
 
