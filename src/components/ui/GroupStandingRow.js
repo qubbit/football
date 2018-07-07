@@ -20,6 +20,7 @@ class GroupStandingRow extends React.Component {
       <Table.Row>
         <Table.Cell>
           <Image
+            className="standing-team-flag"
             avatar
             src={
               standings.abbreviation === 'WC'
@@ -29,7 +30,7 @@ class GroupStandingRow extends React.Component {
             size="mini"
             style={styles.crest}
           />{' '}
-          <span style={{ marginLeft: '10px' }}>
+          <span className="standing-team-name">
             {this.props.standing.customName || this.props.standing.name}
           </span>
         </Table.Cell>

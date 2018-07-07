@@ -300,6 +300,10 @@ footer {
   margin-bottom: 50px;
 }
 
+span.standing-team-name {
+  margin-left: 10px;
+}
+
 // Fixtures
 .fixture-list {
   display: flex;
@@ -467,6 +471,15 @@ footer {
 }
 
 // Media queries
+@media (max-width: 1440px) {
+  .match-fixture-header {
+    width: 75%;
+  }
+  .match-fixture {
+    width: 75%;
+  }
+}
+
 @media (max-width: 1115px) {
   // Hide masthead and make the menu smaller
   .masthead {
@@ -501,13 +514,19 @@ footer {
   .fixture-status {
     min-width: auto;
     .fixture-status-score {
-      font-size: 1.2rem;
+      font-size: 1.9rem;
       font-weight: 700;
     }
   }
+  .match-fixture-header {
+    width: 75%;
+  }
+  .match-fixture {
+    width: 75%;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   #root {
     flex-direction: column;
   }
@@ -530,9 +549,7 @@ footer {
   .header-competition-logo {
     display: none;
   }
-  .ui.table:not(.unstackable) tr {
-    display: unset;
-  }
+
   .match-fixture-header {
     width: 100%;
   }
@@ -545,6 +562,22 @@ footer {
       margin-bottom: 40px;
     }
     display: unset;
+  }
+
+  // Semantic UI overrides for tables
+  .ui.table:not(.unstackable) {
+    thead {
+      display: table-header-group !important;
+    }
+    tbody {
+
+    }
+    tr {
+      display: table-row !important;
+    }
+    tr>th, tr>td {
+      display: table-cell !important;
+    }
   }
 }
 
@@ -570,5 +603,16 @@ footer {
       margin-right: 10px;
       margin-bottom: 10px;
     }
+  }
+
+  .fixture-status-score {
+    font-size: 1.2rem;
+  }
+
+  img.standing-team-flag {
+    display: none !important;
+  }
+  span.standing-team-name {
+    margin-left: 0;
   }
 }
