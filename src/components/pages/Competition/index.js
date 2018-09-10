@@ -12,7 +12,10 @@ import { determineTextColor, arrayToColor } from '../../../utils';
 
 class Competition extends Component {
   componentDidMount() {
-    const { match: { params } } = this.props;
+    const {
+      match: { params }
+    } = this.props;
+    const uri = this.props.location.pathname.replace('/competitions', '');
     this.props
       .fetchCompetition(params.id)
       .then(this.props.fetchTeams(params.id))
@@ -21,50 +24,54 @@ class Competition extends Component {
 
   componentDidUpdate(prevProps, _) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      const { match: { params } } = this.props;
+      const {
+        match: { params }
+      } = this.props;
       this.props
         .fetchCompetition(params.id)
-        .then(this.props.fetchTeams(params.id));
+        .then(this.props.fetchTeams(params.id))
+        .then(this.props.navigateToPage(this.props.appSettings.activeMenuItem));
     }
   }
 
   render() {
-    const { competition, appSettings: { normalizers }, loading } = this.props;
+    const {
+      competition,
+      teams,
+      appSettings: { normalizers },
+      loading
+    } = this.props;
 
     if (loading) {
-      return <Loader />
+      return <Loader />;
     }
 
-    const useExperimentalStyle = true;
-    let experimentalStyle = {};
-
-    const normalize = normalizers.competitions[competition.id];
-    if (useExperimentalStyle) {
-      const backgroundColor = arrayToColor(normalize.primary_color);
-      const textColor = arrayToColor(
-        determineTextColor(normalize.primary_color)
-      );
-      experimentalStyle = {
-        background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
-        borderBottom: `1px solid ${backgroundColor}`,
-        color: textColor
-      };
-    }
+    const backgroundColor = arrayToColor(competition.color);
+    const textColor = arrayToColor(determineTextColor(competition.color));
+    const styles = {
+      background: `linear-gradient(60deg, ${backgroundColor}, 50%, white 0%)`,
+      borderBottom: `1px solid ${backgroundColor}`,
+      color: textColor
+    };
 
     return (
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-        <div className="main-container-header" style={experimentalStyle}>
-          <img src={normalize.logo} alt="" height="90" width="90" />
+        <div className="main-container-header" style={styles}>
+          <img
+            src={competition.links.logos.sport}
+            className='header-competition-logo'
+            alt=""
+            height="90"
+            width="90"
+          />
           <div className="competition-header">
-            <h1>{competition.caption}</h1>
+            <h1>{competition.name}</h1>
             <div className="competition-meta">
               <div className="meta-item">
-                <i className="icon users" />{' '}
-                <span>{competition.numberOfTeams} Teams</span>
+                <span>{competition.season.displayName} Season</span>
               </div>
               <div className="meta-item">
-                <i className="icon soccer" />{' '}
-                <span>{competition.numberOfGames} Games</span>
+                <i className="icon users" /> <span>{teams.length} Teams</span>
               </div>
             </div>
           </div>

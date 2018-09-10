@@ -1,5 +1,4 @@
 import { FETCH_TEAMS_REQUEST, FETCH_TEAMS_SUCCESS } from '../actions/types';
-import { securizeUrls } from '../utils';
 
 const initialState = {
   teams: [],
@@ -17,7 +16,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        teams: securizeUrls(action.response.teams, 'crestUrl')
+        teams: action.response.page
       };
     default:
       return state;

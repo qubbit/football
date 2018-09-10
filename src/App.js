@@ -11,8 +11,7 @@ class App extends Component {
   componentWillReceiveProps() {
     // TODO: Find a better alternative to this hack
     const { history: { location: { pathname } }, appSettings } = this.props;
-
-    if (pathname.match(/^\/competitions\/\d+$/)) {
+    if (pathname.match(/^\/competitions\/\w+$/)) {
       const activePageLocation = `${pathname}/${appSettings.activeMenuItem}`;
       this.props.history.push(activePageLocation);
     }
@@ -28,7 +27,7 @@ class App extends Component {
         <CompetitionsMenu />
         <div className="main-container" style={style}>
           <Route path="/competitions/:id" component={Competition} />
-          <Route path="/teams/:id/roster" component={Roster} />
+          <Route path="/teams/:fe_id/:id/roster" component={Roster} />
         </div>
       </Aux>
     );

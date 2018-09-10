@@ -1,4 +1,8 @@
-import { FETCH_COMPETITION_REQUEST, FETCH_COMPETITION_SUCCESS } from "../actions/types";
+import {
+  FETCH_COMPETITION_REQUEST,
+  FETCH_COMPETITION_SUCCESS
+} from '../actions/types';
+import { normalColor } from '../utils';
 
 const initialState = {
   competition: {},
@@ -14,7 +18,11 @@ export default function(state = initialState, action) {
       };
     case FETCH_COMPETITION_SUCCESS:
       return {
-        competition: action.response,
+        competition: {
+          ...action.response,
+          color: normalColor(action.response.primaryColor),
+          fe_id: action.response.uri.split('/')[1]
+        },
         loading: false
       };
     default:

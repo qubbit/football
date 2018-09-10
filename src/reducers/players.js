@@ -16,7 +16,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        players: action.response,
+        players: action.response.page,
       };
     default:
       return state;

@@ -1,6 +1,6 @@
-// Various utility functions used by the app
-// are placed here in no particular order
+// Various utility functions used by the app are placed here in no particular order
 
+// All the colors used in the app are in intermediate format of [r, g, b]
 import tinycolor from 'tinycolor2';
 
 function determineCurrentSeason() {
@@ -16,14 +16,12 @@ function determineCurrentSeason() {
 
 // Determine text color based on the background color
 // using perceptive luminance algorithm
-// backgroundColor is a 3-tuple {r, g, b}
 function determineTextColor(backgroundColor) {
   const [r, g, b] = backgroundColor;
   const a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
   return a < 0.5 ? [0, 0, 0] : [255, 255, 255];
 }
 
-// color is a 3-tuple {r, g, b}
 function arrayToColor(color) {
   const [r, g, b] = color;
   return `rgb(${r}, ${g}, ${b})`;
@@ -34,7 +32,6 @@ function arrayToColor(color) {
 // we want to set as our theme color, think sidebar
 // theme color akin to slack, the passed in color needs
 // to be appropriately darkened based on it's luminance value
-// color is a 3-tuple {r, g, b}
 function themeColor(color) {
   const hsl = tinycolor(arrayToColor(color)).toHsl();
   const { h, s, l } = hsl;
@@ -47,23 +44,17 @@ function themeColor(color) {
   return tinycolor(theme).toHslString();
 }
 
-function secureUrl(url) {
-  return url ? url.replace(/^http:/, 'https:') : url;
+function normalColor(colorString = '0,0,0,0') {
+  return colorString
+    .split(',')
+    .map(c => parseInt(c.trim(), 10))
+    .slice(1, 4);
 }
 
-// Ugh 😖
-function securizeUrls(objects, key) {
-  if (!objects) return objects;
-  return objects.map(o => {
-    const o2 = o;
-    o2[key] = secureUrl(o2[key]);
-    return o2;
-  });
-}
 export {
   arrayToColor,
   determineCurrentSeason,
   determineTextColor,
-  securizeUrls,
-  themeColor
+  themeColor,
+  normalColor
 };
