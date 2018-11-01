@@ -126,6 +126,19 @@ class Fixtures extends Component {
             </button>
           </span>
         </div>
+        {(!fixtures || fixtures.length === 0) && (
+          <div
+            style={{
+              width: '100%',
+              height: '80%',
+              justifyContent: 'center',
+              alignItems: 'center',
+              display: 'flex'
+            }}>
+            <h2>There are no matches for this week</h2>
+          </div>
+        )}
+
         <div className="fixture-list">
           {Object.keys(g).map(x => [
             <div key={x} className="match-fixture-header">
