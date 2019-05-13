@@ -325,8 +325,15 @@ span.standing-team-name {
   flex-direction: row;
   display: flex;
   width: 100%;
-  align-items: flex-start;
   justify-content: space-between;
+
+  .fixture-team, .fixture-status {
+    flex: 1;
+  }
+
+  .team-label--reverse {
+    flex-direction: row-reverse;
+  }
 }
 
 .match-venue-broadcast {

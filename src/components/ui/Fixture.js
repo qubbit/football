@@ -82,7 +82,7 @@ const Fixture = props => {
       </div>
       <div className="match-fixture-inner">
         <div className="fixture-team">
-          <div className="team-label">
+          <div className="team-label team-label--reverse">
             <Image
               className="team-label-image"
               height="64"
@@ -99,7 +99,7 @@ const Fixture = props => {
           </div>
         </div>
         {fixtureStatus}
-        <div className="fixture-team">
+        <div className="fixture-team fixture-team--away">
           <div className="team-label">
             <Image
               className="team-label-image"
