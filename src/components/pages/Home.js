@@ -1,7 +1,9 @@
+import 'react-day-picker/lib/style.css';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Loader } from 'semantic-ui-react';
+import { Icon, Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchTodaysFixtures } from '../../actions';
@@ -9,20 +11,45 @@ import { normalColor, arrayToColor } from '../../utils';
 import Fixture from '../ui/Fixture';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.handleDayChange = this.handleDayChange.bind(this);
+  }
+
   componentDidMount() {
     const {
       match: { params }
     } = this.props;
 
-    this.props.fetchTodaysFixtures({
+    this.props.fetchTodaysFixtures(this.props.customFixturesDate, {
       enable: 'broadcasts,teamdetails',
       date: moment().format('YYYYMMDD')
     });
   }
 
-  renderFixtures = fixtures =>
-    fixtures.map(f => (
+  handleDayChange(day) {
+    this.props.fetchTodaysFixtures(day, {
+      enable: 'broadcasts,teamdetails',
+      date: moment(day).format('YYYYMMDD')
+    });
+  }
+
+  renderFixtures = fixtures => {
+    if (fixtures.length === 0) {
+      return (
+        <h2
+          style={{
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#fff',
+            padding: '10px'
+          }}>
+          There are not any matches today
+        </h2>
+      );
+    }
+    return fixtures.map(f => (
       <Fixture
+        key={`fixture-${f.id}`}
         {...f}
         style={{
           background: 'rgba(0, 0, 0, 0.7)',
@@ -32,17 +59,43 @@ class Home extends Component {
         }}
       />
     ));
+  };
 
   render() {
-    const { todaysFixtures, loading } = this.props;
+    const { todaysFixtures, customFixturesDate, loading } = this.props;
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
-
-    if (todaysFixtures.length > 0) {
-      return <div>{this.renderFixtures(todaysFixtures)}</div>;
-    }
-    return <h2 style={{ color: '#fff' }}>There are not any matches today</h2>;
+    console.log(customFixturesDate);
+    return (
+      <div className="global-fixture-list" style={{ padding: '20px' }}>
+        <div
+          className="schedule-date-input"
+          style={{
+            background: 'rgba(0, 0, 0, 0.7)',
+            marginBottom: '20px',
+            padding: '10px',
+            fontSize: '1.3em'
+          }}>
+          <Icon name="calendar alternate" style={{ color: '#fff' }} />
+          <DayPickerInput
+            style={{ marginBottom: '10px' }}
+            value={moment(customFixturesDate).format('MM-DD-YYYY')}
+            dayPickerProps={{
+              showWeekNumbers: true,
+              todayButton: 'Today'
+            }}
+            onDayChange={this.handleDayChange}
+          />
+          <div style={{ color: '#fff' }}>
+            Showing fixtures for{' '}
+            {moment(customFixturesDate).format('MM-DD-YYYY')}. All times are in
+            your local time.
+          </div>
+        </div>
+        {this.renderFixtures(todaysFixtures)}
+      </div>
+    );
   }
 }
 
@@ -58,7 +111,8 @@ Home.propTypes = {
 function mapStateToProps(state) {
   return {
     loading: state.fixtures.loading,
-    todaysFixtures: state.fixtures.todaysFixtures
+    todaysFixtures: state.fixtures.todaysFixtures,
+    customFixturesDate: state.fixtures.customFixturesDate
   };
 }
 

@@ -7,25 +7,26 @@ export function navigateToPage(page) {
   };
 }
 
-export function fetchTodaysFixtures(params = {}) {
+export function fetchTodaysFixtures(customFixturesDate, params = {}) {
   return dispatch => {
-    dispatch({ type: TYPES.FETCH_TODAYS_FIXTURES_REQUEST });
-    return api
-      .fetch(`/popular/events.json`, params)
-      .then(response => {
-        dispatch({ type: TYPES.FETCH_TODAYS_FIXTURES_SUCCESS, response, params });
+    dispatch({ customFixturesDate, type: TYPES.FETCH_TODAYS_FIXTURES_REQUEST });
+    return api.fetch(`/popular/events.json`, params).then(response => {
+      dispatch({
+        customFixturesDate,
+        type: TYPES.FETCH_TODAYS_FIXTURES_SUCCESS,
+        response,
+        params
       });
+    });
   };
 }
 
 export function fetchFixtures(competitionId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_FIXTURES_REQUEST });
-    return api
-      .fetch(`/${competitionId}/events.json`, params)
-      .then(response => {
-        dispatch({ type: TYPES.FETCH_FIXTURES_SUCCESS, response, params });
-      });
+    return api.fetch(`/${competitionId}/events.json`, params).then(response => {
+      dispatch({ type: TYPES.FETCH_FIXTURES_SUCCESS, response, params });
+    });
   };
 }
 
@@ -33,11 +34,9 @@ export function fetchStandings(competitionId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_STANDINGS_REQUEST });
 
-    return api
-      .fetch(`/${competitionId}/standings`, params)
-      .then(response => {
-        dispatch({ type: TYPES.FETCH_STANDINGS_SUCCESS, response });
-      });
+    return api.fetch(`/${competitionId}/standings`, params).then(response => {
+      dispatch({ type: TYPES.FETCH_STANDINGS_SUCCESS, response });
+    });
   };
 }
 
@@ -74,11 +73,9 @@ export function fetchTeam(feId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_TEAM_REQUEST });
 
-    return api
-      .fetch(`/${feId}/teams/${teamId}`, params)
-      .then(response => {
-        dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
-      });
+    return api.fetch(`/${feId}/teams/${teamId}`, params).then(response => {
+      dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
+    });
   };
 }
 

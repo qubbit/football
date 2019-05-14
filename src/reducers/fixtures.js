@@ -11,7 +11,8 @@ const initialState = {
   week: 1,
   loading: true,
   todaysFixtures: [],
-  date: moment().format('YYYYMMDD')
+  date: moment().format('YYYYMMDD'),
+  customFixturesDate: moment()
 };
 
 export default function(state = initialState, action) {
@@ -20,12 +21,14 @@ export default function(state = initialState, action) {
     case FETCH_TODAYS_FIXTURES_REQUEST:
       return {
         ...state,
+        customFixturesDate: action.customFixturesDate,
         loading: true
       };
     case FETCH_TODAYS_FIXTURES_SUCCESS:
       return {
         ...state,
         loading: false,
+        customFixturesDate: action.customFixturesDate,
         todaysFixtures: action.response.page
       };
     case FETCH_FIXTURES_SUCCESS:

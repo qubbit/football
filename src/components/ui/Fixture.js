@@ -18,6 +18,13 @@ const Fixture = props => {
     return `${minutes} minutes`;
   };
 
+  const normalizeFlag = team => {
+    if (team.links) {
+      return team.links.logos.retina;
+    }
+    return team.useFlag ? team.flag : team.logo;
+  };
+
   let fixtureStatus = (
     <div className="fixture-status">
       <div className="fixture-status-score">
@@ -56,9 +63,11 @@ const Fixture = props => {
     );
   }
 
-  let venue = props.venue.name;
-  if (props.venue.city) {
-    venue = `${venue}, ${props.venue.city}`;
+  let { venue } = props;
+  if (venue && venue.city) {
+    venue = `${venue.name}, ${venue.city}`;
+  } else {
+    venue = 'TBD';
   }
 
   const hr = props.homeTeam.record;
@@ -88,11 +97,7 @@ const Fixture = props => {
             <Image
               className="team-label-image"
               height="64"
-              src={
-                props.homeTeam.useFlag
-                  ? props.homeTeam.flag
-                  : props.homeTeam.logo
-              }
+              src={normalizeFlag(props.homeTeam)}
             />
             <div className="team-label-name">
               <strong>{props.homeTeam && props.homeTeam.name}</strong>
@@ -106,11 +111,7 @@ const Fixture = props => {
             <Image
               className="team-label-image"
               height="64"
-              src={
-                props.awayTeam.useFlag
-                  ? props.awayTeam.flag
-                  : props.awayTeam.logo
-              }
+              src={normalizeFlag(props.awayTeam)}
             />
             <div className="team-label-name">
               <strong>{props.awayTeam && props.awayTeam.name}</strong>
