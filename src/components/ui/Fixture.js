@@ -31,20 +31,20 @@ const Fixture = props => {
         {props.score ? props.score.homeScore : '-'}
       </div>
       <div className="fixture-status-score">
-        {[2, 3].includes(props.status.id)
-          ? [
-              <div className="fixture-status-score-live">
-                {normalizeStatus(props.status.name)}
-              </div>,
-              <div className="fixture-status-time">
-                {normalizeTime(props.score.liveMatchTime)}
-              </div>
-            ]
-          : [
-              <div className="fixture-status-score-final">
-                {normalizeStatus(props.status.name.toUpperCase())}
-              </div>
-            ]}
+        {[2, 3].includes(props.status.id) ? (
+          [
+            <div className="fixture-status-score-live">
+              {normalizeStatus(props.status.name)}
+            </div>,
+            <div className="fixture-status-time">
+              {normalizeTime(props.score.liveMatchTime)}
+            </div>
+          ]
+        ) : (
+          <div className="fixture-status-score-final">
+            {normalizeStatus(props.status.name.toUpperCase())}
+          </div>
+        )}
       </div>
       <div className="fixture-status-score">
         {props.score ? props.score.awayScore : '-'}

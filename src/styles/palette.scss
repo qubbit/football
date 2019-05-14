@@ -5,3 +5,11 @@ $blue: rgba(55, 114, 255, 1);
 $red: rgba(223, 41, 53, 1);
 $yellow: #FDCE45;
 $gray: rgba(230, 232, 230, 1);
+
+:export {
+  black: $black;
+  blue: $blue;
+  red: $red;
+  yellow: $yellow;
+  gray: $gray;
+}

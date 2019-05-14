@@ -628,3 +628,36 @@ span.standing-team-name {
     margin-left: 0;
   }
 }
+
+.DayPickerInput {
+  .DayPickerInput-Overlay {
+    background: $black;
+    color: white;
+  }
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside):hover {
+    background-color: #51a0fa;
+  }
+
+  .DayPicker:not(.DayPicker--interactionDisabled)
+    .DayPicker-Day:not(.DayPicker-Day--disabled):not(.DayPicker-Day--selected):not(.DayPicker-Day--outside):hover {
+    background-color: $blue;
+  }
+  input {
+    background: transparent;
+    color: white;
+    border: 0 none;
+    border-bottom: 1px solid $yellow;
+    width: 100px;
+  }
+  .DayPicker-Footer {
+    text-align: center;
+  }
+  .DayPicker-TodayButton {
+    color: $yellow;
+  }
+  .DayPicker-Day--today {
+    color: $yellow;
+    font-weight: 700;
+    border: 1px solid $yellow;
+  }
+}

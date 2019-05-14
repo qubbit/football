@@ -9,6 +9,7 @@ import moment from 'moment';
 import { fetchTodaysFixtures } from '../../actions';
 import { normalColor, arrayToColor } from '../../utils';
 import Fixture from '../ui/Fixture';
+import palette from '../../styles/palette.scss';
 
 class Home extends Component {
   constructor(props) {
@@ -47,10 +48,11 @@ class Home extends Component {
         </h2>
       );
     }
+    fixtures.forEach(f => console.log(f.id));
     return fixtures.map(f => (
       <Fixture
-        key={`fixture-${f.id}`}
         {...f}
+        key={`match-${f.id}`}
         style={{
           background: 'rgba(0, 0, 0, 0.7)',
           color: '#fff',
@@ -66,7 +68,6 @@ class Home extends Component {
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
-    console.log(customFixturesDate);
     return (
       <div className="global-fixture-list" style={{ padding: '20px' }}>
         <div
@@ -77,7 +78,7 @@ class Home extends Component {
             padding: '10px',
             fontSize: '1.3em'
           }}>
-          <Icon name="calendar alternate" style={{ color: '#fff' }} />
+          <Icon name="calendar" style={{ color: '#fff' }} />
           <DayPickerInput
             style={{ marginBottom: '10px' }}
             value={moment(customFixturesDate).format('MM-DD-YYYY')}
