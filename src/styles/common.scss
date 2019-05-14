@@ -13,6 +13,11 @@ $top-bar-height: 90px;
   border-radius: 0 !important;
 }
 
+::selection {
+  color: #fff;
+  background: $yellow;
+}
+
 body {
   color: $black !important;
 }
@@ -327,7 +332,8 @@ span.standing-team-name {
   width: 100%;
   justify-content: space-between;
 
-  .fixture-team, .fixture-status {
+  .fixture-team,
+  .fixture-status {
     flex: 1;
   }
 
@@ -386,7 +392,6 @@ span.standing-team-name {
     flex-direction: column;
     margin-bottom: 10px;
   }
-
 }
 
 .fixture-status-score {
@@ -577,12 +582,12 @@ span.standing-team-name {
       display: table-header-group !important;
     }
     tbody {
-
     }
     tr {
       display: table-row !important;
     }
-    tr>th, tr>td {
+    tr > th,
+    tr > td {
       display: table-cell !important;
     }
   }

@@ -64,8 +64,10 @@ const Fixture = props => {
   const hr = props.homeTeam.record;
   const ar = props.awayTeam.record;
 
+  const { style } = props;
+
   return [
-    <div className="match-fixture">
+    <div className="match-fixture" style={style}>
       <div className="match-venue-broadcast">
         <div className="match-venue">
           <strong>Venue - </strong>
