@@ -1,6 +1,12 @@
 @import 'palette.scss';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&subset=latin-ext');
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 // semantic ui overrides
 .ui.image {
   max-width: unset;
@@ -47,6 +53,15 @@ a:hover {
 .active.item {
   color: $black !important;
   background: $yellow !important;
+}
+
+// Home page fixtures
+.global-fixture-list {
+  padding: 20px;
+}
+
+.team-name--custom {
+  display: none;
 }
 
 // Competitions Menu
@@ -626,6 +641,21 @@ span.standing-team-name {
   }
   span.standing-team-name {
     margin-left: 0;
+  }
+}
+
+@media (max-width: 414px) {
+  .global-fixture-list {
+    padding: 0;
+  }
+  .fixture-status .fixture-status-score {
+    font-size: 1.1em;
+  }
+  .team-name--regular {
+    display: none;
+  }
+  .team-name--custom {
+    display: block;
   }
 }
 

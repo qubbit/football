@@ -69,7 +69,7 @@ class Home extends Component {
       return <Loader size="large">Loading...</Loader>;
     }
     return (
-      <div className="global-fixture-list" style={{ padding: '20px' }}>
+      <div className="global-fixture-list">
         <div
           className="schedule-date-input"
           style={{
