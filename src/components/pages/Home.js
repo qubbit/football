@@ -57,21 +57,19 @@ class Home extends Component {
   handleHomeFixturesCompetitionFilter = competitionId =>
     this.props.setHomeFixtureCompetitionFilterId(competitionId);
 
-  renderCompetitionLinks = groups => {
+  renderCompetitionLinks = (groups, activeCompetitionId) => {
     const elems = [];
-    const competitionFilterLinkStyle = {
-      background: 'rgba(0, 0, 0, 0.7)',
-      border: `1px solid ${palette.yellow}`,
-      color: '#fff',
-      marginRight: '10px',
-      cursor: 'pointer',
-      whiteSpace: 'nowrap'
-    };
+
+    const klass = 'competition-fixture-filter-link';
 
     const resetFilterLink = (
       <button
         onClick={() => this.handleHomeFixturesCompetitionFilter(undefined)}
-        style={competitionFilterLinkStyle}>
+        className={
+          activeCompetitionId === undefined
+            ? `${klass} ${klass}--active`
+            : `${klass}`
+        }>
         ALL
       </button>
     );
@@ -83,10 +81,14 @@ class Home extends Component {
       if (fixtures.length > 0) {
         elems.push(
           <button
+            className={
+              activeCompetitionId === competitionId
+                ? `${klass} ${klass}--active`
+                : `${klass}`
+            }
             onClick={() =>
               this.handleHomeFixturesCompetitionFilter(competitionId)
-            }
-            style={competitionFilterLinkStyle}>
+            }>
             {competition.name}
           </button>
         );
@@ -95,7 +97,7 @@ class Home extends Component {
     return elems;
   };
 
-  renderFixtures = fixtures => {
+  renderFixtures = (fixtures, groups) => {
     if (fixtures.length === 0) {
       return (
         <h2
@@ -109,27 +111,36 @@ class Home extends Component {
       );
     }
 
-    return fixtures.map(f => (
-      <Fixture
-        {...f}
-        key={`match-${f.id}`}
-        style={{
-          background: 'rgba(0, 0, 0, 0.7)',
-          color: '#fff',
-          marginBottom: '30px',
-          width: '100%'
-        }}
-      />
-    ));
+    return fixtures.map(f => {
+      const g = groups[f.competitionId];
+      let borderColor = palette.yellow;
+      if (g) {
+        borderColor = arrayToColor(g.competition.color);
+      }
+      return (
+        <Fixture
+          {...f}
+          key={`match-${f.id}`}
+          style={{
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#fff',
+            marginBottom: '30px',
+            width: '100%',
+            borderLeft: `4px solid ${borderColor}`
+          }}
+        />
+      );
+    });
   };
 
   render() {
     const {
       competitions,
-      todaysFixtures,
-      todaysFixturesFiltered,
       customFixturesDate,
-      loading
+      homeFixtureCompetitionFilterId,
+      loading,
+      todaysFixtures,
+      todaysFixturesFiltered
     } = this.props;
 
     if (loading) {
@@ -143,14 +154,7 @@ class Home extends Component {
 
     return (
       <div className="global-fixture-list">
-        <div
-          className="schedule-date-input"
-          style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            marginBottom: '20px',
-            padding: '10px',
-            fontSize: '1.3em'
-          }}>
+        <div className="schedule-date-input">
           <Icon name="calendar" style={{ color: '#fff' }} />
           <DayPickerInput
             style={{ marginBottom: '10px' }}
@@ -167,15 +171,16 @@ class Home extends Component {
               {moment(customFixturesDate).format('MM-DD-YYYY')}. All times are
               in your local time.
             </p>
-            <div
-              className="hide-scrollbar"
-              style={{ overflow: 'auto' }}>
+            <div className="hide-scrollbar" style={{ overflow: 'auto' }}>
               <p style={{ display: 'block' }}>Filter by competition:</p>
-              {this.renderCompetitionLinks(groups)}
+              {this.renderCompetitionLinks(
+                groups,
+                homeFixtureCompetitionFilterId
+              )}
             </div>
           </div>
         </div>
-        {this.renderFixtures(todaysFixturesFiltered)}
+        {this.renderFixtures(todaysFixturesFiltered, groups)}
       </div>
     );
   }
@@ -195,6 +200,7 @@ function mapStateToProps(state) {
   return {
     loading: state.fixtures.loading,
     todaysFixtures: state.fixtures.todaysFixtures,
+    homeFixtureCompetitionFilterId,
     todaysFixturesFiltered: homeFixtureCompetitionFilterId
       ? state.fixtures.todaysFixtures.filter(
           item =>

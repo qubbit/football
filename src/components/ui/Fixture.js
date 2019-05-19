@@ -10,6 +10,8 @@ const Fixture = props => {
   };
 
   const normalizeTime = time => {
+    if(!time) return '';
+
     const segments = time
       .split(':')
       .map(x => parseInt(x, 10))
@@ -100,9 +102,18 @@ const Fixture = props => {
               src={normalizeFlag(props.homeTeam)}
             />
             <div className="team-label-name">
-              <strong className='team-name--regular'>{props.homeTeam && props.homeTeam.name}</strong>
-              <strong className='team-name--custom'>{props.homeTeam && props.homeTeam.customName}</strong>
-              {hr && <div>{`(${hr.wins} - ${hr.ties} - ${hr.losses})`}</div>}
+              <strong className="team-name--regular">
+                {props.homeTeam && props.homeTeam.name}
+              </strong>
+              <strong className="team-name--custom">
+                {props.homeTeam &&
+                  (props.homeTeam.customName || props.homeTeam.name)}
+              </strong>
+              {hr && (
+                <div className="win-draw-loss">{`(${hr.wins}-${hr.ties}-${
+                  hr.losses
+                })`}</div>
+              )}
             </div>
           </div>
         </div>
@@ -115,9 +126,17 @@ const Fixture = props => {
               src={normalizeFlag(props.awayTeam)}
             />
             <div className="team-label-name">
-              <strong className='team-name--regular'>{props.awayTeam && props.awayTeam.name}</strong>
-              <strong className='team-name--custom'>{props.awayTeam && props.awayTeam.customName}</strong>
-              {ar && <div>{`(${ar.wins} - ${ar.ties} - ${ar.losses})`}</div>}
+              <strong className="team-name--regular">
+                {props.awayTeam && props.awayTeam.name}
+              </strong>
+              <strong className="team-name--custom">
+                {props.awayTeam && props.awayTeam.customName}
+              </strong>
+              {ar && (
+                <div className="win-draw-loss">{`(${ar.wins}-${ar.ties}-${
+                  ar.losses
+                })`}</div>
+              )}
             </div>
           </div>
         </div>

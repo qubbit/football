@@ -7,7 +7,10 @@ body {
   overflow-x: hidden;
 }
 
-.hide-scrollbar::-webkit-scrollbar { display: none; width: 0 !important }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+}
 
 // semantic ui overrides
 .ui.image {
@@ -64,6 +67,29 @@ a:hover {
 
 .team-name--custom {
   display: none;
+}
+
+.schedule-date-input {
+  background: rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 1.3em;
+  border-left: 4px solid $yellow;
+}
+
+.competition-fixture-filter-link {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgb(253, 206, 69);
+  color: rgb(255, 255, 255);
+  margin-right: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 5px;
+
+  &--active {
+    background: $yellow;
+    color: $black;
+  }
 }
 
 // Competitions Menu
