@@ -6,12 +6,31 @@ import { withRouter } from 'react-router-dom';
 import { Icon, Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { fetchTodaysFixtures } from '../../actions';
+import {
+  setHomeFixtureCompetitionFilterId,
+  fetchTodaysFixtures
+} from '../../actions';
 import { normalColor, arrayToColor } from '../../utils';
 import Fixture from '../ui/Fixture';
 import palette from '../../styles/palette.scss';
 
 class Home extends Component {
+  static groupFixturesByCompetition(_fixtures, competitions) {
+    const fixtureGrouping = competitions.reduce((acc, x) => {
+      acc[x.id.toString()] = { competition: x, fixtures: [] };
+      return acc;
+    }, {});
+
+    _fixtures.forEach(f => {
+      const fixtures =
+        fixtureGrouping[f.competitionId] &&
+        fixtureGrouping[f.competitionId].fixtures;
+      if (fixtures) fixtures.push(f);
+    });
+
+    return fixtureGrouping;
+  }
+
   constructor(props) {
     super(props);
     this.handleDayChange = this.handleDayChange.bind(this);
@@ -35,6 +54,46 @@ class Home extends Component {
     });
   }
 
+  handleHomeFixturesCompetitionFilter = competitionId =>
+    this.props.setHomeFixtureCompetitionFilterId(competitionId);
+
+  renderCompetitionLinks = groups => {
+    const elems = [];
+    const competitionFilterLinkStyle = {
+      background: 'rgba(0, 0, 0, 0.7)',
+      border: `1px solid ${palette.yellow}`,
+      color: '#fff',
+      marginRight: '10px',
+      cursor: 'pointer'
+    };
+
+    const resetFilterLink = (
+      <button
+        onClick={() => this.handleHomeFixturesCompetitionFilter(undefined)}
+        style={competitionFilterLinkStyle}>
+        ALL
+      </button>
+    );
+
+    elems.push(resetFilterLink);
+
+    Object.keys(groups).forEach(competitionId => {
+      const { competition, fixtures } = groups[competitionId];
+      if (fixtures.length > 0) {
+        elems.push(
+          <button
+            onClick={() =>
+              this.handleHomeFixturesCompetitionFilter(competitionId)
+            }
+            style={competitionFilterLinkStyle}>
+            {competition.name}
+          </button>
+        );
+      }
+    });
+    return elems;
+  };
+
   renderFixtures = fixtures => {
     if (fixtures.length === 0) {
       return (
@@ -48,7 +107,7 @@ class Home extends Component {
         </h2>
       );
     }
-    fixtures.forEach(f => console.log(f.id));
+
     return fixtures.map(f => (
       <Fixture
         {...f}
@@ -64,10 +123,23 @@ class Home extends Component {
   };
 
   render() {
-    const { todaysFixtures, customFixturesDate, loading } = this.props;
+    const {
+      competitions,
+      todaysFixtures,
+      todaysFixturesFiltered,
+      customFixturesDate,
+      loading
+    } = this.props;
+
     if (loading) {
       return <Loader size="large">Loading...</Loader>;
     }
+
+    const groups = Home.groupFixturesByCompetition(
+      todaysFixtures,
+      competitions
+    );
+
     return (
       <div className="global-fixture-list">
         <div
@@ -89,12 +161,17 @@ class Home extends Component {
             onDayChange={this.handleDayChange}
           />
           <div style={{ color: '#fff' }}>
-            Showing fixtures for{' '}
-            {moment(customFixturesDate).format('MM-DD-YYYY')}. All times are in
-            your local time.
+            <p>
+              Showing fixtures for{' '}
+              {moment(customFixturesDate).format('MM-DD-YYYY')}. All times are
+              in your local time.
+            </p>
+            <div style={{ display: 'flex' }}>
+              {this.renderCompetitionLinks(groups)}
+            </div>
           </div>
         </div>
-        {this.renderFixtures(todaysFixtures)}
+        {this.renderFixtures(todaysFixturesFiltered)}
       </div>
     );
   }
@@ -110,13 +187,24 @@ Home.propTypes = {
 };
 
 function mapStateToProps(state) {
+  const { homeFixtureCompetitionFilterId } = state.fixtures;
   return {
     loading: state.fixtures.loading,
     todaysFixtures: state.fixtures.todaysFixtures,
-    customFixturesDate: state.fixtures.customFixturesDate
+    todaysFixturesFiltered: homeFixtureCompetitionFilterId
+      ? state.fixtures.todaysFixtures.filter(
+          item =>
+            item.competitionId.toString() === homeFixtureCompetitionFilterId
+        )
+      : state.fixtures.todaysFixtures,
+    customFixturesDate: state.fixtures.customFixturesDate,
+    competitions: state.competitions.competitions
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchTodaysFixtures })(Home)
+  connect(mapStateToProps, {
+    setHomeFixtureCompetitionFilterId,
+    fetchTodaysFixtures
+  })(Home)
 );

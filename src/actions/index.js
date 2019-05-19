@@ -21,6 +21,17 @@ export function fetchTodaysFixtures(customFixturesDate, params = {}) {
   };
 }
 
+export function setHomeFixtureCompetitionFilterId(
+  homeFixtureCompetitionFilterId
+) {
+  return dispatch => {
+    dispatch({
+      homeFixtureCompetitionFilterId,
+      type: TYPES.FILTER_HOME_FIXTURES_BY_COMPETITION
+    });
+  };
+}
+
 export function fetchFixtures(competitionId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_FIXTURES_REQUEST });

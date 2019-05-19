@@ -57,21 +57,23 @@ class Competition extends Component {
     return (
       <div style={{ width: '100%', height: '100%', position: 'relative' }}>
         <div className="main-container-header" style={styles}>
-          <img
-            src={competition.links.logos.sport}
-            className='header-competition-logo'
-            alt=""
-            height="90"
-            width="90"
-          />
-          <div className="competition-header">
-            <h1>{competition.name}</h1>
-            <div className="competition-meta">
-              <div className="meta-item">
-                <span>{competition.season.displayName} Season</span>
-              </div>
-              <div className="meta-item">
-                <i className="icon users" /> <span>{teams.length} Teams</span>
+          <div className="competition-info">
+            <img
+              src={competition.links.logos.sport}
+              className="header-competition-logo"
+              alt=""
+              height="90"
+              width="90"
+            />
+            <div className="competition-header">
+              <h1>{competition.name}</h1>
+              <div className="competition-meta">
+                <div className="meta-item">
+                  <span>{competition.season.displayName} Season</span>
+                </div>
+                <div className="meta-item">
+                  <i className="icon users" /> <span>{teams.length} Teams</span>
+                </div>
               </div>
             </div>
           </div>

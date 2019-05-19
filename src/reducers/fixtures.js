@@ -3,7 +3,8 @@ import {
   FETCH_FIXTURES_REQUEST,
   FETCH_FIXTURES_SUCCESS,
   FETCH_TODAYS_FIXTURES_REQUEST,
-  FETCH_TODAYS_FIXTURES_SUCCESS
+  FETCH_TODAYS_FIXTURES_SUCCESS,
+  FILTER_HOME_FIXTURES_BY_COMPETITION
 } from '../actions/types';
 
 const initialState = {
@@ -12,11 +13,17 @@ const initialState = {
   loading: true,
   todaysFixtures: [],
   date: moment().format('YYYYMMDD'),
-  customFixturesDate: moment()
+  customFixturesDate: moment(),
+  homeFixtureCompetitionFilterId: undefined
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case FILTER_HOME_FIXTURES_BY_COMPETITION:
+      return {
+        ...state,
+        homeFixtureCompetitionFilterId: action.homeFixtureCompetitionFilterId
+      };
     case FETCH_FIXTURES_REQUEST:
     case FETCH_TODAYS_FIXTURES_REQUEST:
       return {

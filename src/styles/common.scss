@@ -75,6 +75,7 @@ a:hover {
   position: fixed;
   width: 250px;
   height: 100%;
+  overflow-x: scroll;
 
   .masthead {
     display: flex;
@@ -92,6 +93,13 @@ a:hover {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+
+.competition-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .competition-menu-bar {
@@ -132,7 +140,6 @@ a:hover {
   margin-left: 250px;
   width: 100%;
   align-items: center;
-  justify-content: center;
 
   .page-container {
     padding-left: 10px;
@@ -656,6 +663,12 @@ span.standing-team-name {
   }
   .team-name--custom {
     display: block;
+  }
+
+  .main-container-header {
+    background: unset !important;
+    border-bottom: unset !important;
+    color: unset !important;
   }
 }
 
