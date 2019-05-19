@@ -20,7 +20,7 @@ class CompetitionsMenu extends Component {
   };
 
   renderSidebar = (items, style) => (
-    <div className="competition-menu-container" style={style}>
+    <div className="hide-scrollbar competition-menu-container" style={style}>
       <div className="masthead">
         <a href="/">
           <h2 className="masthead-title">Competitions</h2>

@@ -7,6 +7,8 @@ body {
   overflow-x: hidden;
 }
 
+.hide-scrollbar::-webkit-scrollbar { display: none; width: 0 !important }
+
 // semantic ui overrides
 .ui.image {
   max-width: unset;
