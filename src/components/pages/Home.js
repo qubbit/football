@@ -64,7 +64,8 @@ class Home extends Component {
       border: `1px solid ${palette.yellow}`,
       color: '#fff',
       marginRight: '10px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      whiteSpace: 'nowrap'
     };
 
     const resetFilterLink = (
@@ -166,7 +167,10 @@ class Home extends Component {
               {moment(customFixturesDate).format('MM-DD-YYYY')}. All times are
               in your local time.
             </p>
-            <div style={{ display: 'flex' }}>
+            <div
+              className="hide-scrollbar"
+              style={{ overflow: 'auto' }}>
+              <p style={{ display: 'block' }}>Filter by competition:</p>
               {this.renderCompetitionLinks(groups)}
             </div>
           </div>
