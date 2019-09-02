@@ -54,12 +54,14 @@ const Fixture = props => {
     </div>
   );
 
+  // const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   // Pregame
   if (props.status.id === 1) {
     fixtureStatus = (
       <div className="fixture-status pregame">
         <div className="fixture-status-score">
-          {moment(props.date).format('hh:mm A')}
+          {moment.utc(props.utcDate).local().format('hh:mm A')}
         </div>
       </div>
     );
