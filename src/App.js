@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import CompetitionsMenu from './components/pages/CompetitionsMenu';
-import Competition from './components/pages/Competition/index';
-import Roster from './components/pages/Team/Roster';
-import Home from './components/pages/Home';
+import { routes } from './routes/index';
 
 const Aux = props => props.children;
 
 class App extends Component {
   componentWillReceiveProps() {
     // TODO: Find a better alternative to this hack
-    const { history: { location: { pathname } }, appSettings } = this.props;
+    const {
+      history: {
+        location: { pathname }
+      },
+      appSettings
+    } = this.props;
     if (pathname.match(/^\/competitions\/\w+$/)) {
       const activePageLocation = `${pathname}/${appSettings.activeMenuItem}`;
       this.props.history.push(activePageLocation);
@@ -27,14 +30,15 @@ class App extends Component {
       <Aux>
         <CompetitionsMenu />
         <div className="main-container" style={style}>
-          <Route path="/" component={Home} exact />
-          <Route path="/competitions/:id" component={Competition} />
-          <Route path="/teams/:fe_id/:id/roster" component={Roster} />
+          {routes.map(route => (
+            <Route path={route.path} component={route.component} {...route.props}/>
+          ))}
         </div>
       </Aux>
     );
   }
 }
+
 export default withRouter(
   connect(
     state => ({
