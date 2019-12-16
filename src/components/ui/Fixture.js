@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Grid, Segment, Image, Header, Icon } from 'semantic-ui-react';
+import { Image, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
 const Fixture = props => {
@@ -10,7 +10,7 @@ const Fixture = props => {
   };
 
   const normalizeTime = time => {
-    if(!time) return '';
+    if (!time) return '';
 
     const segments = time
       .split(':')
@@ -61,7 +61,10 @@ const Fixture = props => {
     fixtureStatus = (
       <div className="fixture-status pregame">
         <div className="fixture-status-score">
-          {moment.utc(props.utcDate).local().format('hh:mm A')}
+          {moment
+            .utc(props.utcDate)
+            .local()
+            .format('hh:mm A')}
         </div>
       </div>
     );
@@ -112,9 +115,7 @@ const Fixture = props => {
                   (props.homeTeam.customName || props.homeTeam.name)}
               </strong>
               {hr && (
-                <div className="win-draw-loss">{`(${hr.wins}-${hr.ties}-${
-                  hr.losses
-                })`}</div>
+                <div className="win-draw-loss">{`(${hr.wins}-${hr.ties}-${hr.losses})`}</div>
               )}
             </div>
           </div>
@@ -135,9 +136,7 @@ const Fixture = props => {
                 {props.awayTeam && props.awayTeam.customName}
               </strong>
               {ar && (
-                <div className="win-draw-loss">{`(${ar.wins}-${ar.ties}-${
-                  ar.losses
-                })`}</div>
+                <div className="win-draw-loss">{`(${ar.wins}-${ar.ties}-${ar.losses})`}</div>
               )}
             </div>
           </div>

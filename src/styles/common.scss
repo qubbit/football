@@ -1,3 +1,6 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 @import 'palette.scss';
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&subset=latin-ext');
 
@@ -109,7 +112,7 @@ a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: $top-bar-height;
+    min-height: $top-bar-height;
     text-transform: uppercase;
     a {
       color: #fff;

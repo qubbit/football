@@ -5,9 +5,14 @@ import { withRouter } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 import moment from 'moment';
 import _ from 'lodash';
-import { fetchFixtures, navigateToPage } from '../../../actions';
+import {
+  fetchCompetition,
+  fetchFixtures,
+  navigateToPage
+} from '../../../actions';
 import Fixture from '../../ui/Fixture';
 import Loader from '../../ui/Loader';
+import { getParams } from '../../../routes/route_helper';
 
 class Fixtures extends Component {
   static teamByLogosById(teams, id) {
@@ -18,16 +23,23 @@ class Fixtures extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { competition, fetchCompetition } = this.props;
+
+    if (!competition) {
+      const competitionShortName = getParams(this.props, 'id');
+      await fetchCompetition(competitionShortName);
+      return;
+    }
+
+    const { season } = competition;
     const params = {
-      week:
-        this.props.competition.season.currentWeek &&
-        this.props.competition.season.currentWeek.number,
+      week: season.currentWeek && season.currentWeek.number,
       enable: 'alternateIds,broadcasts'
     };
 
     this.props.fetchFixtures(
-      this.props.competition.fe_id || this.props.match.params.id,
+      this.props.competition.urlShort || this.props.match.params.id,
       params
     );
     this.props.navigateToPage('fixtures');
@@ -42,21 +54,27 @@ class Fixtures extends Component {
           competition.season.currentWeek.number,
         enable: 'alternateIds,broadcasts'
       };
-      this.props.fetchFixtures(competition.fe_id, params);
+      this.props.fetchFixtures(competition.urlShort, params);
       return;
     }
 
     const params = { week: week + numDays, enable: 'alternateIds,broadcasts' };
-    this.props.fetchFixtures(competition.fe_id, params);
+    this.props.fetchFixtures(competition.urlShort, params);
   };
 
   renderDay = fixtures =>
     fixtures.map(f => <Fixture key={`match-${f.id}`} {...f} />);
 
   render() {
-    const { fixtures, teams, competition, loading, matchDay } = this.props;
+    const {
+      fixtures,
+      teams,
+      competition,
+      competitionLoading,
+      fixturesLoading
+    } = this.props;
 
-    if (loading) {
+    if (!competition || fixturesLoading || competitionLoading) {
       return <Loader />;
     }
 
@@ -163,16 +181,22 @@ Fixtures.propTypes = {
   fetchFixtures: PropTypes.func.isRequired
 };
 
+export function mapStateToProps(state) {
+  const { teams, competition, fixtures } = state;
+  return {
+    fixtures: fixtures.fixtures,
+    competition: competition.competition,
+    teams: teams.teams,
+    fixturesLoading: fixtures.loading,
+    competitionLoading: competition.loading,
+    matchDay: fixtures.matchDay,
+    week: fixtures.week
+  };
+}
+
 export default withRouter(
   connect(
-    state => ({
-      fixtures: state.fixtures.fixtures,
-      competition: state.competition.competition,
-      teams: state.teams.teams,
-      loading: state.fixtures.loading,
-      matchDay: state.fixtures.matchDay,
-      week: state.fixtures.week
-    }),
-    { fetchFixtures, navigateToPage }
+    mapStateToProps,
+    { fetchCompetition, fetchFixtures, navigateToPage }
   )(Fixtures)
 );

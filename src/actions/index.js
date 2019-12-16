@@ -55,7 +55,7 @@ export function fetchCompetition(shortName, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_COMPETITION_REQUEST });
 
-    return api.fetch(`/${shortName}.json`, params).then(response => {
+    return api.fetch2(`/${shortName}.json`, params).then(response => {
       dispatch({ type: TYPES.FETCH_COMPETITION_SUCCESS, response });
     });
   };
@@ -80,21 +80,21 @@ export function fetchTeams(uri, params) {
   };
 }
 
-export function fetchTeam(feId, teamId, params) {
+export function fetchTeam(competitionId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_TEAM_REQUEST });
 
-    return api.fetch(`/${feId}/teams/${teamId}`, params).then(response => {
+    return api.fetch(`/${competitionId}/teams/${teamId}`, params).then(response => {
       dispatch({ type: TYPES.FETCH_TEAM_SUCCESS, response });
     });
   };
 }
 
-export function fetchPlayers(feId, teamId, params) {
+export function fetchPlayers(competitionId, teamId, params) {
   return dispatch => {
     dispatch({ type: TYPES.FETCH_PLAYERS_REQUEST });
     return api
-      .fetch(`/${feId}/teams/${teamId}/athletes`, params)
+      .fetch(`/${competitionId}/teams/${teamId}/athletes`, params)
       .then(response => {
         dispatch({ type: TYPES.FETCH_PLAYERS_SUCCESS, response });
       });

@@ -5,7 +5,7 @@ import { Loader } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { fetchTeam, fetchPlayers } from '../../../actions';
-import { normalColor, arrayToColor } from '../../../utils';
+import { normalizeColor, arrayToColor } from '../../../utils';
 
 function playerCardStyles(color1, color2 = 'white') {
   const styles = {
@@ -20,9 +20,10 @@ class Roster extends Component {
     const {
       match: { params }
     } = this.props;
+    const { competition_id, team_id } = params;
     this.props
-      .fetchTeam(params.fe_id, params.id)
-      .then(this.props.fetchPlayers(params.fe_id, params.id));
+      .fetchTeam(competition_id, team_id)
+      .then(this.props.fetchPlayers(competition_id, team_id));
   }
 
   render() {
@@ -32,8 +33,8 @@ class Roster extends Component {
     }
 
     const style = playerCardStyles(
-      arrayToColor(normalColor(team.primaryColor)),
-      arrayToColor(normalColor(team.secondaryColor))
+      arrayToColor(normalizeColor(team.primaryColor)),
+      arrayToColor(normalizeColor(team.secondaryColor))
     );
 
     const playersElement = players
@@ -57,9 +58,7 @@ class Roster extends Component {
                 <div className="player-info">
                   <h2>
                     <span className="player-jersey-number">#{p.number}</span>
-                    <span className="player-name">{`${p.firstName} ${
-                      p.lastName
-                    }`}</span>
+                    <span className="player-name">{`${p.firstName} ${p.lastName}`}</span>
                   </h2>
                   <div>
                     <span>Position</span>
@@ -112,5 +111,8 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchTeam, fetchPlayers })(Roster)
+  connect(
+    mapStateToProps,
+    { fetchTeam, fetchPlayers }
+  )(Roster)
 );

@@ -10,7 +10,7 @@ import {
 const initialState = {
   fixtures: [],
   week: 1,
-  loading: true,
+  loading: false,
   todaysFixtures: [],
   date: moment().format('YYYYMMDD'),
   customFixturesDate: moment(),

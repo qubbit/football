@@ -2,10 +2,10 @@ import {
   FETCH_COMPETITION_REQUEST,
   FETCH_COMPETITION_SUCCESS
 } from '../actions/types';
-import { normalColor } from '../utils';
+import { normalizeCompetition } from '../utils';
 
 const initialState = {
-  competition: {},
+  competition: null,
   loading: true
 };
 
@@ -19,9 +19,7 @@ export default function(state = initialState, action) {
     case FETCH_COMPETITION_SUCCESS:
       return {
         competition: {
-          ...action.response,
-          color: normalColor(action.response.primaryColor),
-          fe_id: action.response.uri.split('/')[1]
+          ...normalizeCompetition(action.response)
         },
         loading: false
       };

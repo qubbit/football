@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchCompetitions } from '../../actions';
+import { fetchCompetition, fetchCompetitions } from '../../actions';
 import { themeColor } from '../../utils';
 import Loader from '../../components/ui/Loader';
+import { withRouter } from 'react-router-dom';
 
 class CompetitionsMenu extends Component {
-  componentDidMount() {
-    this.props.fetchCompetitions({ season: this.props.currentSeason.season });
+  async componentDidMount() {
+    const { fetchCompetitions, currentSeason } = this.props;
+    await fetchCompetitions({ season: currentSeason.season });
   }
 
   handleSeasonChange = (_, data) => {
@@ -32,16 +34,18 @@ class CompetitionsMenu extends Component {
 
   render() {
     const { competition, competitions, loading } = this.props;
-    const style = competition.color
-      ? { background: themeColor(competition.color) }
-      : {};
-
     if (loading) {
       return this.renderSidebar([<Loader key="loader-2" />]);
     }
 
+    const style =
+      competition && competition.color
+        ? { background: themeColor(competition.color) }
+        : {};
+
     const items = competitions.map(c => {
-      const activeClass = competition.id === c.id ? ' active' : '';
+      const activeClass =
+        competition && competition.id === c.id ? ' active' : '';
       let logoUrl = '';
       if (c.links && c.links.logos) logoUrl = c.links.logos.sport;
       const link = c.uri.split('/')[1];
@@ -74,13 +78,19 @@ CompetitionsMenu.propTypes = {
   fetchCompetitions: PropTypes.func.isRequired
 };
 
-export default connect(
-  state => ({
+function mapStateToProps(state) {
+  return {
     competitions: state.competitions.competitions,
     competition: state.competition.competition,
     currentSeason: state.competitions.currentSeason,
     loading: state.competitions.loading,
     normalizers: state.application.normalizers
-  }),
-  { fetchCompetitions }
-)(CompetitionsMenu);
+  };
+}
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { fetchCompetition, fetchCompetitions }
+  )(CompetitionsMenu)
+);

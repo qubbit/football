@@ -10,7 +10,7 @@ import {
   setHomeFixtureCompetitionFilterId,
   fetchTodaysFixtures
 } from '../../actions';
-import { normalColor, arrayToColor } from '../../utils';
+import { arrayToColor } from '../../utils';
 import Fixture from '../ui/Fixture';
 import palette from '../../styles/palette.scss';
 
@@ -37,10 +37,6 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    const {
-      match: { params }
-    } = this.props;
-
     this.props.fetchTodaysFixtures(this.props.customFixturesDate, {
       enable: 'broadcasts,teamdetails',
       date: moment().format('YYYYMMDD')
@@ -213,8 +209,11 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, {
-    setHomeFixtureCompetitionFilterId,
-    fetchTodaysFixtures
-  })(Home)
+  connect(
+    mapStateToProps,
+    {
+      setHomeFixtureCompetitionFilterId,
+      fetchTodaysFixtures
+    }
+  )(Home)
 );

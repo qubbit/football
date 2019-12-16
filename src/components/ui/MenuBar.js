@@ -1,25 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Input, Dropdown, Icon, Menu } from 'semantic-ui-react';
+import { Input, Icon, Menu } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-class MenuBar extends Component {
-  handleSeasonChange = (_, data) => {
-    this.props.fetchCompetitions({ season: data.value });
-  };
-
+export default class MenuBar extends Component {
   render() {
-    const { competition, activeMenuItem, currentSeason } = this.props;
-    const years = Array(10)
-      .fill()
-      .map((_, i) => currentSeason.year - i);
-
-    const options = years.map(y => ({
-      key: `year-${y}`,
-      text: `${y}/${y + 1}`,
-      value: y
-    }));
+    const { competition, activeMenuItem } = this.props;
+    const { urlShort } = competition;
 
     return (
       <Menu secondary className="competition-menu-bar">
@@ -27,21 +14,19 @@ class MenuBar extends Component {
           className="animated-underline"
           name="fixtures"
           active={activeMenuItem === 'fixtures'}>
-          <Link to={`/competitions/${competition.fe_id}/fixtures`}>Fixtures</Link>
+          <Link to={`/competitions/${urlShort}/fixtures`}>Fixtures</Link>
         </Menu.Item>
         <Menu.Item
           className="animated-underline"
           name="standings"
           active={activeMenuItem === 'standings'}>
-          <Link to={`/competitions/${competition.fe_id}/standings`}>
-            Standings
-          </Link>
+          <Link to={`/competitions/${urlShort}/standings`}>Standings</Link>
         </Menu.Item>
         <Menu.Item
           className="animated-underline"
           name="teams"
           active={activeMenuItem === 'teams'}>
-          <Link to={`/competitions/${competition.fe_id}/teams`}>Teams</Link>
+          <Link to={`/competitions/${urlShort}/teams`}>Teams</Link>
         </Menu.Item>
         <Menu.Menu position="right">
           <Menu.Item>
@@ -61,12 +46,3 @@ class MenuBar extends Component {
 MenuBar.propTypes = {
   currentSeason: PropTypes.shape({ season: PropTypes.number }).isRequired
 };
-
-export default connect(
-  state => ({
-    currentSeason: state.competitions.currentSeason,
-    competition: state.competition.competition,
-    activeMenuItem: state.application.activeMenuItem
-  }),
-  {}
-)(MenuBar);

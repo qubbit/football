@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Route, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchTeams, fetchCompetition, navigateToPage } from '../../../actions';
-import Fixtures from './Fixtures';
-import Standings from './Standings';
-import Teams from './Teams';
 import MenuBar from '../../../components/ui/MenuBar';
-import Loader from '../../../components/ui/Loader';
 import { determineTextColor, arrayToColor } from '../../../utils';
 
 class Competition extends Component {
@@ -15,7 +11,6 @@ class Competition extends Component {
     const {
       match: { params }
     } = this.props;
-    const uri = this.props.location.pathname.replace('/competitions', '');
     this.props
       .fetchCompetition(params.id)
       .then(this.props.fetchTeams(params.id))
@@ -35,15 +30,10 @@ class Competition extends Component {
   }
 
   render() {
-    const {
-      competition,
-      teams,
-      appSettings: { normalizers },
-      loading
-    } = this.props;
+    const { activeMenuItem, competition, teams, loading } = this.props;
 
     if (loading) {
-      return <Loader />;
+      return <div className="p-8">Loading competition...</div>;
     }
 
     const backgroundColor = arrayToColor(competition.color);
@@ -77,16 +67,7 @@ class Competition extends Component {
               </div>
             </div>
           </div>
-          <MenuBar />
-        </div>
-        <div className="page-container">
-          <Route path="/competitions/:id/fixtures" exact component={Fixtures} />
-          <Route
-            path="/competitions/:id/standings"
-            exact
-            component={Standings}
-          />
-          <Route path="/competitions/:id/teams" exact component={Teams} />
+          <MenuBar activeMenuItem={activeMenuItem} competition={competition} />
         </div>
       </div>
     );
@@ -109,12 +90,14 @@ function mapStateToProps(state) {
     loading: state.competition.loading,
     competition: state.competition.competition,
     teams: state.teams.teams,
-    appSettings: state.application
+    appSettings: state.application,
+    activeMenuItem: state.application.activeMenuItem
   };
 }
 
 export default withRouter(
-  connect(mapStateToProps, { fetchTeams, fetchCompetition, navigateToPage })(
-    Competition
-  )
+  connect(
+    mapStateToProps,
+    { fetchTeams, fetchCompetition, navigateToPage }
+  )(Competition)
 );
