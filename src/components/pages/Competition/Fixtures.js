@@ -10,7 +10,7 @@ import {
   fetchFixtures,
   navigateToPage
 } from '../../../actions';
-import Fixture from '../../ui/Fixture';
+import { Fixture } from '../../ui/Fixture';
 import Loader from '../../ui/Loader';
 import { getParams } from '../../../routes/route_helper';
 

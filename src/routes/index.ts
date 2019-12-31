@@ -7,7 +7,7 @@ import Standings from '../components/pages/Competition/Standings';
 
 export interface RouteEntry {
   path: string;
-  component: React.Component;
+  component: any; // should probably be React.Component
   props?: object;
 }
 
