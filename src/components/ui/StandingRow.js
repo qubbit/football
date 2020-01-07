@@ -13,7 +13,6 @@ class StandingRow extends React.Component {
   render() {
     const {
       standing: { record },
-      standings,
       teams
     } = this.props;
 
@@ -32,12 +31,7 @@ class StandingRow extends React.Component {
             }}>
             {record.rank}
           </span>
-          <Image
-            avatar
-            src={logoUrl}
-            size="mini"
-            style={styles.crest}
-          />{' '}
+          <Image avatar src={logoUrl} size="mini" style={styles.crest} />{' '}
           <span style={{ marginLeft: '10px' }}>
             {this.props.standing.customName || this.props.standing.name}
           </span>

@@ -2,15 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
-import { fetchStandings, navigateToPage } from '../../../actions';
+import {
+  fetchCompetition,
+  fetchStandings,
+  navigateToPage
+} from '../../../actions';
 import StandingRow from '../../ui/StandingRow';
 import GroupStandingRow from '../../ui/GroupStandingRow';
 import Loader from '../../ui/Loader';
+import { getParams } from '../../../routes/route_helper';
 
 class Standings extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const { competition, fetchCompetition } = this.props;
+    const competitionShortName = getParams(this.props, 'id');
+
+    if (!competition) {
+      await fetchCompetition(competitionShortName);
+    }
+
     this.props
-      .fetchStandings(this.props.competition.fe_id)
+      .fetchStandings(competitionShortName)
       .then(this.props.navigateToPage('standings'));
   }
 
@@ -48,7 +60,7 @@ class Standings extends Component {
   );
 
   render() {
-    const { competition, teams, standings, loading } = this.props;
+    const { teams, standings, loading } = this.props;
 
     if (loading) return <Loader />;
 
@@ -71,10 +83,7 @@ class Standings extends Component {
       renderElement = table;
     } else {
       const rows = standings.competitors.map(t => (
-        <StandingRow
-          key={`standing-${t.id}`}
-          standing={t}
-        />
+        <StandingRow key={`standing-${t.id}`} standing={t} />
       ));
 
       renderElement = (
@@ -107,5 +116,5 @@ export default connect(
     teams: state.teams.teams,
     loading: state.standings.loading
   }),
-  { fetchStandings, navigateToPage }
+  { fetchCompetition, fetchStandings, navigateToPage }
 )(Standings);

@@ -37,7 +37,7 @@ class Teams extends Component {
             </div>
             <Link
               className="team-roster-link animated-underline"
-              to={`/teams/${competition.fe_id}/${teamId}/roster`}>
+              to={`/teams/${competition.urlShort}/${teamId}/roster`}>
               View Roster
             </Link>
           </div>

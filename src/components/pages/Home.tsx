@@ -4,18 +4,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Icon, Loader } from 'semantic-ui-react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
 import {
   setHomeFixtureCompetitionFilterId,
   fetchTodaysFixtures
-} from '../../actions';
-import { normalColor, arrayToColor } from '../../utils';
-import Fixture from '../ui/Fixture';
-import palette from '../../styles/palette.scss';
+} from 'src/actions/index.js';
+import { arrayToColor } from 'src/utils';
+import { Fixture } from '../ui/Fixture';
 
-class Home extends Component {
-  static groupFixturesByCompetition(_fixtures, competitions) {
+interface HomeProps {
+  competitions: any[];
+  customFixturesDate: any;
+  fetchTodaysFixtures: Function;
+  homeFixtureCompetitionFilterId: any;
+  loading: boolean;
+  setHomeFixtureCompetitionFilterId: Function;
+  todaysFixtures: any;
+  todaysFixturesFiltered: any;
+}
+
+class Home extends Component<HomeProps> {
+  static groupFixturesByCompetition(_fixtures: any[], competitions: any[]) {
     const fixtureGrouping = competitions.reduce((acc, x) => {
       acc[x.id.toString()] = { competition: x, fixtures: [] };
       return acc;
@@ -31,33 +40,29 @@ class Home extends Component {
     return fixtureGrouping;
   }
 
-  constructor(props) {
+  constructor(props: HomeProps) {
     super(props);
     this.handleDayChange = this.handleDayChange.bind(this);
   }
 
   componentDidMount() {
-    const {
-      match: { params }
-    } = this.props;
-
     this.props.fetchTodaysFixtures(this.props.customFixturesDate, {
       enable: 'broadcasts,teamdetails',
       date: moment().format('YYYYMMDD')
     });
   }
 
-  handleDayChange(day) {
+  handleDayChange(day: any) {
     this.props.fetchTodaysFixtures(day, {
       enable: 'broadcasts,teamdetails',
       date: moment(day).format('YYYYMMDD')
     });
   }
 
-  handleHomeFixturesCompetitionFilter = competitionId =>
+  handleHomeFixturesCompetitionFilter = (competitionId: any) =>
     this.props.setHomeFixtureCompetitionFilterId(competitionId);
 
-  renderCompetitionLinks = (groups, activeCompetitionId) => {
+  renderCompetitionLinks = (groups: any, activeCompetitionId: string) => {
     const elems = [];
 
     const klass = 'competition-fixture-filter-link';
@@ -97,7 +102,7 @@ class Home extends Component {
     return elems;
   };
 
-  renderFixtures = (fixtures, groups) => {
+  renderFixtures = (fixtures: any[], groups: any) => {
     if (fixtures.length === 0) {
       return (
         <h2
@@ -106,31 +111,22 @@ class Home extends Component {
             color: '#fff',
             padding: '10px'
           }}>
-          There are not any matches today
+          There are no matches scheduled for this day
         </h2>
       );
     }
 
-    return fixtures.map(f => {
+    const elements = fixtures.map(f => {
       const g = groups[f.competitionId];
-      let borderColor = palette.yellow;
       if (g) {
-        borderColor = arrayToColor(g.competition.color);
+        const borderColor = arrayToColor(g.competition.color);
       }
-      return (
-        <Fixture
-          {...f}
-          key={`match-${f.id}`}
-          style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            color: '#fff',
-            marginBottom: '30px',
-            width: '100%',
-            borderLeft: `4px solid ${borderColor}`
-          }}
-        />
-      );
+      console.log(f);
+      debugger;
+      return <Fixture {...f} key={`match-${f.id}`} />;
     });
+
+    return <div>{elements}</div>;
   };
 
   render() {
@@ -156,15 +152,16 @@ class Home extends Component {
       <div className="global-fixture-list">
         <div className="schedule-date-input">
           <Icon name="calendar" style={{ color: '#fff' }} />
-          <DayPickerInput
-            style={{ marginBottom: '10px' }}
-            value={moment(customFixturesDate).format('MM-DD-YYYY')}
-            dayPickerProps={{
-              showWeekNumbers: true,
-              todayButton: 'Today'
-            }}
-            onDayChange={this.handleDayChange}
-          />
+          <div style={{ marginBottom: '10px' }}>
+            <DayPickerInput
+              value={moment(customFixturesDate).format('MM-DD-YYYY')}
+              dayPickerProps={{
+                showWeekNumbers: true,
+                todayButton: 'Today'
+              }}
+              onDayChange={this.handleDayChange}
+            />
+          </div>
           <div style={{ color: '#fff' }}>
             <p>
               Showing fixtures for{' '}
@@ -186,16 +183,7 @@ class Home extends Component {
   }
 }
 
-Home.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  fetchTodaysFixtures: PropTypes.func.isRequired,
-  match: PropTypes.shape({
-    url: PropTypes.string,
-    params: PropTypes.shape({ id: PropTypes.string })
-  }).isRequired
-};
-
-function mapStateToProps(state) {
+function mapStateToProps(state: any) {
   const { homeFixtureCompetitionFilterId } = state.fixtures;
   return {
     loading: state.fixtures.loading,
@@ -203,7 +191,7 @@ function mapStateToProps(state) {
     homeFixtureCompetitionFilterId,
     todaysFixturesFiltered: homeFixtureCompetitionFilterId
       ? state.fixtures.todaysFixtures.filter(
-          item =>
+          (item: any) =>
             item.competitionId.toString() === homeFixtureCompetitionFilterId
         )
       : state.fixtures.todaysFixtures,
@@ -213,8 +201,11 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, {
-    setHomeFixtureCompetitionFilterId,
-    fetchTodaysFixtures
-  })(Home)
+  connect(
+    mapStateToProps,
+    {
+      setHomeFixtureCompetitionFilterId,
+      fetchTodaysFixtures
+    }
+  )(Home)
 );

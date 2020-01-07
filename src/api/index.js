@@ -1,4 +1,4 @@
-const API_URL = 'https://football.gopal.io/api'
+const API_URL = 'https://football.gopal.io/api';
 
 function headers() {
   return {
@@ -28,5 +28,17 @@ export default {
       method: 'GET',
       headers: headers()
     }).then(parseResponse);
+  },
+
+  async fetch2(url, params = {}) {
+    try {
+      const response = await fetch(`${API_URL}${url}${queryString(params)}`, {
+        method: 'GET',
+        headers: headers()
+      });
+      return await response.json();
+    } catch (error) {
+      console.log('[api/index.js]', error);
+    }
   }
 };
