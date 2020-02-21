@@ -24,7 +24,7 @@
     "semantic-ui-react": "^0.88.2",
     "serialize-javascript": "2.1.1",
     "tinycolor2": "^1.4.1",
-    "typescript": "~3.7.2"
+    "typescript": "~3.8.2"
   },
   "scripts": {
     "start": "HOST=localhost react-scripts start",
